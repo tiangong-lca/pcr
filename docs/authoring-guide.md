@@ -24,9 +24,9 @@ checkPaths:
   - .github/ISSUE_TEMPLATE/**
   - library/pcrs/**
   - library/modules/**
-lastReviewedAt: 2026-09-16
-lastReviewedCommit: 906a04b8f70b26de42c814ba0622cbe175d393e5
-lastReviewedNote: "Reviewed for PCR #26 (residual accounting corrected at 906a04b8): page and catalog metadata summaries are a bounded projection of each page's own source scope - a record uses its own opening, a chapter only its own nodes, a domain or subdomain its actual category title and live record count - so no two pages of one language publish the same description: the shared content report stays at 0 duplicate descriptions, 0 duplicate titles and 0 missing inbound links over 1775 grouped pages, down from 446 description leads in 162 groups. Residual totals now describe the retained output rather than the intent: of 1782 summaries, 137 are the title alone, 38 of those because an available paragraph was removed by the bound (context_dropped) and 99 because the page's own scope carries only headings and rule tables; 1586 summaries were clipped, including titles cut to fit. Both earlier counter defects are fixed and regression-tested. The verification build ran from the c9d3495b checkout with this fix as uncommitted working-tree changes, so the export's embedded sourceCommit names c9d3495b rather than this commit; PR CI rebuilds and binds the exact committed head. Canonical bytes, rendered block order, download hashes, required languages, optional locales, lifecycle and index policy are unchanged: 1786 pages and 12758 export files, all 2981 downloads byte-identical to their canonical source, every published description equal to the verified generator output, the shared checker and the editorial report clean, and 61 package tests pass. Hosted CI, provider environment and production samples remain pending."
+lastReviewedAt: 2026-09-23
+lastReviewedCommit: 4e55b3a1df902c545524797fe7beb3204db6e3ac
+lastReviewedNote: "Current PCR authoring and validation guidance is reviewed."
 ---
 
 # Authoring Guide
