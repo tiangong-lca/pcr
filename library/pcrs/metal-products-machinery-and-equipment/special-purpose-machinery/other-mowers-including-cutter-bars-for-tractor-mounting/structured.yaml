@@ -1,10 +1,1338 @@
 schema_version: 1
-status: scaffold
-classification_seed:
-  system: CPC
-  version: "3.0"
-  code: "44123"
-  title: "Other mowers, including cutter bars for tractor mounting"
-reference_flows: []
-inventory_patterns: []
-qa_rules: []
+generated_from: markdown
+source_markdown: pcr.en-US.md
+product_category_identity:
+  canonical_pcr_id: "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.other-mowers-including-cutter-bars-for-tractor-mounting"
+  classification_refs: "CPC 3.0 44123 (exact)"
+  covered_products: "Complete agricultural or forage mowers other than lawn, park or sports-ground mowers; complete cutter-bar assemblies for tractor mounting; disc, reciprocating cutter-bar, flail, rotary and comparable mowing configurations."
+  excluded_products: "Lawn, park or sports-ground mowers (CPC 44121); combine harvester-threshers; hay rakes, tedders and other non-mowing haymaking machinery; balers; other harvesting machinery; loose spare parts that do not constitute a complete mower or cutter-bar assembly."
+  representative_product: "A finished, guarded and functionally tested mower or tractor-mountable cutter-bar assembly at the manufacturer gate."
+  production_route: "Model-specific material and component receipt, make-or-buy-resolved cutting/forming/machining, welding or fastening, optional dry-filter powder coating and curing, assembly, first fill, functional test and packaging."
+  market_state: "Complete new equipment or a complete new cutter-bar assembly, identified by model and delivered at the manufacturer gate."
+functional_unit:
+  what: "A complete new mower within the defined category, or a complete new tractor-mountable cutter-bar assembly."
+  how_much: "1 kg net product mass at the manufacturer gate."
+  how_well: "Conforms to the declared model and includes the guards, drive elements, mounting hardware and first-fill lubricant included in the saleable product."
+  how_long_or_cycle: "One manufacturing output; service life is not part of the reference amount."
+  reference_flow_link: "other_mower_reference_product"
+system_boundary:
+  rules:
+    - rule_id: foreground_gate_to_gate
+      applies_to: "Declared manufacturing site"
+      rule: "Include directly controlled receipt and internal handling, cutting, forming, machining, welding or fastening, route-applicable surface treatment and coating, assembly, first fill, functional test, packaging and on-site waste or emission handling through the manufacturer gate."
+      source_ids:
+        - un-cpc-3-0-structure-2025
+        - land-pride-disc-mower-parts-2022
+        - land-pride-disc-mower-operator-2006
+        - us-epa-metal-parts-surface-coating-tsd-2001
+    - rule_id: purchased_input_linking
+      applies_to: "Purchased materials, components, energy and packaging"
+      rule: "Record every purchased atomic exchange at the factory boundary and link it to a representative upstream dataset. Do not add upstream burdens again as direct foreground emissions."
+      source_ids: []
+    - rule_id: route_applicability
+      applies_to: "Conditional operations and exchanges"
+      rule: "Declare each route applicable or not applicable for the model and site. A conditional row may be zero only with evidence that the operation or exchange is absent."
+      source_ids: []
+    - rule_id: capital_and_service_exclusion
+      applies_to: "Foreground inventory"
+      rule: "Exclude capital equipment, buildings, employee commuting, product use, maintenance and end of life unless separately added and disclosed for a broader study boundary."
+      source_ids: []
+boundary_abstraction:
+  declared_starting_condition: "Purchased materials, components, energy carriers and packaging received at the manufacturing-site gate."
+  starting_condition_role: "Upstream datasets supply cradle-to-gate burdens; the foreground starts at receipt and internal handling."
+  product_classification_scope: "Complete products in CPC 3.0 subclass 44123, independent of cutting technology or mounting configuration."
+  recursive_input_rule: "A purchased complete mower or cutter-bar assembly in the same category remains a disclosed product input; do not recursively decompose it unless its supplier dataset provides that decomposition."
+  upstream_dataset_requirement: "Match material grade or product state, component technology, geography, energy market, packaging state and delivery boundary as closely as available; disclose proxies."
+  disclosure: "Declare model, site, period, starting condition, purchased assemblies, applicable routes, exclusions, proxies and whether packaging is included in the delivery boundary."
+reference_flow_definition:
+  reference_amount: "1"
+  product_flow_ref:
+    name: "Other mowers, including cutter bars for tractor mounting"
+    uuid: "21019316-3de7-4b72-b23f-74fdaee3b361"
+  flow_property_ref:
+    uuid: "93a60a56-a3c8-11da-a746-0800200b9a66"
+  unit_group_ref:
+    uuid: "93a60a57-a4c8-11da-a746-0800200c9a66"
+  reference_unit: "kg"
+  required_qualifiers:
+    - "model and configuration"
+    - "complete mower or complete cutter-bar assembly"
+    - "cutting technology"
+    - "mounting interface"
+    - "working width"
+    - drive
+    - "PTO or hydraulic configuration"
+    - "net-product mass boundary"
+    - "included guards"
+    - attachments
+    - "accessories and first fills"
+    - "coating system"
+    - "packaging state"
+    - "manufacturing site and reporting period"
+reference_flows:
+  []
+measurement_rules:
+  - id: reference_mass
+    applies_to: "Reference product and mass-based exchanges"
+    required_property_ref:
+      name: "Mass"
+      uuid: "93a60a56-a3c8-11da-a746-0800200b9a66"
+    required_unit: "kg"
+    rule: "Determine net product mass by calibrated weighing or a controlled model BOM reconciled to weighing. Exclude transport packaging and include first-fill lubricant and attached saleable equipment."
+  - id: energy_quantity
+    applies_to: "Electricity"
+    required_property_ref:
+      name: "Net calorific value"
+      uuid: "93a60a56-a3c8-11da-a746-0800200c9a66"
+    required_unit: "MJ"
+    rule: "The state-100 direct read of Electricity 890a70b7-b677-4e2a-8a1b-7d017e0a10ae reports Net calorific value with this energy-property UUID and the energy unit group. Convert metered electricity using exactly 1 kWh = 3.6 MJ, retain the original kWh reading and conversion worksheet, and do not combine electricity with fuels."
+  - id: gas_volume
+    applies_to: "Natural gas and industrial oxygen"
+    required_property_ref:
+      name: "Volume"
+      uuid: "93a60a56-a3c8-22da-a746-0800200c9a66"
+    required_unit: "m3"
+    rule: "State temperature and pressure reference conditions. Do not convert from mass without documented composition, density and reference conditions."
+  - id: normalization
+    applies_to: "All inventory rows"
+    required_property_ref:
+      name: "Row-specific property"
+      uuid: ""
+    required_unit: "Row-specific reference unit"
+    rule: "Report each exchange per 1 kg net reference product and retain the absolute numerator and saleable-output denominator."
+process_map:
+  - id: material_preparation_and_fabrication
+    name: "Material preparation and fabrication"
+    inclusion: "required"
+    inclusion_condition: "Always include for the represented product."
+    role: "Converts purchased material and components into fabricated structures and cutting assemblies."
+    quantitative_reference: "Per 1 kg net reference product."
+  - id: surface_treatment_and_coating
+    name: "Dry-filter powder coating and curing"
+    inclusion: "conditional"
+    inclusion_condition: "Include only when the represented parts are powder coated on site in a dry-filter booth and cured on site; document other surface routes separately and do not force them into these rows."
+    role: "Applies powder, recovers eligible overspray, captures unrecovered residue and cures the coating."
+    quantitative_reference: "Per 1 kg net reference product."
+  - id: assembly_testing_and_packaging
+    name: "Assembly, testing and packaging"
+    inclusion: "required"
+    inclusion_condition: "Always include; individual conditional inputs apply only when used."
+    role: "Produces the saleable, tested and packaged output."
+    quantitative_reference: "Per 1 kg net reference product."
+process_inventory:
+  - id: material_preparation_and_fabrication
+    label: "Material preparation and fabrication"
+    inputs:
+      product:
+        - row_id: hot_rolled_non_alloy_flat_steel
+          role: "Hot-rolled non-alloy flat steel"
+          name: "Flat-rolled products of non-alloy steel, not further worked than hot-rolled, of a width of less than 600 mm"
+          flow_type: "product"
+          flow_ref:
+            uuid: "9705bbad-51bd-4ee8-af46-21324f57c577"
+          property_unit: "Mass / kg"
+          description: "Record this exact steel state only where used; other grades, widths and product states require separate atomic rows."
+          amount:
+            expression: "Net issued mass minus documented clean returns; reconcile to the model BOM and steel scrap."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_fabrication_material_records
+              source_ids:
+                - land-pride-disc-mower-parts-2022
+            ranges: []
+        - row_id: frame_and_hitch_assembly
+          role: "Frame and hitch assembly"
+          name: "Tractor-mounted mower frame and hitch assembly"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Record the purchased complete frame-and-hitch assembly when it crosses the factory gate. When made on site, exclude this row and record its grade-specific materials, fabrication exchanges and scrap instead."
+          amount:
+            expression: "Purchased consumption from the cp_component_bom_records usable-stock control volume, assigned from the model BOM; include consumed rejects, exclude only unused external returns, and do not also count materials already embodied in the purchased assembly."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_component_bom_records
+              source_ids:
+                - land-pride-disc-mower-parts-2022
+            ranges: []
+        - row_id: hydraulic_cylinder
+          role: "Hydraulic cylinder"
+          name: "Linear acting (cylinders) hydraulic and pneumatic power engines and motors"
+          flow_type: "product"
+          flow_ref:
+            uuid: "aea61250-788d-4a2b-9c63-ff24b8113469"
+          property_unit: "Mass / kg"
+          description: "Record an assembled linear-acting hydraulic cylinder when installed in the represented mower configuration."
+          amount:
+            expression: "Purchased consumption from the cp_component_bom_records usable-stock control volume, assigned from supplier packing data and the verified model BOM; include consumed assembly rejects and exclude only unused external returns."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_component_bom_records
+              source_ids:
+                - land-pride-disc-mower-parts-2022
+            ranges: []
+        - row_id: belt_drive_assembly
+          role: "Belt-drive assembly"
+          name: "Mower belt-drive assembly"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Record the purchased installation-ready belt-drive assembly, including its supplier-defined belts and pulleys, when this make-or-buy route applies."
+          amount:
+            expression: "Purchased consumption from the cp_component_bom_records usable-stock control volume, assigned from the model BOM; include consumed rejects, exclude only unused external returns, and exclude loose replacement belts not delivered with the product."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_component_bom_records
+              source_ids:
+                - land-pride-disc-mower-parts-2022
+            ranges: []
+        - row_id: cutter_unit_assembly
+          role: "Cutter-unit assembly"
+          name: "Mower cutter-unit assembly"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Record a purchased internal cutter unit when it is incorporated into a complete mower. Do not use this row for a stand-alone complete cutter bar sold as the reference product."
+          amount:
+            expression: "Purchased consumption from the cp_component_bom_records usable-stock control volume, assigned from the model BOM; include consumed rejects, exclude only unused external returns, and exclude this row when the cutter unit is made on site from separately recorded materials and parts."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_component_bom_records
+              source_ids:
+                - land-pride-disc-mower-parts-2022
+            ranges: []
+        - row_id: purchased_complete_cutter_bar
+          role: "Purchased complete cutter bar"
+          name: "Other mowers, including cutter bars for tractor mounting"
+          flow_type: "product"
+          flow_ref:
+            uuid: "21019316-3de7-4b72-b23f-74fdaee3b361"
+          property_unit: "Mass / kg"
+          description: "Record a purchased complete tractor-mountable cutter bar only when it is incorporated into a different complete mower. Exclude it when the dataset output is itself a stand-alone cutter bar or when the internal cutter-unit row is used for the same hardware."
+          amount:
+            expression: "Purchased consumption from the cp_component_bom_records usable-stock control volume, assigned to the receiving mower model; include consumed rejects, exclude only unused external returns, and prevent recursive decomposition or duplicate cutter-unit input."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_component_bom_records
+              source_ids:
+                - land-pride-disc-mower-parts-2022
+            ranges: []
+        - row_id: mower_gearbox
+          role: "Mower gearbox"
+          name: "Mower gearbox"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Record the purchased mower gearbox when installed; do not substitute a gearbox from another application."
+          amount:
+            expression: "Purchased consumption from the cp_component_bom_records usable-stock control volume, assigned from the model BOM; include consumed rejects, exclude only unused external returns, and include factory-supplied lubricant only if the supplier dataset excludes it and the mass is separately known."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_component_bom_records
+              source_ids:
+                - land-pride-disc-mower-parts-2022
+                - land-pride-disc-mower-operator-2006
+            ranges: []
+        - row_id: pto_driveline
+          role: "PTO driveline"
+          name: "Tractor PTO driveline for mower"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Record the purchased tractor PTO driveline supplied with the represented mower configuration."
+          amount:
+            expression: "Purchased consumption from the cp_component_bom_records usable-stock control volume, assigned from the model BOM; include consumed rejects, exclude only unused external returns, and exclude drivelines not supplied with the saleable product."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_component_bom_records
+              source_ids:
+                - land-pride-disc-mower-parts-2022
+                - land-pride-disc-mower-operator-2006
+            ranges: []
+        - row_id: safety_guard_and_curtain_assembly
+          role: "Safety-guard and curtain assembly"
+          name: "Mower safety-guard and curtain assembly"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Record purchased installation-ready guards and flexible protective curtains supplied on the finished mower. When made on site, record their material-specific inputs and fabrication instead."
+          amount:
+            expression: "Purchased consumption from the cp_component_bom_records usable-stock control volume, assigned from the model BOM; include consumed rejects, exclude only unused external returns, and reconcile all guards required for the saleable configuration."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_component_bom_records
+              source_ids:
+                - land-pride-disc-mower-parts-2022
+                - land-pride-disc-mower-operator-2006
+            ranges: []
+        - row_id: frame_hitch_hex_head_cap_screws
+          role: "Frame-and-hitch steel hex-head cap screws"
+          name: "Frame-and-hitch steel hex-head cap screws"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "For the bounded DM3605/DM3606/DM3607 frame-and-hitch configuration, record purchased screws separately from nuts, washers and pins. Retain manufacturer part number, specification and actual current-model count for 802-058C HHCS 5/8-11X2 1/2 GR5, 802-204C HHCS 3/4-10X3 3/4 GR5, 802-701C HHCS 1 1/8-7X8 1/2 GR5 and 802-706C HHCS 3/4-10X8 1/2 GR5 FTHD. The parts table establishes these identities but not every current configuration count, so the controlled BOM or drawing shall supply each count."
+          amount:
+            expression: "Opening usable stock plus external receipts minus closing usable stock and unused external returns, or equivalently gross process issues minus unused returns to the same usable stock. Include screws consumed in rejected assemblies; do not subtract rejects. Record their separately measured mass under the actual atomic waste destination, and normalize all attributable consumption by conforming net output."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_component_bom_records
+              source_ids:
+                - land-pride-disc-mower-parts-2022
+            ranges: []
+        - row_id: frame_hitch_steel_hex_nuts
+          role: "Frame-and-hitch steel hex nuts"
+          name: "Frame-and-hitch steel hex nuts"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "For the bounded DM3605/DM3606/DM3607 frame-and-hitch configuration, record purchased nuts separately. Retain manufacturer part number, specification and actual current-model count for 803-021C NUT HEX 5/8-11 PLT, 803-027C NUT HEX 3/4-10 PLT, 803-048C NUT HEX JAM 3/4-10 PLT, 803-099C NUT HEX 1 1/8-7 PLT and 803-299C NUT HEX FLG TOP LK 3/4-10 PLT. The controlled BOM or drawing shall supply the count for each part number."
+          amount:
+            expression: "Opening usable stock plus external receipts minus closing usable stock and unused external returns, or equivalently gross process issues minus unused returns to the same usable stock. Include nuts consumed in rejected assemblies; do not subtract rejects. Record their separately measured mass under the actual atomic waste destination, and normalize all attributable consumption by conforming net output."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_component_bom_records
+              source_ids:
+                - land-pride-disc-mower-parts-2022
+            ranges: []
+        - row_id: frame_hitch_steel_washers
+          role: "Frame-and-hitch steel washers"
+          name: "Frame-and-hitch steel washers"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "For the bounded DM3605/DM3606/DM3607 frame-and-hitch configuration, record purchased washers separately. Retain manufacturer part number, specification and actual current-model count for 804-021C WASHER FLAT 5/8 SAE PLT, 804-022C WASHER LOCK SPRING 5/8 PLT, 804-025C WASHER FLAT 3/4 SAE PLT and 804-186C WASHER BELLEVILLE .761 ID DM36. The manual explicitly gives quantity 32 for 804-186C; the controlled BOM or drawing shall confirm that quantity and supply each other current-model count."
+          amount:
+            expression: "Opening usable stock plus external receipts minus closing usable stock and unused external returns, or equivalently gross process issues minus unused returns to the same usable stock. Include washers consumed in rejected assemblies; do not subtract rejects. Record their separately measured mass under the actual atomic waste destination, and normalize all attributable consumption by conforming net output."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_component_bom_records
+              source_ids:
+                - land-pride-disc-mower-parts-2022
+            ranges: []
+        - row_id: frame_hitch_retaining_pins
+          role: "Frame-and-hitch retaining pins"
+          name: "Frame-and-hitch retaining pins"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "For the bounded DM3605/DM3606/DM3607 frame-and-hitch configuration, record purchased retaining pins separately. Retain manufacturer part number, specification and actual current-model count for 805-065C PIN WIRE RETAINING 1/4 X 1 3/4 and 805-103C PIN LINCH 7/16 X 1 3/4. The controlled BOM or drawing shall supply the count for each part number; do not infer material grade from the general pin description."
+          amount:
+            expression: "Opening usable stock plus external receipts minus closing usable stock and unused external returns, or equivalently gross process issues minus unused returns to the same usable stock. Include pins consumed in rejected assemblies; do not subtract rejects. Record their separately measured mass under the actual atomic waste destination, and normalize all attributable consumption by conforming net output."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_component_bom_records
+              source_ids:
+                - land-pride-disc-mower-parts-2022
+            ranges: []
+        - row_id: fabrication_electricity
+          role: "Fabrication electricity"
+          name: "Electricity"
+          flow_type: "product"
+          flow_ref:
+            uuid: "890a70b7-b677-4e2a-8a1b-7d017e0a10ae"
+          property_unit: "Net calorific value / MJ"
+          description: "Record electricity used by cutting, forming, machining, welding, extraction and directly associated support equipment."
+          amount:
+            expression: "Allocated calibrated-meter consumption for the process and period."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_fabrication_energy_records
+              source_ids: []
+            ranges: []
+        - row_id: fabrication_natural_gas
+          role: "Fabrication natural gas"
+          name: "natural gas in the gaseous state"
+          flow_type: "product"
+          flow_ref:
+            uuid: "4f19ca0e-7b3b-11dd-ad8b-0800200c9a66"
+          property_unit: "Volume / m3"
+          description: "Record natural gas only when combusted in an applicable on-site fabrication or thermal-cutting operation."
+          amount:
+            expression: "Metered or stock-balance volume allocated to the operation; otherwise document not applicable."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_fabrication_energy_records
+              source_ids: []
+            ranges: []
+        - row_id: industrial_oxygen
+          role: "Industrial oxygen"
+          name: "Industrial oxygen"
+          flow_type: "product"
+          flow_ref:
+            uuid: "bd4b0f96-2090-4806-a648-335ab20ff401"
+          property_unit: "Volume / m3"
+          description: "Record purchased oxygen only when oxy-fuel cutting is performed within the foreground boundary."
+          amount:
+            expression: "Metered withdrawal or cylinder stock balance; otherwise document not applicable."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_fabrication_material_records
+              source_ids:
+                - us-epa-ap42-electric-arc-welding-1995
+            ranges: []
+        - row_id: carbon_dioxide_shielding_gas
+          role: "Carbon-dioxide shielding gas"
+          name: "Carbon dioxide"
+          flow_type: "product"
+          flow_ref:
+            uuid: "27f41c1c-535e-4d2a-bce9-2c7f4de11549"
+          property_unit: "Mass / kg"
+          description: "Record welding-grade carbon dioxide only when externally supplied carbon dioxide is used as GMAW shielding gas."
+          amount:
+            expression: "Cylinder or bulk-tank stock balance allocated to GMAW; record supplier carbon origin and reconcile the consumed mass to the fossil and biogenic direct-release rows, measured capture/retention and inventory change."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_shielding_gas_balance
+              source_ids:
+                - us-epa-ap42-electric-arc-welding-1995
+            ranges: []
+        - row_id: solid_steel_welding_wire
+          role: "Solid steel welding wire"
+          name: "Solid steel welding wire"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Record solid steel consumable wire only for the applicable GMAW route. The UUID is unresolved; flux-cored wire shall not be substituted."
+          amount:
+            expression: "Issued spool mass minus documented returned wire; otherwise document not applicable."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_fabrication_material_records
+              source_ids:
+                - us-epa-ap42-electric-arc-welding-1995
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        []
+      waste:
+        - row_id: steel_scrap
+          role: "Steel scrap"
+          name: "Scrap steel"
+          flow_type: "waste"
+          flow_ref:
+            uuid: "c3fc5605-baa3-4b25-9934-ecf7fcbc72da"
+          property_unit: "Mass / kg"
+          description: "Record segregated steel offcuts, rejected parts and machining scrap leaving for recycling or disposal; internal clean returns are not outputs."
+          amount:
+            expression: "Weighed outbound mass by disposition, reconciled with steel input, product incorporation and inventory change."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_fabrication_waste_records
+              source_ids: []
+            ranges: []
+        - row_id: captured_welding_fume_dust
+          role: "Captured welding fume and dust"
+          name: "Captured welding fume and dust"
+          flow_type: "waste"
+          property_unit: "Mass / kg"
+          description: "Record welding particulate captured in hoods, filters or dust collectors and sent off site. Keep it separate from particulate released to air and from internally cleaned reusable metal."
+          amount:
+            expression: "Weighed collected residue leaving the site, net of container tare, classified by actual hazard status and treatment destination."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_fabrication_waste_records
+              source_ids:
+                - us-epa-ap42-electric-arc-welding-1995
+            ranges: []
+      elementary:
+        - row_id: welding_particulate_matter
+          role: "Welding particulate matter"
+          name: "Particulate matter, particle size unspecified"
+          flow_type: "elementary"
+          flow_ref:
+            uuid: "0ce3dedb-caca-407b-a856-a90470eb8ec0"
+          property_unit: "Mass / kg"
+          description: "Record direct welding particulate released to air after controls. Use a more specific exact flow when a measured particle-size fraction is available."
+          amount:
+            expression: "Site measurement or a documented site-specific calculation based on consumable use, capture and control performance."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_air_emission_records
+              source_ids:
+                - us-epa-ap42-electric-arc-welding-1995
+            ranges: []
+        - row_id: shielding_carbon_dioxide_release_fossil
+          role: "Fossil shielding-carbon-dioxide release"
+          name: "carbon dioxide (fossil)"
+          flow_type: "elementary"
+          flow_ref:
+            uuid: "08a91e70-3ddc-11dd-923d-0050c2490048"
+          property_unit: "Mass / kg"
+          description: "Record supplied shielding carbon dioxide released directly to outdoor air only when supplier documentation verifies fossil carbon origin. This is not combustion carbon dioxide."
+          amount:
+            expression: "Shielding-gas input minus measured capture, chemical retention, product retention and inventory change; use the unspecified-air flow only when the physical discharge is verified as outdoor air but cannot be assigned a more specific public compartment."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_shielding_gas_balance
+              source_ids:
+                - us-epa-ap42-electric-arc-welding-1995
+            ranges: []
+        - row_id: shielding_carbon_dioxide_release_biogenic
+          role: "Biogenic shielding-carbon-dioxide release"
+          name: "carbon dioxide (biogenic)"
+          flow_type: "elementary"
+          flow_ref:
+            uuid: "08a91e70-3ddc-11dd-9c15-0050c2490048"
+          property_unit: "Mass / kg"
+          description: "Record supplied shielding carbon dioxide released directly to outdoor air only when supplier documentation verifies biogenic carbon origin. Do not report the same gas in the fossil row."
+          amount:
+            expression: "Shielding-gas input minus measured capture, chemical retention, product retention and inventory change; use the unspecified-air flow only when the physical discharge is verified as outdoor air but cannot be assigned a more specific public compartment."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_shielding_gas_balance
+              source_ids:
+                - us-epa-ap42-electric-arc-welding-1995
+            ranges: []
+        - row_id: fabrication_fossil_carbon_dioxide
+          role: "Fabrication fossil carbon dioxide"
+          name: "carbon dioxide (fossil)"
+          flow_type: "elementary"
+          flow_ref:
+            uuid: "08a91e70-3ddc-11dd-923d-0050c2490048"
+          property_unit: "Mass / kg"
+          description: "Record direct fossil carbon dioxide from natural-gas combustion in this process; exclude upstream electricity and fuel-supply emissions."
+          amount:
+            expression: "Stack measurement or documented fuel-carbon balance for fabrication_natural_gas; otherwise document not applicable."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_air_emission_records
+              source_ids: []
+            ranges: []
+  - id: surface_treatment_and_coating
+    label: "Dry-filter powder coating and curing"
+    inputs:
+      product:
+        - row_id: powder_coating
+          role: "Powder coating"
+          name: "Powder Coating"
+          flow_type: "product"
+          flow_ref:
+            uuid: "0c581697-0eed-4b86-a070-b94966eb7344"
+          property_unit: "Mass / kg"
+          description: "Record fresh powder coating used on site. Document chemistry and do not relabel generic powder as polyester-specific without supplier evidence."
+          amount:
+            expression: "Fresh powder issued minus documented unopened return; disclose internal recovered overspray separately."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_surface_material_records
+              source_ids:
+                - us-epa-metal-parts-surface-coating-tsd-2001
+            ranges: []
+        - row_id: surface_treatment_electricity
+          role: "Surface-treatment electricity"
+          name: "Electricity"
+          flow_type: "product"
+          flow_ref:
+            uuid: "890a70b7-b677-4e2a-8a1b-7d017e0a10ae"
+          property_unit: "Net calorific value / MJ"
+          description: "Record electricity used by applicable cleaning, pretreatment, coating, ventilation and curing equipment."
+          amount:
+            expression: "Allocated calibrated-meter consumption for the applicable process and period."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_surface_energy_records
+              source_ids: []
+            ranges: []
+        - row_id: surface_treatment_natural_gas
+          role: "Surface-treatment natural gas"
+          name: "natural gas in the gaseous state"
+          flow_type: "product"
+          flow_ref:
+            uuid: "4f19ca0e-7b3b-11dd-ad8b-0800200c9a66"
+          property_unit: "Volume / m3"
+          description: "Record natural gas only when an on-site gas-fired drying or curing oven is used for the represented parts."
+          amount:
+            expression: "Metered or stock-balance volume allocated to the applicable oven; otherwise document not applicable."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_surface_energy_records
+              source_ids: []
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        []
+      waste:
+        - row_id: powder_coating_waste
+          role: "Powder-coating waste"
+          name: "Powder coating waste"
+          flow_type: "waste"
+          flow_ref:
+            uuid: "9aa53a82-5462-400e-9096-efab7718201f"
+          property_unit: "Mass / kg"
+          description: "Record unrecovered overspray, spent dry booth-filter residue and rejected cured powder coating that leave the system. Recovered powder returned to application is an internal loop, not an input or waste output."
+          amount:
+            expression: "Weighed outbound residue plus inventory change, reconciled to fresh powder input, powder deposited on accepted and rejected parts, and verified internal recovery."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_surface_waste_records
+              source_ids:
+                - us-epa-metal-parts-surface-coating-tsd-2001
+            ranges: []
+      elementary:
+        - row_id: surface_treatment_fossil_carbon_dioxide
+          role: "Surface-treatment fossil carbon dioxide"
+          name: "carbon dioxide (fossil)"
+          flow_type: "elementary"
+          flow_ref:
+            uuid: "08a91e70-3ddc-11dd-923d-0050c2490048"
+          property_unit: "Mass / kg"
+          description: "Record direct fossil carbon dioxide from natural gas burned in this process; exclude upstream electricity and fuel-supply emissions."
+          amount:
+            expression: "Stack measurement or documented fuel-carbon balance for surface_treatment_natural_gas; otherwise document not applicable."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_air_emission_records
+              source_ids: []
+            ranges: []
+  - id: assembly_testing_and_packaging
+    label: "Assembly, testing and packaging"
+    inputs:
+      product:
+        - row_id: assembly_electricity
+          role: "Assembly electricity"
+          name: "Electricity"
+          flow_type: "product"
+          flow_ref:
+            uuid: "890a70b7-b677-4e2a-8a1b-7d017e0a10ae"
+          property_unit: "Net calorific value / MJ"
+          description: "Record electricity used for final assembly, controlled final test and directly associated packaging equipment."
+          amount:
+            expression: "Allocated calibrated-meter consumption for the process and period."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_assembly_energy_records
+              source_ids: []
+            ranges: []
+        - row_id: sae_90_gear_lubricating_oil
+          role: "SAE 90 gear lubricating oil"
+          name: "SAE 90 gear lubricating oil"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Record first-fill SAE 90 gear lubricant incorporated in the saleable product. The UUID is unresolved; diesel fuel shall not be substituted. Separately record drained or spilled lubricant that leaves the system."
+          amount:
+            expression: "Gross dispensed mass minus recovered clean return and separately reported used-lubricating-oil output; reconcile the retained first-fill mass to the product BOM."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_assembly_material_records
+              source_ids:
+                - land-pride-disc-mower-operator-2006
+            ranges: []
+        - row_id: diesel_test_fuel
+          role: "Diesel test fuel"
+          name: "Diesel fuel"
+          flow_type: "product"
+          flow_ref:
+            uuid: "9d258d75-6792-4f1c-9856-81602ed8f816"
+          property_unit: "Mass / kg"
+          description: "Record diesel actually combusted in on-site functional testing only for an engine-driven model. Include fuel for an external test tractor only when controlled by the reporting site. Never include residual fuel transferred with the saleable product in this row."
+          amount:
+            expression: "Test-tank opening mass plus issued fuel minus closing mass, recovered/returned fuel, spills and diesel_fuel_retained_in_product; allocate only the combusted balance to conforming tested output."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_assembly_material_records
+              source_ids: []
+            ranges: []
+        - row_id: diesel_fuel_retained_in_product
+          role: "Diesel fuel retained in product"
+          name: "Diesel fuel"
+          flow_type: "product"
+          flow_ref:
+            uuid: "9d258d75-6792-4f1c-9856-81602ed8f816"
+          property_unit: "Mass / kg"
+          description: "Record residual diesel physically transferred with an engine-driven saleable product when present. This is delivered product content, not combusted test fuel."
+          amount:
+            expression: "Measured closing fuel mass in conforming units at the manufacturer gate, excluding fuel in external test equipment and excluding any amount reported as combusted."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_assembly_material_records
+              source_ids: []
+            ranges: []
+        - row_id: corrugated_cardboard
+          role: "Corrugated-cardboard packaging"
+          name: "Corrugated cardboard"
+          flow_type: "product"
+          flow_ref:
+            uuid: "8bde297e-98df-463f-bcb4-0db52bf6e0b5"
+          property_unit: "Mass / kg"
+          description: "Record corrugated cardboard incorporated in delivered packaging when used."
+          amount:
+            expression: "Gross cardboard issued to packing minus separately weighed cardboard rejects and clean returns; reconcile the mass incorporated in delivered packaging by sample weighing."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_packaging_records
+              source_ids: []
+            ranges: []
+        - row_id: wooden_pallet
+          role: "Wooden pallet"
+          name: "Wooden pallet (EURO)"
+          flow_type: "product"
+          flow_ref:
+            uuid: "96b2b9ac-cfb6-46bf-8ad1-c056e338950a"
+          property_unit: "Mass / kg"
+          description: "Record EURO-format wooden pallets only when that exact pallet is physically transferred to the customer or ownership otherwise leaves the reporting organization. Use another atomic row for a different pallet type."
+          amount:
+            expression: "Actual mass of new or ownership-transferred pallets assigned to delivered output, net of separately weighed rejects. For a supplier- or pool-owned returnable pallet, report zero transferred pallet mass here and link the upstream pallet-use service or use-cycle dataset once; never divide again when that dataset already represents one use cycle."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_packaging_records
+              source_ids: []
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        - row_id: other_mower_reference_product
+          role: "Other mower reference product"
+          name: "Other mowers, including cutter bars for tractor mounting"
+          flow_type: "product"
+          flow_ref:
+            uuid: "21019316-3de7-4b72-b23f-74fdaee3b361"
+          property_unit: "Mass / kg"
+          description: "Record conforming saleable net product mass after final assembly and test. Exclude packaging from product-flow mass. Retain absolute conforming output mass before normalization."
+          amount:
+            expression: "1 kg"
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_reference_product_records
+              source_ids:
+                - un-cpc-3-0-structure-2025
+            ranges: []
+      waste:
+        - row_id: used_lubricating_oil
+          role: "Used lubricating oil"
+          name: "Used lubricating oil"
+          flow_type: "waste"
+          flow_ref:
+            uuid: "55d93375-7f04-4166-b2a2-88ce929051a5"
+          property_unit: "Mass / kg"
+          description: "Record gearbox lubricant drained after filling or testing and lubricant spills that leave the site as waste; clean lubricant returned to the dispensing system is an internal loop."
+          amount:
+            expression: "Weighed drained or spilled lubricant leaving the system, net of container tare, reconciled to gross dispensed, clean return and lubricant retained in accepted and rejected products."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_assembly_waste_records
+              source_ids:
+                - land-pride-disc-mower-operator-2006
+            ranges: []
+        - row_id: corrugated_cardboard_scrap
+          role: "Corrugated-cardboard scrap"
+          name: "Packaging waste, cardboard"
+          flow_type: "waste"
+          flow_ref:
+            uuid: "72270223-04b1-4986-a546-94e5a0821317"
+          property_unit: "Mass / kg"
+          description: "Record corrugated-cardboard cutting, damage and packing rejects that leave the site; clean returned sheets are not waste outputs."
+          amount:
+            expression: "Weighed cardboard rejects leaving the system, net of container tare, reconciled to gross cardboard issue, clean returns and delivered packaging."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_assembly_waste_records
+              source_ids: []
+            ranges: []
+        - row_id: wooden_pallet_scrap
+          role: "Wooden-pallet scrap"
+          name: "Wooden-pallet scrap"
+          flow_type: "waste"
+          property_unit: "Mass / kg"
+          description: "Record damaged or rejected wooden pallets leaving the site as waste, separately from pallets transferred with products or returned to an owner/pool."
+          amount:
+            expression: "Weighed pallet waste leaving the system, net of tare, with pallet type, owner, damage cause and destination recorded."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_assembly_waste_records
+              source_ids: []
+            ranges: []
+      elementary:
+        - row_id: test_fossil_carbon_dioxide
+          role: "Test fossil carbon dioxide"
+          name: "carbon dioxide (fossil)"
+          flow_type: "elementary"
+          flow_ref:
+            uuid: "08a91e70-3ddc-11dd-923d-0050c2490048"
+          property_unit: "Mass / kg"
+          description: "Record direct fossil carbon dioxide when diesel is combusted during an included test; exclude upstream diesel supply emissions."
+          amount:
+            expression: "Exhaust measurement or documented fuel-carbon balance for diesel_test_fuel; otherwise document not applicable."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_air_emission_records
+              source_ids: []
+            ranges: []
+allocation_rules:
+  - rule_id: subdivide_first
+    applies_to: "Distinct models, routes and lines"
+    rule: "Subdivide records by model, line, batch, operating time or another physical driver before allocation."
+    source_ids: []
+  - rule_id: recycled_scrap_no_avoided_burden
+    applies_to: "Recoverable outputs"
+    rule: "Report outbound waste mass and destination. Do not credit avoided virgin material inside the foreground inventory; declare any recycling allocation outside this boundary."
+    source_ids: []
+  - rule_id: shared_resource_allocation
+    applies_to: "Shared utilities and operations"
+    rule: "If subdivision is infeasible, allocate by a documented causal physical driver such as machine time, metered energy, treated area, weld length or processed mass; justify any economic allocation."
+    source_ids: []
+  - rule_id: rework_and_rejects
+    applies_to: "Rework, rejected components and final rejects"
+    rule: "Assign internal rework burdens to conforming output. Deduct supplier-returned components from gross input, retain their return evidence, and dismantle final rejects into separately measured atomic material/component/waste destinations. Report no umbrella \"rejected mower\" flow and do not omit non-steel fractions."
+    source_ids: []
+  - rule_id: pallet_ownership_and_use
+    applies_to: "Wooden pallets"
+    rule: "Distinguish physical ownership transfer from temporary use. Report actual transferred pallet mass only when ownership leaves the reporting organization; for returnable/pool pallets link one upstream use-cycle or service dataset and do not divide a per-use dataset by reuse cycles again."
+    source_ids: []
+dataset_production:
+  collection_protocols:
+    - protocol_id: cp_fabrication_material_records
+      process_id: "material_preparation_and_fabrication"
+      flow_role: "material and process-gas inputs"
+      record_type: "BOM, issue, return and cylinder records"
+      raw_fields: "identity; grade/purity; opening stock; receipts; issues; returns; closing stock; model/batch"
+      collection_method: "Reconcile controlled inventory records to BOM and production. Aggregation: Sum net issues by atomic flow; allocate with a physical driver."
+      unit: "kg or m3"
+      frequency: "each batch; monthly aggregation"
+      temporal_coverage: "dataset period"
+      site_scope: "represented site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "BOM, supplier specification, stock reconciliation, calibration"
+    - protocol_id: cp_component_bom_records
+      process_id: "material_preparation_and_fabrication"
+      flow_role: "purchased mower assemblies and fastener families"
+      record_type: "controlled BOM, make-or-buy decision, usable-stock, process-issue, external-return and reject records"
+      raw_fields: "model/revision; manufacturer part number/specification/count; supplier; product state; opening usable stock; external receipts; gross process issues; unused internal returns; closing usable stock; unused external returns; consumed rejects; installed mass"
+      collection_method: "Crosswalk every representative configuration item to one purchased row or to its in-house atomic materials/processes and prohibit both for the same item. Keep external purchases in the usable-stock control volume; record in-house transfers from their producing foreground process without treating them as external receipts. Aggregation: Direct model assignment. Purchased consumption equals opening usable stock plus external receipts minus closing usable stock minus unused external returns; an equivalent issue basis is gross process issues minus unused returns to the same stock. Replacement issues for rejects remain consumed input. Unused internal returns re-enter the same usable stock and are represented once through either closing stock or the issue-basis return, never both. Include consumed rejects in the input and report their measured mass separately under actual atomic waste destinations; normalize by conforming net output."
+      unit: "kg"
+      frequency: "each BOM revision and batch"
+      temporal_coverage: "dataset period"
+      site_scope: "represented site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "approved BOM, parts list, supplier specification, stock reconciliation, issue/return record, receiving scale, disposition record"
+    - protocol_id: cp_fabrication_energy_records
+      process_id: "material_preparation_and_fabrication"
+      flow_role: "electricity and natural gas"
+      record_type: "submeter, invoice and operating records"
+      raw_fields: "meter start/end; fuel volume; reference conditions; machine hours; output"
+      collection_method: "Prefer submeters and reconcile totals to invoices. Aggregation: Allocate residual shared use by machine time or another causal driver."
+      unit: "MJ or m3"
+      frequency: "continuous or invoice; monthly aggregation"
+      temporal_coverage: "dataset period"
+      site_scope: "represented site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "calibration, invoice reconciliation, allocation worksheet"
+    - protocol_id: cp_fabrication_waste_records
+      process_id: "material_preparation_and_fabrication"
+      flow_role: "steel scrap"
+      record_type: "scale tickets and manifests"
+      raw_fields: "identity; gross/tare/net mass; date; destination; disposition"
+      collection_method: "Sum outbound tickets and reconcile inventory change. Aggregation: Direct batch assignment or processed-steel mass."
+      unit: "kg"
+      frequency: "each shipment"
+      temporal_coverage: "dataset period"
+      site_scope: "represented site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "scale calibration, manifest, mass balance"
+    - protocol_id: cp_shielding_gas_balance
+      process_id: "material_preparation_and_fabrication"
+      flow_role: "supplied shielding gas and direct release"
+      record_type: "supplier certificate, cylinder/bulk stock, capture and exhaust records"
+      raw_fields: "carbon origin; opening stock; receipts; closing stock; returned gas; capture/retention; discharge point; compartment"
+      collection_method: "Verify fossil or biogenic origin, balance consumed gas to capture/retention and direct release, and document the actual outdoor discharge; use unspecified air only when no more specific public compartment is defensible. Aggregation: Direct GMAW assignment; fossil and biogenic releases are mutually exclusive portions of the consumed gas."
+      unit: "kg"
+      frequency: "each delivery/batch; monthly aggregation"
+      temporal_coverage: "dataset period"
+      site_scope: "represented site and discharge point"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "supplier origin certificate, stock reconciliation, capture record, ventilation diagram"
+    - protocol_id: cp_surface_material_records
+      process_id: "surface_treatment_and_coating"
+      flow_role: "powder-coating input"
+      record_type: "purchase, formulation, stock and recovery records"
+      raw_fields: "powder identity; chemistry; opening stock; receipts; fresh issue; unopened return; recovered overspray; closing stock; treated area"
+      collection_method: "Reconcile fresh powder to accepted coating, rejects, internal recovery and outbound powder waste. Aggregation: Direct batch or treated surface area."
+      unit: "kg"
+      frequency: "each batch; monthly aggregation"
+      temporal_coverage: "dataset period"
+      site_scope: "represented dry-filter powder line"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "supplier specification, stock reconciliation, booth recovery log"
+    - protocol_id: cp_surface_energy_records
+      process_id: "surface_treatment_and_coating"
+      flow_role: "electricity and natural gas"
+      record_type: "submeter, invoice and oven records"
+      raw_fields: "meter start/end; fuel volume; reference conditions; line hours; output"
+      collection_method: "Prefer line submeters and reconcile totals to invoices. Aggregation: Treated area, line time or direct batch."
+      unit: "MJ or m3"
+      frequency: "continuous or invoice; monthly aggregation"
+      temporal_coverage: "dataset period"
+      site_scope: "represented site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "calibration, invoice reconciliation, allocation worksheet"
+    - protocol_id: cp_surface_waste_records
+      process_id: "surface_treatment_and_coating"
+      flow_role: "powder overspray, filter residue and coating rejects"
+      record_type: "booth recovery, filter-change, reject and outbound scale records"
+      raw_fields: "fresh powder; recovered powder; deposited coating; rejected coated parts; filter tare/gross; outbound residue; destination"
+      collection_method: "Keep verified internal recovery out of boundary flows and weigh each residue leaving the system. Aggregation: Direct batch or treated surface area; close the powder balance."
+      unit: "kg"
+      frequency: "each batch and filter change"
+      temporal_coverage: "dataset period"
+      site_scope: "represented dry-filter powder line"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "scale calibration, recovery log, filter-change record, waste manifest"
+    - protocol_id: cp_assembly_energy_records
+      process_id: "assembly_testing_and_packaging"
+      flow_role: "electricity"
+      record_type: "submeter, invoice and operating records"
+      raw_fields: "meter start/end; line hours; conforming output"
+      collection_method: "Prefer submeters and reconcile totals to invoices. Aggregation: Line time or conforming output mass."
+      unit: "MJ"
+      frequency: "continuous or invoice; monthly aggregation"
+      temporal_coverage: "dataset period"
+      site_scope: "represented site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "calibration, invoice reconciliation, allocation worksheet"
+    - protocol_id: cp_assembly_material_records
+      process_id: "assembly_testing_and_packaging"
+      flow_role: "lubricant, combusted test fuel and delivered residual fuel"
+      record_type: "dispensing, tank, issue, return, spill and stock records"
+      raw_fields: "identity; opening/closing stock; receipts; issues; clean returns; drains/spills; retained first fill; test-tank start/end; delivered fuel; model; tested units"
+      collection_method: "Close separate lubricant and diesel balances; never treat delivered residual fuel as combusted. Aggregation: Direct model assignment; allocate only verified combustion to tested output."
+      unit: "kg"
+      frequency: "each batch/test; monthly aggregation"
+      temporal_coverage: "dataset period"
+      site_scope: "represented site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "dispensing calibration, tank reading, stock reconciliation, test record, product gate record"
+    - protocol_id: cp_assembly_waste_records
+      process_id: "assembly_testing_and_packaging"
+      flow_role: "lubricant, packaging and final-reject outputs"
+      record_type: "reject, spill/drain, dismantling, scale and manifest records"
+      raw_fields: "row identity; rejected unit/component; mass; internal rework; supplier return; dismantled fractions; tare; destination"
+      collection_method: "Track every rejected component and final unit through rework, supplier return or measured atomic outbound fractions; separately weigh oil, cardboard and pallet wastes. Aggregation: Direct model assignment; reconcile all rejects and prevent double counting with gross inputs."
+      unit: "kg"
+      frequency: "each event; monthly aggregation"
+      temporal_coverage: "dataset period"
+      site_scope: "represented site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "nonconformance record, dismantling sheet, scale ticket, return note, waste manifest"
+    - protocol_id: cp_packaging_records
+      process_id: "assembly_testing_and_packaging"
+      flow_role: "packaging inputs"
+      record_type: "specification, purchase, ownership, return and reject records"
+      raw_fields: "identity; mass; quantity per shipment; owner; ownership transfer; upstream dataset basis; clean return; reject mass; model"
+      collection_method: "Verify delivered packaging by calibrated sample weighing and document pallet ownership and upstream reference flow. Aggregation: Direct delivery configuration; never divide again when the upstream pallet dataset is already per use cycle."
+      unit: "kg"
+      frequency: "each revision; period aggregation"
+      temporal_coverage: "dataset period"
+      site_scope: "represented site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "approved specification, weighing record, ownership/return agreement, upstream dataset review"
+    - protocol_id: cp_reference_product_records
+      process_id: "assembly_testing_and_packaging"
+      flow_role: "product output"
+      record_type: "scale and controlled BOM records"
+      raw_fields: "gross; packaging tare; net mass; model; serial/batch; quantity"
+      collection_method: "Prefer calibrated net weighing; reconcile BOM alternatives. Aggregation: Sum conforming net output and normalize by that denominator."
+      unit: "kg"
+      frequency: "each unit or controlled batch"
+      temporal_coverage: "dataset period"
+      site_scope: "represented site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "scale calibration, BOM revision, inspection record"
+    - protocol_id: cp_air_emission_records
+      process_id: "applicable_foreground_process"
+      flow_role: "particulate and fossil CO2"
+      record_type: "stack test, control log, fuel analysis and calculation"
+      raw_fields: "pollutant; concentration/flow; duration; fuel; carbon; capture/control"
+      collection_method: "Prefer site measurements; otherwise retain a transparent site-specific balance or factor calculation. Aggregation: Direct operation or causal fuel/consumable."
+      unit: "kg"
+      frequency: "valid test/reporting interval"
+      temporal_coverage: "representative of dataset period"
+      site_scope: "represented site and point"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "test report, calibration, control log, worksheet"
+  calculation_rules:
+    - id: normalize_to_reference_mass
+      applies_to: "Every exchange"
+      rule: "normalized amount = absolute exchange / conforming net product mass"
+      inputs:
+        - "absolute amount"
+        - "conforming net product mass"
+      output: "amount per 1 kg product"
+      source_ids: []
+    - id: direct_fossil_co2
+      applies_to: "On-site fuel combustion"
+      rule: "Use measured fuel and documented carbon content/oxidation assumptions; exclude upstream fuel and electricity emissions."
+      inputs:
+        - fuel
+        - "composition/carbon"
+        - "oxidation assumption"
+      output: "kg direct fossil CO2"
+      source_ids: []
+    - id: material_reconciliation
+      applies_to: "Steel fabrication"
+      rule: "steel input = steel in product + outbound scrap + inventory increase + documented losses"
+      inputs:
+        - "steel input"
+        - BOM
+        - scrap
+        - inventory
+      output: "residual"
+      source_ids: []
+    - id: powder_balance
+      applies_to: "Dry-filter powder coating"
+      rule: "fresh powder = accepted deposited coating + rejected deposited coating + outbound powder/filter waste + inventory increase, with recovered powder shown as an internal loop"
+      inputs:
+        - "powder issue"
+        - recovery
+        - "coating deposition"
+        - reject
+        - residue
+        - inventory
+      output: "balance residual"
+      source_ids:
+        - us-epa-metal-parts-surface-coating-tsd-2001
+    - id: shielding_gas_balance
+      applies_to: "Supplied carbon-dioxide shielding gas"
+      rule: "consumed CO2 = fossil direct release + biogenic direct release + captured/retained CO2 + inventory change; fossil and biogenic portions require supplier origin evidence"
+      inputs:
+        - "gas stock"
+        - "origin certificate"
+        - "capture/retention"
+        - discharge
+      output: "kg direct CO2 by origin"
+      source_ids:
+        - us-epa-ap42-electric-arc-welding-1995
+    - id: diesel_test_balance
+      applies_to: "Test and delivery fuel"
+      rule: "combusted test diesel = opening test-tank mass + issued mass - closing mass - returned/recovered mass - spills - diesel retained in saleable product"
+      inputs:
+        - "tank/issue/return/spill/gate records"
+      output: "kg combusted test diesel"
+      source_ids: []
+    - id: accepted_output_loss_balance
+      applies_to: "Components, packaging and final rejects"
+      rule: "external receipts + opening usable stock = accepted-product incorporation + closing usable stock + unused external returns + consumed rejects/waste + other documented losses; the input inventory includes consumed rejects and never subtracts them. Keep unused internal returns inside the same stock control volume, keep in-house transfers distinct from external purchases, record reject mass by actual atomic destination, and normalize all attributable consumption and losses by conforming output only"
+      inputs:
+        - "external receipts"
+        - "opening/closing usable stock"
+        - "process issues"
+        - "internal and external returns"
+        - "BOM counts"
+        - rejects
+        - "atomic waste destinations"
+        - "conforming output"
+      output: "balance residual"
+      source_ids: []
+  data_quality_requirements:
+    - id: model_specificity
+      applies_to: "Product identity and reference flow"
+      requirement: "Use one model/configuration or disclose and justify a production-weighted family."
+      evidence: "model list, quantities, specification"
+    - id: atomic_bom_coverage
+      applies_to: "Purchased materials/components"
+      requirement: "Represent every boundary-crossing BOM material or assembly as an atomic row; disclose missing supplier data or proxies without umbrella flows."
+      evidence: "BOM-to-inventory crosswalk and unresolved register"
+    - id: route_evidence
+      applies_to: "Conditional rows/processes"
+      requirement: "Retain applicability or non-applicability evidence for the model and site."
+      evidence: "routing sheet, work instruction, equipment list or record"
+    - id: mass_balance
+      applies_to: "Steel, coating, shielding gas, lubricant, diesel, packaging, rejects and product"
+      requirement: "Investigate residuals and avoid double-counting internal loops, delivered fuel, supplier returns and captured residues."
+      evidence: "signed balance and inventory-change records"
+    - id: complete_configuration_crosswalk
+      applies_to: "Representative mower BOM"
+      requirement: "Resolve frame/hitch, hydraulic cylinder, belt drive, cutter unit or complete cutter-bar alternative, gearbox, PTO driveline, guards/curtains, separate screw, nut, washer and pin families, and first fills as purchased atomic inputs or in-house production, without overlap. Retain manufacturer part number, specification and actual model count for every fastener family."
+      evidence: "model BOM, parts manual crosswalk, make-or-buy records"
+    - id: temporal_representativeness
+      applies_to: "All foreground data"
+      requirement: "Use a continuous representative period and disclose shutdowns, trials, abnormal scrap and mix changes."
+      evidence: "period memo and production log"
+    - id: upstream_match
+      applies_to: "Upstream datasets"
+      requirement: "Record geography, technology, state and delivery boundary; explain material proxies."
+      evidence: "dataset-selection log"
+validation_rules:
+  - rule_id: validate_reference_output
+    applies_to: "Reference flow"
+    rule: "Confirm other_mower_reference_product uses UUID 21019316-3de7-4b72-b23f-74fdaee3b361, Mass, kg and equals 1 after normalization."
+    source_ids: []
+  - rule_id: validate_inventory_balance
+    applies_to: "Inventory"
+    rule: "Confirm every card is atomic and every UUID-empty card appears in manifest review_metadata.unresolved.inventory_flow_uuids with the same row id."
+    source_ids: []
+  - rule_id: validate_route_conditions
+    applies_to: "Conditional routes"
+    rule: "Confirm applicability evidence exists and zero is not an undocumented default."
+    source_ids: []
+  - rule_id: validate_no_upstream_double_count
+    applies_to: "Direct emissions"
+    rule: "Confirm direct fossil CO2 and welding particulate exclude emissions in upstream electricity, fuel, material or gas datasets."
+    source_ids: []
+  - rule_id: validate_component_and_reject_coverage
+    applies_to: "BOM and rejected production"
+    rule: "Confirm every representative assembly is resolved by the make-or-buy crosswalk and every component/final reject has rework, supplier-return or measured atomic outbound disposition."
+    source_ids:
+      - land-pride-disc-mower-parts-2022
+      - land-pride-disc-mower-operator-2006
+  - rule_id: validate_shielding_and_powder_balances
+    applies_to: "Welding and dry-filter powder coating"
+    rule: "Confirm supplied shielding CO2 is balanced to direct release by verified origin, capture/retention and inventory, and powder is balanced to deposited coating, internal recovery, rejects and outbound residue."
+    source_ids:
+      - us-epa-ap42-electric-arc-welding-1995
+      - us-epa-metal-parts-surface-coating-tsd-2001
+  - rule_id: validate_test_fuel_and_first_fill
+    applies_to: "Assembly and test"
+    rule: "Confirm combusted diesel excludes delivered residual fuel, and gross lubricant reconciles to retained first fill, clean return, spills/drains and rejects."
+    source_ids: []
+  - rule_id: validate_allocations
+    applies_to: "Shared operations, pallets, rework and scrap"
+    rule: "Confirm subdivision was attempted and every allocation has a driver, numerator, denominator and reconciliation total; confirm pallet ownership and that a per-use upstream dataset was not divided again."
+    source_ids: []
+  - rule_id: validate_bilingual_alignment
+    applies_to: "Bilingual PCR/dataset"
+    rule: "Confirm stable IDs, UUIDs, units, rule order and row order match, using direct-read Tiangong Chinese flow names."
+    source_ids: []
+  - rule_id: validate_source_limits
+    applies_to: "External evidence"
+    rule: "Treat cited manuals as representative configuration/process evidence only; do not infer industry quantity ranges from one manufacturer family."
+    source_ids:
+      - land-pride-disc-mower-parts-2022
+      - land-pride-disc-mower-operator-2006
+published_dataset_profile:
+  dataset_role: "Model- and site-specific foreground manufacturing data package for a complete other mower or complete tractor-mountable cutter-bar assembly."
+  downstream_use: "Linked process or lifecyclemodel datasets and compatible comparative studies."
+  allowed_use: "Gate-to-gate manufacturing inventories, contribution analysis, supplier-data improvement and broader studies with linked upstream datasets."
+  excluded_use: "Lawn/park/sports-ground mowers, loose parts, use-phase mowing, maintenance, lifetime or end-of-life performance."
+  required_metadata: "PCR id/state; CPC reference; model/configuration; cutting technology; mounting/drive; working width; included equipment/first fills; coating/packaging; site/geography/period; route applicability; allocations; upstream references."
+  required_quality_disclosure: "Unresolved UUIDs; missing supplier data; proxies; range-evidence gaps; measurement/allocation; balance residuals; abnormal production; exclusions and limitations."
+  update_trigger: "Model/BOM, route, site, energy market, coating or packaging change; new exact flow identity or stronger evidence; material measurement/allocation/supplier-data change."
+data_sources:
+  - id: "un-cpc-3-0-structure-2025"
+    type: "official_guidance"
+    reference: "United Nations Statistics Division, CPC Version 3.0 Structure CSV, 30 June 2025, subclass 44123 and adjacent subclasses 44121-44129."
+    used_for: "Official product identity and exclusions from adjacent mower, haymaking and harvesting categories."
+  - id: "land-pride-disc-mower-parts-2022"
+    type: "handbook"
+    reference: "Land Pride, *DM3605, DM3606 & DM3607 Disc Mowers Parts Manual*, 327-045P, 06/13/2022, frame and hitch tables on PDF pages 7 and 9 (printed 5 and 7), and cutter-unit table on PDF page 17 (printed 15)."
+    used_for: "Representative configuration checklist covering frame/hitch, hydraulic cylinder, belt drive, cutter unit, gearbox, driveline and guards; exact frame-and-hitch screw, nut, washer and pin part specifications, including the stated count of 32 for washer 804-186C; not material composition or industry quantity ranges."
+  - id: "land-pride-disc-mower-operator-2006"
+    type: "handbook"
+    reference: "Land Pride, *DM3705, DM3706, and DM3707 Series Disc Mowers Operator's Manual*, 327-083M, 9/15/06, PDF pages 9 and 11."
+    used_for: "Representative agricultural disc-mower application, tractor mounting and first-fill SAE 90 gear lubricant; not an industry range."
+  - id: "us-epa-ap42-electric-arc-welding-1995"
+    type: "official_guidance"
+    reference: "U.S. EPA, AP-42 Chapter 12.19, *Electric Arc Welding*, final section January 1995, PDF pages 1 and 3."
+    used_for: "Welding process, GMAW consumable wire and supplied shielding gas, and particulate collection qualifiers."
+  - id: "us-epa-metal-parts-surface-coating-tsd-2001"
+    type: "official_guidance"
+    reference: "U.S. EPA, *National Emission Standards for Hazardous Air Pollutants for Miscellaneous Metal Parts and Products Surface Coating Operations: Technical Support Document*, EPA-hosted PDF, 2001 compilation, PDF page 67 (printed 5-3) and PDF pages 115 and 117 (printed 8-16 and 8-18)."
+    used_for: "Bounded applicability to farm-machinery manufacturing; dry-filter powder-booth overspray collection and potential internal powder recovery; surface-coating and curing operations and the need for site-specific energy and waste collection. No numerical range is inferred."
+projection_metadata:
+  contract_version: "1"
+  generator: "tiangong-pcr-builder/markdown-projection"
+  canonical_markdown:
+    path: "pcr.en-US.md"
+    normalization: "utf8-lf-v1"
+    hash_algorithm: "sha256"
+    sha256: "sha256:bd0077a21c7d342313365cc4be176b63cf41883c16f5fff682912d1f1d5111b9"
+  generated_content_sha256: "sha256:8b68175d237e10d0dbb50433081d8bd3dc09312058ed9bb578fa7f284db768cb"

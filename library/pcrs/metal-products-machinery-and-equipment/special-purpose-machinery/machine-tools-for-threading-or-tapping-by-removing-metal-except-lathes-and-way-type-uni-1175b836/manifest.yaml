@@ -2,10 +2,10 @@ schema_version: 1
 id: pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-for-threading-or-tapping-by-removing-metal-except-lathes-and-way-type-uni-1175b836
 title:
   en-US: "Machine-tools for threading or tapping by removing metal, except lathes and way-type unit head machines"
-  zh-CN: null
-status: scaffold
+  zh-CN: "通过去除金属进行螺纹加工或攻丝的机床（车床和导轨式动力头机床除外）"
+status: candidate
 pcr_kind: product_category_rule
-content_maturity: empty_scaffold
+content_maturity: authored_methodology
 domains:
   - "metal-products-machinery-and-equipment"
 modules:
@@ -28,10 +28,95 @@ languages:
     - en-US
     - zh-CN
 translation_status:
-  zh-CN: scaffold_pending_translation
+  zh-CN: aligned
 classification_refs:
   - system: CPC
     version: "3.0"
     code: "44215"
     title: "Machine-tools for threading or tapping by removing metal, except lathes and way-type unit head machines"
     mapping_type: exact
+review_metadata:
+  inventory_contract:
+    atomic_flows: v1
+    localized_flow_names: tiangong_zh_v1
+  unresolved:
+    inventory_flow_uuids:
+      - row_id: iron_casting
+        reason_code: no_exact_candidate
+        explanation: "The audited candidates identify pig iron, misclassified cast iron, pipes or a cast ball, not a shaped grey-iron machine bed casting."
+      - row_id: cutting_oil
+        reason_code: no_exact_candidate
+        explanation: "The audited identities are generic cutting fluid, rolling oils and silicone spray; none establishes a neat mineral cutting oil for machining."
+      - row_id: swarf
+        reason_code: no_exact_candidate
+        explanation: "All audited swarf/scrap candidates are steel-specific and do not cover the declared ferrous stream from both cast-iron and steel machining; retain material-specific site segregation."
+      - row_id: spent_oil
+        reason_code: no_exact_candidate
+        explanation: "Audited candidates identify unspecified waste cutting oil, generic waste oil or combined oil/coolant; none establishes the segregated spent neat-mineral cutting-oil formulation."
+      - row_id: powder_coating
+        reason_code: no_exact_candidate
+        explanation: "The reviewed powder-coating identity does not establish epoxy chemistry; primary epoxy resin and the other candidates are not formulated epoxy powder coating."
+      - row_id: wash_effluent
+        reason_code: no_exact_candidate
+        explanation: "The audited generic wastewater and cleaning-wastewater identities do not establish the aqueous metal-parts washing stream, contaminant loading and treatment state."
+      - row_id: powder_waste
+        reason_code: no_exact_candidate
+        explanation: "The mass-based powder-coating waste candidate does not establish epoxy overspray; the other candidate uses aluminium-content rather than total-mass property."
+      - row_id: spindle
+        reason_code: no_exact_candidate
+        explanation: "The returned candidate identifies a complete machine rather than a purchased geared spindle assembly."
+      - row_id: control_cabinet
+        reason_code: property_or_unit_mismatch
+        explanation: "The closest complete populated cabinet candidate uses an energy property and MJ, incompatible with the weighed mass/kg cabinet exchange; other candidates do not establish an exact complete cabinet."
+      - row_id: bearing
+        reason_code: no_exact_candidate
+        explanation: "Audited candidates identify a bearing cage, an alternative ball-or-roller category or unrelated products; none establishes a finished steel ball bearing."
+      - row_id: fastener
+        reason_code: no_exact_candidate
+        explanation: "Audited candidates identify unfinished or generic fastener parts and steel screws, not a finished steel hexagon-head bolt."
+      - row_id: cable
+        reason_code: property_or_unit_mismatch
+        explanation: "The closest copper control/power cable uses energy/MJ; other candidates are aluminium, unspecified-conductor length flows or coaxial cable, not the defined mass/kg copper wiring exchange."
+      - row_id: pallet
+        reason_code: no_exact_candidate
+        explanation: "The generic wooden-pallet candidate is misclassified as electricity; the other candidates are a EURO-specific pallet, an alternative category, a photovoltaic-area flow or a nonwood pallet."
+      - row_id: finished_machine
+        reason_code: manual_review_required
+        explanation: "A candidate matches the English title and CPC 44215 but its Chinese baseName describes tapping as 开口机床 and the excluded way-type unit head machines as 组合头钻床; bilingual identity requires database review before adoption."
+    range_evidence_needs:
+      - row_id: steel_plate
+        explanation: "No two independent original-text sources establish compatible manufacturing-boundary, accepted-machine and configuration-specific bounds. Retain foreground collection; no external range adopted."
+      - row_id: iron_casting
+        explanation: "No two independent original-text sources establish compatible manufacturing-boundary, accepted-machine and configuration-specific bounds. Retain foreground collection; no external range adopted."
+      - row_id: cutting_oil
+        explanation: "No two independent original-text sources establish compatible manufacturing-boundary, accepted-machine and configuration-specific bounds. Retain foreground collection; no external range adopted."
+      - row_id: swarf
+        explanation: "No two independent original-text sources establish compatible manufacturing-boundary, accepted-machine and configuration-specific bounds. Retain foreground collection; no external range adopted."
+      - row_id: spent_oil
+        explanation: "No two independent original-text sources establish compatible manufacturing-boundary, accepted-machine and configuration-specific bounds. Retain foreground collection; no external range adopted."
+      - row_id: water
+        explanation: "No two independent original-text sources establish compatible manufacturing-boundary, accepted-machine and configuration-specific bounds. Retain foreground collection; no external range adopted."
+      - row_id: powder_coating
+        explanation: "No two independent original-text sources establish compatible manufacturing-boundary, accepted-machine and configuration-specific bounds. Retain foreground collection; no external range adopted."
+      - row_id: wash_effluent
+        explanation: "No two independent original-text sources establish compatible manufacturing-boundary, accepted-machine and configuration-specific bounds. Retain foreground collection; no external range adopted."
+      - row_id: powder_waste
+        explanation: "No two independent original-text sources establish compatible manufacturing-boundary, accepted-machine and configuration-specific bounds. Retain foreground collection; no external range adopted."
+      - row_id: motor
+        explanation: "No two independent original-text sources establish compatible manufacturing-boundary, accepted-machine and configuration-specific bounds. Retain foreground collection; no external range adopted."
+      - row_id: spindle
+        explanation: "No two independent original-text sources establish compatible manufacturing-boundary, accepted-machine and configuration-specific bounds. Retain foreground collection; no external range adopted."
+      - row_id: control_cabinet
+        explanation: "No two independent original-text sources establish compatible manufacturing-boundary, accepted-machine and configuration-specific bounds. Retain foreground collection; no external range adopted."
+      - row_id: bearing
+        explanation: "No two independent original-text sources establish compatible manufacturing-boundary, accepted-machine and configuration-specific bounds. Retain foreground collection; no external range adopted."
+      - row_id: fastener
+        explanation: "No two independent original-text sources establish compatible manufacturing-boundary, accepted-machine and configuration-specific bounds. Retain foreground collection; no external range adopted."
+      - row_id: cable
+        explanation: "No two independent original-text sources establish compatible manufacturing-boundary, accepted-machine and configuration-specific bounds. Retain foreground collection; no external range adopted."
+      - row_id: pallet
+        explanation: "No two independent original-text sources establish compatible manufacturing-boundary, accepted-machine and configuration-specific bounds. Retain foreground collection; no external range adopted."
+      - row_id: film
+        explanation: "No two independent original-text sources establish compatible manufacturing-boundary, accepted-machine and configuration-specific bounds. Retain foreground collection; no external range adopted."
+      - row_id: manufacturing_electricity
+        explanation: "No two independent original-text sources establish compatible manufacturing-boundary, accepted-machine and configuration-specific bounds. Retain foreground collection; no external range adopted."

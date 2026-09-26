@@ -1,37 +1,127 @@
 schema_version: 1
-id: pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-for-drilling-boring-or-milling-metal
+id: "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-for-drilling-boring-or-milling-metal"
 title:
   en-US: "Machine-tools for drilling, boring or milling metal"
-  zh-CN: null
-status: scaffold
-pcr_kind: product_category_rule
-content_maturity: empty_scaffold
+  zh-CN: "金属钻削、镗削或铣削机床"
+status: "candidate"
+pcr_kind: "product_category_rule"
+content_maturity: "authored_methodology"
 domains:
   - "metal-products-machinery-and-equipment"
 modules:
   core:
-    - pcr-minimum-content
-    - unit-of-analysis
-    - reference-flow
-    - inventory-flow-taxonomy
-    - system-boundary
-    - allocation
-    - data-quality
-    - validation-rules
+    - "pcr-minimum-content"
+    - "unit-of-analysis"
+    - "reference-flow"
+    - "inventory-flow-taxonomy"
+    - "system-boundary"
+    - "allocation"
+    - "data-quality"
+    - "validation-rules"
 target_entities:
-  - flow
-  - process
-  - lifecyclemodel
+  - "flow"
+  - "process"
+  - "lifecyclemodel"
 languages:
-  canonical: en-US
+  canonical: "en-US"
   available:
-    - en-US
-    - zh-CN
+    - "en-US"
+    - "zh-CN"
 translation_status:
-  zh-CN: scaffold_pending_translation
+  zh-CN: "aligned"
 classification_refs:
-  - system: CPC
+  - system: "CPC"
     version: "3.0"
     code: "44214"
     title: "Machine-tools for drilling, boring or milling metal"
-    mapping_type: exact
+    mapping_type: "exact"
+review_metadata:
+  inventory_contract:
+    atomic_flows: "v1"
+    localized_flow_names: "tiangong_zh_v1"
+  unresolved:
+    inventory_flow_uuids:
+      - row_id: "structure"
+        reason_code: "no_exact_candidate"
+        explanation: "The bounded search returned a complete machine, carbide cutting tools and wooden pallets, not the assembled bed-and-column structural unit. All four returned public candidates were inspected; no raw-material or complete-machine proxy is adopted."
+      - row_id: "table_feed"
+        reason_code: "no_exact_candidate"
+        explanation: "The finalized bounded search returned carbide tools, a complete machine, a steel ball and mould/tooling components, not the purchased worktable/feed assembly. All five public candidates were rejected after identity and unit audit; retain the specific module without a proxy."
+      - row_id: "spindle_head"
+        reason_code: "no_exact_candidate"
+        explanation: "The finalized bounded search returned complete machines and unspecified component groupings, not a powered spindle-head assembly with the declared motor, spindle, housing and guard boundary. All five public candidates were audited and rejected. Retain the specific module without a proxy."
+      - row_id: "control_unit"
+        reason_code: "no_exact_candidate"
+        explanation: "Five public candidates were inspected: electronic parts, a generic electronic control unit with undocumented complete-module contents, a terminal block, an unrelated X-ray kit and an ambiguous ADP unit. None establishes the specified wired machine-control assembly boundary; retain its UUID empty rather than assign a partial controller proxy."
+      - row_id: "steel_bolt"
+        reason_code: "no_exact_candidate"
+        explanation: "The five public candidates comprise generic steel fasteners, mixed fasteners/small hardware and ore pulp. No candidate narrows the identity to the concrete steel bolt; the row remains atomic and UUID-empty rather than adopting an umbrella fastening flow."
+      - row_id: "way_oil"
+        reason_code: "no_exact_candidate"
+        explanation: "The five public candidates identify insulation oil, FDY oil, mould powder and two rolling oils, not a machine slideway lubricant. Product-state, formulation and use mismatches prevent exact adoption despite compatible mass units."
+      - row_id: "lithium_grease"
+        reason_code: "no_exact_candidate"
+        explanation: "The bounded authenticated search returned four unrelated public products: a wallet, pulping lye, fragrance/deodorant and graphite. None establishes formulated lithium-soap grease; the row remains UUID-empty following the complete candidate audit."
+      - row_id: "wood_crate"
+        reason_code: "no_exact_candidate"
+        explanation: "All five public candidates were inspected after successful same-receipt retries. The wooden-packaging umbrella, EURO pallet, plastic crate, unspecified harvest container and furniture flow do not establish a single concrete wooden transport crate with the declared material and construction."
+      - row_id: "pe_film"
+        reason_code: "no_exact_candidate"
+        explanation: "After successful same-receipt retries, all five public candidates were audited. Generic polyethylene/plastic films do not establish the LDPE grade; one polyethylene-film name conflicts with a luggage classification, and extrusion service is not purchased film. No exact LDPE film identity is adopted."
+      - row_id: "oily_cotton"
+        reason_code: "no_exact_candidate"
+        explanation: "All three public candidates were audited after successful same-receipt retries. Stained cotton, generic oil pollution and generic textile waste do not establish the combined cotton-cloth carrier and oil-contaminated state. No exact candidate is adopted."
+      - row_id: "steel_coupon"
+        reason_code: "no_exact_candidate"
+        explanation: "The public candidates identify carbon-steel bar/rod stock, a medium-carbon-steel name with ferro-alloy classification, and boron iron. None establishes the actual prepared acceptance-test coupon state and preparation boundary; raw stock is not silently substituted."
+      - row_id: "hss_tool"
+        reason_code: "no_exact_candidate"
+        explanation: "The bounded public audit returned an unspecified cutting tool, vanadium slag and ferromolybdenum. No candidate confirms a finished solid HSS cutting tool; generic tooling or upstream alloying material is not an exact substitute."
+      - row_id: "spent_coupon"
+        reason_code: "no_exact_candidate"
+        explanation: "The audited candidates include 430 stainless scrap, generic steel scrap with no carbon-steel coupon-state qualifier, and a steel scrap flow measured by aluminium content rather than total mass. No exact segregated carbon-steel coupon residue identity is confirmed."
+      - row_id: "spent_hss"
+        reason_code: "no_exact_candidate"
+        explanation: "All five public candidates are generic, post-industrial or new steel scrap; none identifies the high-speed-steel alloy and spent cutting-tool state. Keep the distinct HSS waste row without a generic-steel or carbide proxy."
+      - row_id: "cutting_oil"
+        reason_code: "no_exact_candidate"
+        explanation: "All three public candidates were inspected: unspecified cutting fluid does not establish the neat mineral formulation, and both diesel candidates are fuels rather than cutting lubricant. No exact candidate is adopted."
+    range_evidence_needs:
+      - row_id: "structure"
+        explanation: "Two independent original-text-verified, compatible per-machine sources are not available for this configuration and module-level boundary. Collect site records; no external numerical range adopted."
+      - row_id: "table_feed"
+        explanation: "Two independent original-text-verified, compatible per-machine sources are not available for this configuration and module-level boundary. Collect site records; no external numerical range adopted."
+      - row_id: "spindle_head"
+        explanation: "Two independent original-text-verified, compatible per-machine sources are not available for this configuration and module-level boundary. Collect site records; no external numerical range adopted."
+      - row_id: "control_unit"
+        explanation: "Two independent original-text-verified, compatible per-machine sources are not available for this configuration and module-level boundary. Collect site records; no external numerical range adopted."
+      - row_id: "steel_bolt"
+        explanation: "Two independent original-text-verified, compatible per-machine sources are not available for this configuration and module-level boundary. Collect site records; no external numerical range adopted."
+      - row_id: "way_oil"
+        explanation: "Two independent original-text-verified, compatible per-machine sources are not available for this configuration and module-level boundary. Collect site records; no external numerical range adopted."
+      - row_id: "lithium_grease"
+        explanation: "Two independent original-text-verified, compatible per-machine sources are not available for this configuration and module-level boundary. Collect site records; no external numerical range adopted."
+      - row_id: "cotton_wipe"
+        explanation: "Two independent original-text-verified, compatible per-machine sources are not available for this configuration and module-level boundary. Collect site records; no external numerical range adopted."
+      - row_id: "wood_crate"
+        explanation: "Two independent original-text-verified, compatible per-machine sources are not available for this configuration and module-level boundary. Collect site records; no external numerical range adopted."
+      - row_id: "pe_film"
+        explanation: "Two independent original-text-verified, compatible per-machine sources are not available for this configuration and module-level boundary. Collect site records; no external numerical range adopted."
+      - row_id: "electricity"
+        explanation: "Two independent original-text-verified, compatible per-machine sources are not available for this configuration and module-level boundary. Collect site records; no external numerical range adopted."
+      - row_id: "oily_cotton"
+        explanation: "Two independent original-text-verified, compatible per-machine sources are not available for this configuration and module-level boundary. Collect site records; no external numerical range adopted."
+      - row_id: "steel_coupon"
+        explanation: "Two independent original-text-verified, compatible per-machine sources are not available for this configuration and module-level boundary. Collect site records; no external numerical range adopted."
+      - row_id: "hss_tool"
+        explanation: "Two independent original-text-verified, compatible per-machine sources are not available for this configuration and module-level boundary. Collect site records; no external numerical range adopted."
+      - row_id: "steel_chips"
+        explanation: "Two independent original-text-verified, compatible per-machine sources are not available for this configuration and module-level boundary. Collect site records; no external numerical range adopted."
+      - row_id: "spent_coupon"
+        explanation: "Two independent original-text-verified, compatible per-machine sources are not available for this configuration and module-level boundary. Collect site records; no external numerical range adopted."
+      - row_id: "spent_hss"
+        explanation: "Two independent original-text-verified, compatible per-machine sources are not available for this configuration and module-level boundary. Collect site records; no external numerical range adopted."
+      - row_id: "cutting_oil"
+        explanation: "Two independent original-text-verified, compatible per-machine sources are not available for this configuration and module-level boundary. Collect site records; no external numerical range adopted."
+      - row_id: "waste_cutting_oil"
+        explanation: "Two independent original-text-verified, compatible per-machine sources are not available for this configuration and module-level boundary. Collect site records; no external numerical range adopted."
