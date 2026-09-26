@@ -2,12 +2,12 @@ schema_version: 1
 id: pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.grain-mill-products-starches-and-starch-products-other-food-products.tapioca-and-substitutes-therefor-prepared-from-starch-in-the-form-of-flakes-grains-sift-d4017625
 title:
   en-US: "Tapioca and substitutes therefor prepared from starch, in the form of flakes, grains, siftings or similar forms"
-  zh-CN: null
-status: scaffold
+  zh-CN: "珍粉及淀粉制成的珍粉代用品（片状、粒状、筛下物或类似形态）"
+status: candidate
 pcr_kind: product_category_rule
-content_maturity: empty_scaffold
+content_maturity: authored_methodology
 domains:
-  - "food-products-beverages-and-tobacco-textiles-apparel-and-leather-products"
+  - food-products-beverages-and-tobacco-textiles-apparel-and-leather-products
 modules:
   core:
     - pcr-minimum-content
@@ -22,16 +22,52 @@ target_entities:
   - flow
   - process
   - lifecyclemodel
+  - dataset
 languages:
   canonical: en-US
   available:
     - en-US
     - zh-CN
 translation_status:
-  zh-CN: scaffold_pending_translation
+  zh-CN: aligned
 classification_refs:
   - system: CPC
     version: "3.0"
     code: "23230"
     title: "Tapioca and substitutes therefor prepared from starch, in the form of flakes, grains, siftings or similar forms"
     mapping_type: exact
+review_metadata:
+  methodology_review_required: true
+  source_review_note: "Publisher full text verifies a laboratory tapioca pearl route; no industrial input range or all-form technology equivalence is inferred."
+  inventory_contract:
+    atomic_flows: v1
+    localized_flow_names: tiangong_zh_v1
+  unresolved:
+    inventory_flow_uuids:
+      - row_id: cook_electricity
+        reason_code: manual_review_required
+        explanation: Public alternating-current candidates have indistinguishable direct-read names and insufficient supply-voltage or technology qualifiers for this site-specific electricity row.
+      - row_id: grade_tapioca_product
+        reason_code: no_exact_candidate
+        explanation: No public exact finished starch-prepared tapioca flakes, grains, pearls or siftings product flow was found; raw cassava starch and unrelated foods are not substitutes.
+    range_evidence_needs:
+      - row_id: feed_cassava_starch
+        need: Boundary-compatible independent sources for starch-input yield per kg accepted dry tapioca product.
+      - row_id: feed_potato_starch
+        need: Independent, state-matched evidence for potato-starch substitute yield per kg accepted dry product.
+      - row_id: feed_corn_starch
+        need: Independent, state-matched evidence for corn-starch substitute yield per kg accepted dry product.
+      - row_id: feed_process_water
+        need: Boundary-compatible independent sources for conditioning-water use per kg accepted dry product.
+      - row_id: cook_electricity
+        need: Boundary-compatible independent sources for electricity use by forming and drying technology.
+      - row_id: cook_purchased_steam
+        need: Boundary-compatible independent sources for purchased-steam use in this product state.
+      - row_id: cook_natural_gas
+        need: Boundary-compatible independent sources for natural-gas consumption on the direct-fired route.
+      - row_id: cook_fossil_co2_air
+        need: Verified fuel-carbon composition and batch combustion data for a compatible fossil CO2 screening range.
+      - row_id: cook_no_air
+        need: Species-specific measured nitrogen monoxide evidence for a compatible direct-fired route range.
+      - row_id: grade_sieving_dust
+        need: Boundary-compatible independent sources for unsalable captured starch dust fraction.

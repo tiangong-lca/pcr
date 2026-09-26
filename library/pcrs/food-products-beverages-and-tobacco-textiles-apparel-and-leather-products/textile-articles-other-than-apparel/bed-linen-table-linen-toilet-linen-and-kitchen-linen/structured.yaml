@@ -1,10 +1,342 @@
 schema_version: 1
-status: scaffold
-classification_seed:
-  system: CPC
-  version: "3.0"
-  code: "27120"
-  title: "Bed linen, table linen, toilet linen and kitchen linen"
-reference_flows: []
-inventory_patterns: []
-qa_rules: []
+generated_from: markdown
+source_markdown: pcr.en-US.md
+product_category_identity:
+  canonical_pcr_id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.textile-articles-other-than-apparel.bed-linen-table-linen-toilet-linen-and-kitchen-linen"
+  classification_refs: "CPC 3.0 27120; classification reference only, not a positive mapping decision"
+  covered_products: "Unstuffed bed, table, toilet and kitchen linen made from textile fabric"
+  excluded_products: "Stuffed bedding, curtains, apparel, floor cloths and standalone fabric"
+  representative_product: "Unstuffed woven-cotton bed sheet"
+  production_route: "Purchased finished woven cotton fabric; dry cutting, sewing, inspection and packaging"
+  market_state: "Accepted dry finished article at factory gate; net product mass excludes packaging"
+functional_unit:
+  what: "Provide a finished unstuffed linen article for bed, table, toilet or kitchen use"
+  how_much: "1 kg net accepted dry finished linen article"
+  how_well: "Declare article type, fibre composition, fabric construction and finishing state; accepted to the producer's stated specification"
+  how_long_or_cycle: "One factory-gate delivery; service life is outside this production reference"
+  reference_flow_link: "finished_linen_output"
+system_boundary:
+  rules:
+    - rule_id: boundary_fabric_entry
+      applies_to: "purchased fabric"
+      rule: "Include purchased finished fabric and its linked upstream production in the product system; the foreground begins at receipt of cutting-ready fabric."
+      source_ids:
+        - epa-textiles-2008
+    - rule_id: boundary_factory_gate
+      applies_to: "finished linen"
+      rule: "Include cutting, sewing, inspection, on-site electricity and attributable packaging through the factory gate."
+      source_ids:
+        - epa-textiles-2008
+    - rule_id: boundary_wet_process
+      applies_to: "on-site wet processing"
+      rule: "If washing, bleaching, dyeing or drying occurs on site, model its own atomic exchanges and disclose its separate process inventory before using this profile for that route."
+      source_ids:
+        - epa-textiles-2008
+boundary_abstraction:
+  declared_starting_condition: "Purchased finished woven fabric ready for cutting; declare fibre, construction and finishing state"
+  starting_condition_role: "Upstream product input to the cut-and-sew foreground process"
+  product_classification_scope: "Finished unstuffed bed, table, toilet and kitchen linen articles"
+  recursive_input_rule: "If an incoming article already meets this category, record it as a separately declared input with its own upstream dataset; do not count it again as newly manufactured output"
+  upstream_dataset_requirement: "Link a compatible fabric dataset that includes fibre, yarn, fabric formation and wet finishing where performed upstream"
+  disclosure: "Report the fabric starting condition, cut-and-sew site, product mix, packaging state and excluded stages"
+reference_flow_definition:
+  reference_amount: "1"
+  product_flow_ref:
+    name: "Finished unstuffed household linen article; UUID unresolved"
+    uuid: ""
+  flow_property_ref:
+    uuid: "93a60a56-a3c8-11da-a746-0800200b9a66"
+  unit_group_ref:
+    uuid: "93a60a57-a4c8-11da-a746-0800200c9a66"
+  reference_unit: "kg"
+  required_qualifiers:
+    - "article type"
+    - "fibre composition"
+    - "woven or knitted fabric"
+    - "fabric finishing state"
+    - "factory-gate packaging state"
+    - geography
+    - "production period"
+reference_flows:
+  []
+measurement_rules:
+  - id: reference_mass
+    applies_to: "reference product"
+    required_property_ref:
+      name: "Mass"
+      uuid: "93a60a56-a3c8-11da-a746-0800200b9a66"
+    required_unit: "kg"
+    rule: "Weigh accepted dry articles excluding packaging; use that net mass as the common denominator for all inventory rows."
+  - id: lot_normalization
+    applies_to: "all inventory rows"
+    required_property_ref:
+      name: "Mass or energy as stated on each row"
+      uuid: ""
+    required_unit: "kg or kWh"
+    rule: "Divide attributable lot inputs and offcuts by the net accepted article mass in kg; retain the stated numerator unit."
+process_map:
+  - id: make_up_linen
+    name: "Fabric cutting, sewing, inspection and packing"
+    inclusion: "required"
+    inclusion_condition: "All articles in scope"
+    role: "Foreground conversion"
+    quantitative_reference: "per 1 kg net accepted dry finished linen"
+process_inventory:
+  - id: make_up_linen
+    label: "Fabric cutting, sewing, inspection and packing"
+    inputs:
+      product:
+        - row_id: cotton_fabric
+          role: "Purchased woven cotton fabric"
+          name: "Cotton Fabric"
+          flow_type: "product"
+          flow_ref:
+            uuid: "f8292a12-0851-4ed8-9ff3-18d5f4d302ff"
+          property_unit: "Mass / kg"
+          description: "Purchased cotton fabric crosses the foreground boundary as the primary material input."
+          amount:
+            expression: "Weigh accepted incoming fabric for the represented cotton route; record fibre content and finishing state."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_materials
+              source_ids: []
+            ranges: []
+        - row_id: cotton_sewing_thread
+          role: "Cotton sewing thread"
+          name: "Cotton sewing thread; UUID unresolved"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Cotton sewing thread is incorporated into seams during assembly."
+          amount:
+            expression: "Weigh or reconcile cotton sewing thread issued to the lot."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_materials
+              source_ids: []
+            ranges: []
+        - row_id: grid_electricity
+          role: "Purchased grid electricity"
+          name: "Grid electricity; UUID unresolved"
+          flow_type: "product"
+          property_unit: "Energy / kWh"
+          description: "Purchased grid electricity powers cutting, sewing and inspection equipment."
+          amount:
+            expression: "Read attributable sewing, cutting and inspection electricity from meter or reconciled bills."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_energy
+              source_ids: []
+            ranges: []
+        - row_id: corrugated_box
+          role: "Corrugated shipping box"
+          name: "corrugated board boxes"
+          flow_type: "product"
+          flow_ref:
+            uuid: "4f197bec-7b3b-11dd-ad8b-0800200c9a66"
+          property_unit: "Mass / kg"
+          description: "Corrugated board boxes enter when the finished articles use this shipping package."
+          amount:
+            expression: "When corrugated boxes are used, weigh boxes attributable to the lot; otherwise record not applicable."
+            value_mode: "foreground_record"
+            specificity: "product_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_materials
+              source_ids: []
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        - row_id: finished_linen_output
+          role: "Accepted finished linen article"
+          name: "Finished unstuffed household linen article; UUID unresolved"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "The accepted dry finished article leaves the production boundary as the reference product."
+          amount:
+            expression: "1 kg"
+            value_mode: "foreground_record"
+            specificity: "generic"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_output_mass
+              source_ids: []
+            ranges: []
+      waste:
+        - row_id: cotton_cutting_offcuts
+          role: "Clean cotton fabric cutting offcuts"
+          name: "Clean cotton fabric cutting offcuts; UUID unresolved"
+          flow_type: "waste"
+          property_unit: "Mass / kg"
+          description: "Clean cotton fabric offcuts leave the cutting step as a segregated waste stream."
+          amount:
+            expression: "Segregate and weigh clean cotton fabric offcuts attributable to the represented lot."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_offcuts
+              source_ids: []
+            ranges: []
+      elementary:
+        []
+allocation_rules:
+  - rule_id: allocation_subdivide
+    applies_to: "shared production lines"
+    rule: "First separate lot-specific cutting, sewing, power and material records by article type; document the subdivision."
+    source_ids:
+      - eu-pef-2021
+  - rule_id: allocation_physical
+    applies_to: "remaining shared burdens"
+    rule: "If subdivision is not possible, allocate shared conversion inputs by measured net accepted article mass when this physical relationship explains resource use; disclose rationale and sensitivity."
+    source_ids:
+      - eu-pef-2021
+  - rule_id: allocation_scrap
+    applies_to: "cutting offcuts"
+    rule: "Record offcut mass and fate separately. Do not assume a substitution credit without evidence of actual recovery and displaced product."
+    source_ids:
+      - eu-pef-2021
+dataset_production:
+  collection_protocols:
+    - protocol_id: cp_output_mass
+      process_id: "make_up_linen"
+      flow_role: "accepted output"
+      record_type: "weighing record"
+      raw_fields: "article type; lot; accepted dry net mass; rejected mass; package tare"
+      collection_method: "Calibrated scale; weigh accepted articles without packaging and reconcile dispatch and rejection records."
+      unit: "kg"
+      frequency: "each lot"
+      temporal_coverage: "reporting period"
+      site_scope: "production site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "scale calibration and acceptance log"
+    - protocol_id: cp_materials
+      process_id: "make_up_linen"
+      flow_role: "fabric, thread and boxes"
+      record_type: "stores issue and weighing record"
+      raw_fields: "material identity; lot; issued kg; returned kg; package type"
+      collection_method: "Weigh material issued less returned stock and reconcile stores records."
+      unit: "kg"
+      frequency: "each lot"
+      temporal_coverage: "reporting period"
+      site_scope: "production site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "stock reconciliation and scale record"
+    - protocol_id: cp_energy
+      process_id: "make_up_linen"
+      flow_role: "purchased electricity"
+      record_type: "meter or invoice"
+      raw_fields: "meter id; opening and closing kWh; lot or line hours"
+      collection_method: "Submeter preferred; reconcile site meter or invoice and documented line allocation."
+      unit: "kWh"
+      frequency: "each lot or month"
+      temporal_coverage: "reporting period"
+      site_scope: "production site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "meter calibration or invoice and allocation worksheet"
+    - protocol_id: cp_offcuts
+      process_id: "make_up_linen"
+      flow_role: "clean cotton fabric offcuts"
+      record_type: "segregated waste weighing"
+      raw_fields: "lot; offcut kg; contamination; destination"
+      collection_method: "Segregate clean offcuts and weigh before recovery or disposal."
+      unit: "kg"
+      frequency: "each lot"
+      temporal_coverage: "reporting period"
+      site_scope: "production site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "weighbridge or scale log and transfer record"
+  calculation_rules:
+    - id: normalize_lot
+      applies_to: "cotton_fabric; cotton_sewing_thread; grid_electricity; corrugated_box; cotton_cutting_offcuts"
+      rule: "q_ref = attributable lot exchange quantity / accepted dry net linen mass in kg; retain the exchange numerator unit."
+      inputs:
+        - "lot exchange"
+        - "accepted dry net mass"
+        - cp_output_mass
+      output: "exchange per 1 kg reference flow"
+      source_ids: []
+  data_quality_requirements:
+    - id: dq_identity
+      applies_to: "all rows"
+      requirement: "State article type, fibre composition, fabric finish, material grade, package state and actual waste destination."
+      evidence: "product specification and stock records"
+    - id: dq_balance
+      applies_to: "fabric and product mass"
+      requirement: "Reconcile issued fabric with accepted output, rejects and cutting offcuts; explain any remaining mass difference."
+      evidence: "batch mass-balance worksheet"
+    - id: dq_time
+      applies_to: "all rows"
+      requirement: "Use one declared reporting period and disclose missing or estimated records."
+      evidence: "dated meters, ledgers and acceptance records"
+validation_rules:
+  - rule_id: validate_denominator
+    applies_to: "all inventory rows"
+    rule: "Confirm that each exchange is normalized by accepted dry net article mass, excluding packaging; require positive measured denominator."
+    source_ids: []
+  - rule_id: validate_identity
+    applies_to: "product and material flows"
+    rule: "Check article category, input fabric state and declared fibre composition; an unresolved UUID must not be represented as a verified TianGong flow."
+    source_ids:
+      - unsd-cpc3-2025
+  - rule_id: validate_balance
+    applies_to: "fabric cutting"
+    rule: "Reconcile fabric input, accepted products, rejects and offcuts and explain material loss."
+    source_ids: []
+published_dataset_profile:
+  dataset_role: "Foreground production dataset for made-up household linen"
+  downstream_use: "secondary_dataset; background_dataset after review of representativeness"
+  allowed_use: "Model declared article type and cut-and-sew route with compatible fabric upstream data"
+  excluded_use: "Do not claim a cradle-to-grave footprint, a product-life functional unit, or equivalence across unlike article types without further modelling"
+  required_metadata: "article type; fibre composition; fabric construction and finish; site; period; accepted mass; package state; fabric upstream dataset; unresolved UUID status"
+  required_quality_disclosure: "allocation method; meter coverage; material balance; missing records; offcut fate; geography and technology limits"
+  update_trigger: "changed fabric route, product mix, finishing site, electricity supply, packaging or validated flow identities"
+data_sources:
+  - id: "unsd-cpc3-2025"
+    type: "official_guidance"
+    reference: "UN Statistics Division, CPC Version 3.0 Structure, 30 June 2025, https://unstats.un.org/unsd/classifications/Econ/Download/In%20Text/CPC_Ver_3.0_Structure_30Jun2025.csv"
+    used_for: "product identity and neighbouring category distinctions"
+  - id: "epa-textiles-2008"
+    type: "official_guidance"
+    reference: "U.S. EPA, Quantifying Greenhouse Gas Emissions from Key Industrial Sectors in the United States, May 2008 working draft, https://archive.epa.gov/osem/sectors/web/pdf/greenhouse-report.pdf"
+    used_for: "textile cut-and-sew process typology; no amount benchmark"
+  - id: "eu-pef-2021"
+    type: "official_guidance"
+    reference: "Commission Recommendation (EU) 2021/2279 of 15 December 2021 on the use of the Environmental Footprint methods to measure and communicate the life cycle environmental performance of products and organisations, Official Journal L 471 (30 December 2021), Annex I section 4.5, https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32021H2279"
+    used_for: "multifunctionality and allocation hierarchy"
+projection_metadata:
+  contract_version: "1"
+  generator: "tiangong-pcr-builder/markdown-projection"
+  canonical_markdown:
+    path: "pcr.en-US.md"
+    normalization: "utf8-lf-v1"
+    hash_algorithm: "sha256"
+    sha256: "sha256:bfd3b88586d84eebce9861a8cf571c9cd414b438654584f47c1bf0d5df9f2f4f"
+  generated_content_sha256: "sha256:ce7d26d97e51bb4e8eae964a46f52418e5ea8db8dd282f47b59561e31ed45fca"

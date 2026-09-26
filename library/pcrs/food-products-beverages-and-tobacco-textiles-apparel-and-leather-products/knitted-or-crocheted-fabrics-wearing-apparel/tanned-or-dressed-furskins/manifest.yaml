@@ -2,10 +2,10 @@ schema_version: 1
 id: pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.knitted-or-crocheted-fabrics-wearing-apparel.tanned-or-dressed-furskins
 title:
   en-US: "Tanned or dressed furskins"
-  zh-CN: null
-status: scaffold
+  zh-CN: "鞣制或整饰毛皮"
+status: candidate
 pcr_kind: product_category_rule
-content_maturity: empty_scaffold
+content_maturity: authored_methodology
 domains:
   - "food-products-beverages-and-tobacco-textiles-apparel-and-leather-products"
 modules:
@@ -22,16 +22,52 @@ target_entities:
   - flow
   - process
   - lifecyclemodel
+  - dataset
 languages:
   canonical: en-US
   available:
     - en-US
     - zh-CN
 translation_status:
-  zh-CN: scaffold_pending_translation
+  zh-CN: aligned
 classification_refs:
   - system: CPC
     version: "3.0"
     code: "28310"
     title: "Tanned or dressed furskins"
     mapping_type: exact
+review_metadata:
+  inventory_contract:
+    atomic_flows: v1
+    localized_flow_names: tiangong_zh_v1
+  unresolved:
+    inventory_flow_uuids:
+      - row_id: raw_pelt
+        reason_code: no_exact_candidate
+        explanation: "The finalized task-bound hybrid search did not establish an exact public flow for this physical state and unit."
+      - row_id: potassium_alum
+        reason_code: no_exact_candidate
+        explanation: "The finalized task-bound hybrid search did not establish an exact public flow for this physical state and unit."
+      - row_id: hardwood_sawdust
+        reason_code: no_exact_candidate
+        explanation: "The finalized task-bound hybrid search did not establish an exact public flow for this physical state and unit."
+      - row_id: finished_furskin
+        reason_code: no_exact_candidate
+        explanation: "The finalized task-bound hybrid search did not establish an exact public flow for this physical state and unit."
+      - row_id: fleshing_waste
+        reason_code: no_exact_candidate
+        explanation: "The finalized task-bound hybrid search did not establish an exact public flow for this physical state and unit."
+      - row_id: spent_liquor
+        reason_code: no_exact_candidate
+        explanation: "The finalized task-bound hybrid search did not establish an exact public flow for this physical state and unit."
+    range_evidence_needs:
+      - row_id: raw_pelt
+        need: "Two independent, boundary-compatible original sources for incoming raw pelt mass per kg accepted dressed furskin."
+      - row_id: process_water
+        need: "Two independent, boundary-compatible original sources for wet-process water per kg accepted dressed furskin."
+      - row_id: electricity
+        need: "Two independent, boundary-compatible original sources for electricity per kg accepted dressed furskin."
+      - row_id: finished_furskin
+        need: "Two independent, boundary-compatible original sources for product yield in the same dressing route and market state."
+      - row_id: spent_liquor
+        need: "Two independent, boundary-compatible original sources for effluent volume or mass per kg accepted dressed furskin."

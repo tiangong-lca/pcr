@@ -2,10 +2,11 @@ schema_version: 1
 id: pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.grain-mill-products-starches-and-starch-products-other-food-products.crispbread-rusks-toasted-bread-and-similar-toasted-products
 title:
   en-US: "Crispbread; rusks, toasted bread and similar toasted products"
-  zh-CN: null
-status: scaffold
+  zh-CN: "脆面包、面包干、烤面包及类似烘烤制品"
+version: "0.1.0"
+status: candidate
 pcr_kind: product_category_rule
-content_maturity: empty_scaffold
+content_maturity: authored_methodology
 domains:
   - "food-products-beverages-and-tobacco-textiles-apparel-and-leather-products"
 modules:
@@ -22,16 +23,43 @@ target_entities:
   - flow
   - process
   - lifecyclemodel
+  - dataset
 languages:
   canonical: en-US
   available:
     - en-US
     - zh-CN
 translation_status:
-  zh-CN: scaffold_pending_translation
+  zh-CN: aligned
 classification_refs:
   - system: CPC
     version: "3.0"
     code: "23410"
     title: "Crispbread; rusks, toasted bread and similar toasted products"
     mapping_type: exact
+review_metadata:
+  inventory_contract:
+    atomic_flows: v1
+    localized_flow_names: tiangong_zh_v1
+  unresolved:
+    inventory_flow_uuids:
+      - row_id: yeast
+        reason_code: no_exact_candidate
+        explanation: "The fresh food-grade baker yeast query returned dried yeast, extracts, feed yeast and an unqualified chemical-classified yeast."
+      - row_id: purchased_bread
+        reason_code: no_exact_candidate
+        explanation: "The rusk bread query returned only puffed food, which is not baked bread."
+      - row_id: crispbread
+        reason_code: no_exact_candidate
+        explanation: "No public exact crispbread product flow was returned; puffed food and biscuits are different CPC products."
+      - row_id: rusk
+        reason_code: no_exact_candidate
+        explanation: "No public exact finished rusk product flow was returned by the crispbread and bread searches."
+      - row_id: toasted_bread
+        reason_code: no_exact_candidate
+        explanation: "No public exact finished toasted bread flow was returned by the product searches."
+      - row_id: bread_reject
+        reason_code: no_exact_candidate
+        explanation: "Waste results were generic solid waste, residue, food debris, hazardous waste or paper sheet waste, not rejected baked bread."
+    range_evidence_needs:
+      - "Obtain at least two independent, boundary-compatible original sources for flour yield, baking and secondary toasting energy, rejected bread, and packaging mass before authoring empirical ranges; collect all foreground quantities meanwhile."

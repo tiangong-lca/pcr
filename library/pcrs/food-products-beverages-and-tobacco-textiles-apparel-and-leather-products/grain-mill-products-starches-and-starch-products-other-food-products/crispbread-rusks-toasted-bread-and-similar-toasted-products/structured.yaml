@@ -1,10 +1,478 @@
 schema_version: 1
-status: scaffold
-classification_seed:
-  system: CPC
-  version: "3.0"
-  code: "23410"
-  title: "Crispbread; rusks, toasted bread and similar toasted products"
-reference_flows: []
-inventory_patterns: []
-qa_rules: []
+generated_from: markdown
+source_markdown: pcr.en-US.md
+product_category_identity:
+  canonical_pcr_id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.grain-mill-products-starches-and-starch-products-other-food-products.crispbread-rusks-toasted-bread-and-similar-toasted-products"
+  classification_refs: "CPC 3.0: 23410"
+  covered_products: "Crispbread; rusks, toasted bread and similar toasted products"
+  excluded_products: "ordinary soft bread; biscuits; ordinary bread without final toasting"
+  representative_product: "finished rye crispbread"
+  production_route: "declared direct bake-and-dry crispbread route, or first-bake, slice, and second-toast rusk/toasted-bread route"
+  market_state: "declare moisture, crisp texture, packaging state and at-gate mass"
+functional_unit:
+  what: "provide edible dry crisp bakery product"
+  how_much: "1 kg accepted finished product net mass"
+  how_well: "declare product type, moisture and crisp quality specification"
+  how_long_or_cycle: "one at-gate delivery; no assumed storage life"
+  reference_flow_link: "crispbread"
+system_boundary:
+  rules:
+    - rule_id: boundary_first_bake
+      applies_to: "all inventory rows"
+      rule: "Include attributable in-house first baking and secondary toasting/drying; represent externally baked bread as a purchased input without repeating its off-site first bake."
+      source_ids:
+        - toxins-2015-rusk
+    - rule_id: boundary_finished_state
+      applies_to: "finished product"
+      rule: "Only accepted product in its declared dry crisp market state enters the 1 kg reference amount; exclude packaging mass from food net mass."
+      source_ids:
+        - un-cpc-3-2025
+boundary_abstraction:
+  declared_starting_condition: "Declare whether grain flour or purchased already-baked bread enters the foreground and its source state."
+  starting_condition_role: "upstream boundary for ingredient or already-baked intermediate"
+  product_classification_scope: "CPC 3.0 23410 finished product; ordinary bread input retains its original product identity"
+  recursive_input_rule: "Meter and disclose same-category rework separately; do not count one physical quantity as both new input and final output."
+  upstream_dataset_requirement: "Link purchased flour, bread, fuel, electricity and packaging inputs to their respective upstream datasets."
+  disclosure: "Disclose moisture, route, purchased-bread share, losses and packaging state."
+reference_flow_definition:
+  reference_amount: "1"
+  product_flow_ref:
+    name: "Finished rye crispbread"
+    uuid: ""
+  flow_property_ref:
+    uuid: "93a60a56-a3c8-11da-a746-0800200b9a66"
+  unit_group_ref:
+    uuid: "93a60a57-a4c8-11da-a746-0800200c9a66"
+  reference_unit: "kg"
+  required_qualifiers:
+    - "product type"
+    - "source grain"
+    - "first-bake and second-toast/drying route"
+    - moisture
+    - "packaging state"
+    - "factory gate"
+reference_flows:
+  []
+measurement_rules:
+  - id: reference_mass
+    applies_to: "reference product"
+    required_property_ref:
+      name: "Mass"
+      uuid: ""
+    required_unit: "kg"
+    rule: "Use a calibrated scale or traceable batch weighing record for accepted finished net mass in the declared market state, excluding packaging."
+  - id: electricity_conversion
+    applies_to: "electricity"
+    required_property_ref:
+      name: "Net calorific value"
+      uuid: ""
+    required_unit: "MJ"
+    rule: "Convert metered kWh to MJ by multiplying by 3.6; retain original meter records."
+process_map:
+  - id: base_make
+    name: "Dough making and first bake"
+    inclusion: "conditional"
+    inclusion_condition: "in-house crispbread or in-house first-baked bread for rusks"
+    role: "foreground ingredients and first bake"
+    quantitative_reference: "per 1 kg reference flow"
+  - id: toast_dry
+    name: "Secondary toasting or drying and cooling"
+    inclusion: "required"
+    inclusion_condition: "all covered products; declare actual heat-treatment route"
+    role: "finish product and losses"
+    quantitative_reference: "per 1 kg reference flow"
+  - id: packing
+    name: "Primary packing"
+    inclusion: "conditional"
+    inclusion_condition: "only when declared packaged market state uses polyethylene film"
+    role: "packaging input"
+    quantitative_reference: "per 1 kg reference flow"
+process_inventory:
+  - id: base_make
+    label: "Dough making and first bake"
+    inputs:
+      product:
+        - row_id: flour
+          role: "Flour"
+          name: "Flour"
+          flow_type: "product"
+          flow_ref:
+            uuid: "67b80ae5-687f-418a-84ba-f06b01a6139b"
+          property_unit: "Mass / kg"
+          description: "Inclusion condition: When dough is made in-house."
+          amount:
+            expression: "Record flour mass by grain and milling specification."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_base
+              source_ids:
+                - mustafa-2008-crispbread
+            ranges: []
+        - row_id: water
+          role: "Tap water"
+          name: "Tap water"
+          flow_type: "product"
+          flow_ref:
+            uuid: "d1e0e36c-07f0-4a75-bdcb-efb5d9e2ac36"
+          property_unit: "Mass / kg"
+          description: "Inclusion condition: When dough is made in-house."
+          amount:
+            expression: "Record water charged to dough; convert metered volume using documented density."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_base
+              source_ids:
+                - mustafa-2008-crispbread
+            ranges: []
+        - row_id: yeast
+          role: "Fresh baker yeast"
+          name: "Fresh baker yeast"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Inclusion condition: Only when the recipe uses fresh yeast."
+          amount:
+            expression: "Record fresh baker yeast added to leavened dough."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_base
+              source_ids:
+                - mustafa-2008-crispbread
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        []
+      waste:
+        []
+      elementary:
+        []
+  - id: toast_dry
+    label: "Secondary toasting or drying and cooling"
+    inputs:
+      product:
+        - row_id: purchased_bread
+          role: "Plain baked bread for rusks"
+          name: "Plain baked bread for rusks"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Inclusion condition: Only for rusks made from externally supplied bread; omit in-house intermediate transfers."
+          amount:
+            expression: "Record purchased baked bread entering slicing and second toasting."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_heat
+              source_ids:
+                - toxins-2015-rusk
+            ranges: []
+        - row_id: electricity
+          role: "Electricity"
+          name: "Electricity"
+          flow_type: "product"
+          flow_ref:
+            uuid: "b989a649-ca09-44b8-abab-a069148d0b1e"
+          property_unit: "Net calorific value / MJ"
+          description: "Inclusion condition: When electrical ovens, fans, conveyors, or controls operate."
+          amount:
+            expression: "Record attributable electricity; convert kWh to MJ using 3.6 MJ/kWh."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_heat
+              source_ids: []
+            ranges: []
+        - row_id: natural_gas
+          role: "Pipeline-quality natural gas"
+          name: "Pipeline-quality natural gas"
+          flow_type: "product"
+          flow_ref:
+            uuid: "7766e51e-0b64-4fbb-89cb-489c33293137"
+          property_unit: "Volume / m3"
+          description: "Inclusion condition: Only for natural-gas-fired equipment."
+          amount:
+            expression: "Record metered natural gas volume for baking and toasting/drying."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_heat
+              source_ids: []
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        - row_id: crispbread
+          role: "Finished rye crispbread"
+          name: "Finished rye crispbread"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Inclusion condition: Only for the crispbread route."
+          amount:
+            expression: "1 kg"
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_output
+              source_ids:
+                - un-cpc-3-2025
+            ranges: []
+        - row_id: rusk
+          role: "Finished rusk"
+          name: "Finished rusk"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Inclusion condition: Only for the rusk route."
+          amount:
+            expression: "Record 1 kg accepted rusk after second toasting."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_output
+              source_ids:
+                - toxins-2015-rusk
+            ranges: []
+        - row_id: toasted_bread
+          role: "Finished toasted bread"
+          name: "Finished toasted bread"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Inclusion condition: Only for the toasted-bread route."
+          amount:
+            expression: "Record 1 kg accepted toasted bread after final toasting."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_output
+              source_ids:
+                - un-cpc-3-2025
+            ranges: []
+      waste:
+        - row_id: bread_reject
+          role: "Rejected baked bread"
+          name: "Rejected baked bread"
+          flow_type: "waste"
+          property_unit: "Mass / kg"
+          description: "Inclusion condition: When rejects leave the product system."
+          amount:
+            expression: "Weigh rejected bread separately from accepted product and document destination."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_output
+              source_ids: []
+            ranges: []
+      elementary:
+        []
+  - id: packing
+    label: "Primary packing"
+    inputs:
+      product:
+        - row_id: pe_film
+          role: "Polyethylene film"
+          name: "Polyethylene film"
+          flow_type: "product"
+          flow_ref:
+            uuid: "e64eb06c-6dc9-45f1-b003-3dc6c44b27e2"
+          property_unit: "Mass / kg"
+          description: "Inclusion condition: Only when the declared market state uses polyethylene film."
+          amount:
+            expression: "Record primary polyethylene film used per accepted product mass."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_pack
+              source_ids: []
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        []
+      waste:
+        []
+      elementary:
+        []
+allocation_rules:
+  - rule_id: allocation_rework
+    applies_to: "all inventory rows"
+    rule: "Prefer batch and product direct measurement. If a saleable co-product exists, record mass and destination and disclose any allocation separately; rejected waste is not accepted product."
+    source_ids: []
+  - rule_id: allocation_shared_energy
+    applies_to: "electricity; natural_gas"
+    rule: "Attribute shared oven and dryer utilities using submetering or verifiable operating time first; disclose unresolved shared quantities."
+    source_ids: []
+dataset_production:
+  collection_protocols:
+    - protocol_id: cp_base
+      process_id: "base_make"
+      flow_role: "flour; water; yeast"
+      record_type: "batch weigh and recipe records"
+      raw_fields: "batch id; ingredient mass; grain type; product output mass"
+      collection_method: "calibrated scales and ingredient issue records"
+      unit: "kg"
+      frequency: "each batch"
+      temporal_coverage: "representative continuous production period"
+      site_scope: "production site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "calibration, batch and purchase evidence"
+    - protocol_id: cp_heat
+      process_id: "toast_dry"
+      flow_role: "purchased_bread; electricity; natural_gas"
+      record_type: "purchase and meter records"
+      raw_fields: "bread mass; kWh; gas m3; product output mass"
+      collection_method: "purchase weights and dedicated meters or documented allocation"
+      unit: "kg; MJ; m3"
+      frequency: "each batch or continuous"
+      temporal_coverage: "representative continuous production period"
+      site_scope: "production site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "calibration, batch and purchase evidence"
+    - protocol_id: cp_output
+      process_id: "toast_dry"
+      flow_role: "crispbread; rusk; toasted_bread; bread_reject"
+      record_type: "accepted and reject weigh records"
+      raw_fields: "product type; accepted net mass; reject mass; moisture; destination"
+      collection_method: "calibrated net weighing after cooling and final drying"
+      unit: "kg"
+      frequency: "each batch"
+      temporal_coverage: "representative continuous production period"
+      site_scope: "production site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "calibration, batch and purchase evidence"
+    - protocol_id: cp_pack
+      process_id: "packing"
+      flow_role: "pe_film"
+      record_type: "material issue records"
+      raw_fields: "film grade; film mass; accepted output mass"
+      collection_method: "weigh film issued and reconcile returns and scrap"
+      unit: "kg"
+      frequency: "each batch"
+      temporal_coverage: "representative continuous production period"
+      site_scope: "production site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "calibration, batch and purchase evidence"
+  calculation_rules:
+    - id: normalize_batch
+      applies_to: "all inventory rows"
+      rule: "q_ref = q_batch / m_accepted; q_batch is the measured exchange in the covered batch; m_accepted is accepted finished net food mass in kg."
+      inputs:
+        - q_batch
+        - m_accepted
+        - cp_output
+      output: "q_ref"
+      source_ids: []
+    - id: electricity_mj
+      applies_to: "electricity"
+      rule: "MJ = kWh × 3.6"
+      inputs:
+        - kWh
+        - cp_heat
+      output: "MJ"
+      source_ids: []
+  data_quality_requirements:
+    - id: dq_route
+      applies_to: "all inventory rows"
+      requirement: "Declare product type, ingredients, purchased bread status and first-bake/second-toast state."
+      evidence: "batch recipe and purchase record"
+    - id: dq_mass
+      applies_to: "finished product"
+      requirement: "Weigh accepted product, rejects and packaging separately; moisture must match the at-gate state."
+      evidence: "calibration, quality and packaging records"
+validation_rules:
+  - rule_id: validate_reference
+    applies_to: "finished product"
+    rule: "Accepted finished food net mass is the denominator of the 1 kg reference; exclude packaging and rejected bread."
+    source_ids: []
+  - rule_id: validate_route
+    applies_to: "all inventory rows"
+    rule: "Check declared secondary toasting/drying, purchased bread and in-house first-bake conditions; do not double-count intermediate bread."
+    source_ids:
+      - toxins-2015-rusk
+  - rule_id: validate_missing
+    applies_to: "all inventory rows"
+    rule: "Keep unresolved product and waste UUIDs explicit; do not substitute nearby database flows."
+    source_ids: []
+published_dataset_profile:
+  dataset_role: "accepted finished product foreground data package"
+  downstream_use: "secondary_dataset; background_dataset"
+  allowed_use: "model crispbread, rusk or toasted bread only for the declared route and market state"
+  excluded_use: "ordinary soft bread, biscuits or other untoasted products"
+  required_metadata: "product type; grain; route; moisture; packaging; site; period; factory gate"
+  required_quality_disclosure: "metering, allocation, rejects and unresolved UUIDs"
+  update_trigger: "change in ingredients, route, toasting process, packaging or moisture"
+data_sources:
+  - id: "un-cpc-3-2025"
+    type: "official_guidance"
+    reference: "UN Statistics Division, CPC Version 3.0 Structure, 30 June 2025. https://unstats.un.org/unsd/classifications/Econ/Download/In%20Text/CPC_Ver_3.0_Structure_30Jun2025.csv"
+    used_for: "product classification identity"
+  - id: "mustafa-2008-crispbread"
+    type: "literature"
+    reference: "Arwa Mustafa, Acrylamide in Bread: Precursors, Formation and Reduction, 2008 thesis, §2.2. https://pub.epsilon.slu.se/1789/1/Arwa_Mustafa_thesis_08.pdf"
+    used_for: "crispbread bake-and-dry stages; laboratory case only"
+  - id: "toxins-2015-rusk"
+    type: "literature"
+    reference: "Deoxynivalenol & Deoxynivalenol-3-Glucoside Mitigation through Bakery Production Strategies: Effective Experimental Design within Industrial Rusk-Making Technology, Toxins 7 (2015), 2773–2790. https://mdpi-res.com/d_attachment/toxins/toxins-07-02773/article_deploy/toxins-07-02773.pdf"
+    used_for: "rusk first bake, slicing and second toast sequence"
+projection_metadata:
+  contract_version: "1"
+  generator: "tiangong-pcr-builder/markdown-projection"
+  canonical_markdown:
+    path: "pcr.en-US.md"
+    normalization: "utf8-lf-v1"
+    hash_algorithm: "sha256"
+    sha256: "sha256:a16b97d2977afd0fa9f01077aad7fc35cd5ead0f7a5e1284161b8751b11d8c73"
+  generated_content_sha256: "sha256:89a71abc1edf20ef0290da0a52e106a1ceec4b8ddb685aada1107f3085c407d4"

@@ -2,12 +2,12 @@ schema_version: 1
 id: pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.knitted-or-crocheted-fabrics-wearing-apparel.gloves-shawls-scarves-veils-ties-cravats-and-other-made-up-clothing-accessories-knitted-9984ae4f
 title:
   en-US: "Gloves, shawls, scarves, veils, ties, cravats and other made-up clothing accessories, knitted or crocheted; knitted or crocheted parts of garments or of clothing accessories"
-  zh-CN: null
-status: scaffold
+  zh-CN: "针织或钩编的手套、披肩、围巾、面纱、领带、领结及其他制成服装附件；针织或钩编的服装或服装附件零件"
+status: candidate
 pcr_kind: product_category_rule
-content_maturity: empty_scaffold
+content_maturity: authored_methodology
 domains:
-  - "food-products-beverages-and-tobacco-textiles-apparel-and-leather-products"
+  - food-products-beverages-and-tobacco-textiles-apparel-and-leather-products
 modules:
   core:
     - pcr-minimum-content
@@ -22,16 +22,62 @@ target_entities:
   - flow
   - process
   - lifecyclemodel
+  - dataset
 languages:
   canonical: en-US
   available:
     - en-US
     - zh-CN
 translation_status:
-  zh-CN: scaffold_pending_translation
+  zh-CN: aligned
 classification_refs:
   - system: CPC
     version: "3.0"
     code: "28229"
     title: "Gloves, shawls, scarves, veils, ties, cravats and other made-up clothing accessories, knitted or crocheted; knitted or crocheted parts of garments or of clothing accessories"
     mapping_type: exact
+review_metadata:
+  inventory_contract:
+    atomic_flows: v1
+    localized_flow_names: tiangong_zh_v1
+  unresolved:
+    inventory_flow_uuids:
+      - row_id: cotton_knitting_yarn_input
+        reason_code: no_exact_candidate
+        explanation: "No public state-100 exact flow was established for Unsized cotton knitting yarn; nearby candidates differ in classification, composition, state, or unit."
+      - row_id: knitting_electricity_input
+        reason_code: no_exact_candidate
+        explanation: "No public state-100 exact flow was established for Purchased alternating-current electricity for knitting; nearby candidates differ in classification, composition, state, or unit."
+      - row_id: knitted_cotton_panel_output
+        reason_code: internal_intermediate_needs_new_flow
+        explanation: "Internal foreground transfer; a dedicated flow for the exact intermediate state and composition is needed."
+      - row_id: knitted_cotton_panel_input
+        reason_code: internal_intermediate_needs_new_flow
+        explanation: "Internal foreground transfer; a dedicated flow for the exact intermediate state and composition is needed."
+      - row_id: purchased_knitted_cotton_fabric_input
+        reason_code: no_exact_candidate
+        explanation: "No public state-100 exact flow was established for Purchased uncoated knitted cotton fabric; nearby candidates differ in classification, composition, state, or unit."
+      - row_id: polyester_sewing_thread_input
+        reason_code: no_exact_candidate
+        explanation: "No public state-100 exact flow was established for Polyester sewing thread; nearby candidates differ in classification, composition, state, or unit."
+      - row_id: assembly_electricity_input
+        reason_code: no_exact_candidate
+        explanation: "No public state-100 exact flow was established for Purchased alternating-current electricity for assembly; nearby candidates differ in classification, composition, state, or unit."
+      - row_id: cotton_knit_offcuts_output
+        reason_code: no_exact_candidate
+        explanation: "No public state-100 exact flow was established for Clean knitted cotton cutting offcuts; nearby candidates differ in classification, composition, state, or unit."
+      - row_id: assembled_accessory_output
+        reason_code: internal_intermediate_needs_new_flow
+        explanation: "Internal foreground transfer; a dedicated flow for the exact intermediate state and composition is needed."
+      - row_id: assembled_accessory_input
+        reason_code: internal_intermediate_needs_new_flow
+        explanation: "Internal foreground transfer; a dedicated flow for the exact intermediate state and composition is needed."
+      - row_id: ldpe_film_input
+        reason_code: no_exact_candidate
+        explanation: "No public state-100 exact flow was established for Low-density polyethylene packaging film; nearby candidates differ in classification, composition, state, or unit."
+      - row_id: finished_accessory_output
+        reason_code: no_exact_candidate
+        explanation: "No public state-100 exact flow was established for Accepted knitted or crocheted clothing accessory or garment part at factory gate; nearby candidates differ in classification, composition, state, or unit."
+    range_evidence_needs:
+      - row_ids: [cotton_knitting_yarn_input, purchased_knitted_cotton_fabric_input, knitting_electricity_input, assembly_electricity_input, cotton_knit_offcuts_output]
+        explanation: "No two independent original-text observations with compatible accessory product state, factory-gate boundary and per-kg basis were verified; collect site values."

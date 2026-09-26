@@ -1,13 +1,13 @@
 schema_version: 1
 id: pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.textile-articles-other-than-apparel.bed-linen-table-linen-toilet-linen-and-kitchen-linen
 title:
-  en-US: "Bed linen, table linen, toilet linen and kitchen linen"
-  zh-CN: null
-status: scaffold
+  en-US: Bed linen, table linen, toilet linen and kitchen linen
+  zh-CN: 床上、餐桌、盥洗及厨房用织物制品
+status: candidate
 pcr_kind: product_category_rule
-content_maturity: empty_scaffold
+content_maturity: authored_methodology
 domains:
-  - "food-products-beverages-and-tobacco-textiles-apparel-and-leather-products"
+  - food-products-beverages-and-tobacco-textiles-apparel-and-leather-products
 modules:
   core:
     - pcr-minimum-content
@@ -22,16 +22,44 @@ target_entities:
   - flow
   - process
   - lifecyclemodel
+  - dataset
 languages:
   canonical: en-US
   available:
     - en-US
     - zh-CN
 translation_status:
-  zh-CN: scaffold_pending_translation
+  zh-CN: aligned
 classification_refs:
   - system: CPC
-    version: "3.0"
-    code: "27120"
-    title: "Bed linen, table linen, toilet linen and kitchen linen"
+    version: '3.0'
+    code: '27120'
+    title: Bed linen, table linen, toilet linen and kitchen linen
     mapping_type: exact
+review_metadata:
+  inventory_contract:
+    atomic_flows: v1
+    localized_flow_names: tiangong_zh_v1
+  unresolved:
+    inventory_flow_uuids:
+      - row_id: cotton_sewing_thread
+        reason_code: no_exact_candidate
+        explanation: Ranked public candidates are yarn excluding sewing thread, generic yarn, or fabric; no exact cotton sewing thread identity.
+      - row_id: grid_electricity
+        reason_code: property_or_unit_mismatch
+        explanation: Electricity candidates use net calorific value in MJ or represent a service or cable, not the metered kWh exchange.
+      - row_id: finished_linen_output
+        reason_code: no_exact_candidate
+        explanation: Finished linen product-flow candidates in English and Chinese queries were other textile fabrics, stuffed bedding, blankets, paper, or unrelated goods; no exact public flow.
+      - row_id: cotton_cutting_offcuts
+        reason_code: no_exact_candidate
+        explanation: Textile solid waste is too broad and stained cotton or construction waste is a different stream; clean cotton cutting offcuts remain unresolved.
+    range_evidence_needs:
+      - row_id: cotton_fabric
+        explanation: Two independent original-text sources with compatible cut-and-sew, dry finished linen and per-kg basis were not established; collect site records before deriving a benchmark.
+      - row_id: cotton_sewing_thread
+        explanation: Two independent original-text sources with compatible cut-and-sew, dry finished linen and per-kg basis were not established; collect site records before deriving a benchmark.
+      - row_id: grid_electricity
+        explanation: Two independent original-text sources with compatible cut-and-sew, dry finished linen and per-kg basis were not established; collect site records before deriving a benchmark.
+      - row_id: cotton_cutting_offcuts
+        explanation: Two independent original-text sources with compatible cut-and-sew, dry finished linen and per-kg basis were not established; collect site records before deriving a benchmark.

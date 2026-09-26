@@ -1,10 +1,371 @@
 schema_version: 1
-status: scaffold
-classification_seed:
-  system: CPC
-  version: "3.0"
-  code: "21159"
-  title: "Edible offal of mammals, fresh, chilled or frozen, n.e.c."
-reference_flows: []
-inventory_patterns: []
-qa_rules: []
+generated_from: markdown
+source_markdown: pcr.en-US.md
+product_category_identity:
+  canonical_pcr_id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.meat-fish-fruits-vegetables-oils-and-fats.edible-offal-of-mammals-fresh-chilled-or-frozen-n-e-c"
+  classification_refs: "CPC 3.0: 21159"
+  covered_products: "Fresh, chilled or frozen edible offal of camelids, other unlisted ruminants, equines, rabbits and hares, and other unlisted mammals"
+  excluded_products: "Cattle, buffalo, pig, sheep and goat offal; poultry, reptile and other non-mammal offal; inedible offal; salted, dried, smoked or otherwise prepared products"
+  representative_product: "Fresh camel liver, illustrative only; actual species and organ must be declared"
+  production_route: "Post-mortem edible acceptance, sorting, washing, any required chilling or freezing, and dispatch"
+  market_state: "Fresh, chilled or frozen; each dataset declares its actual state"
+functional_unit:
+  what: "Accepted edible offal of a residual mammalian species"
+  how_much: "1 kg"
+  how_well: "At the declared edible quality, organ and temperature state"
+  how_long_or_cycle: "One dispatch lot at the plant gate; no service life"
+  reference_flow_link: "finished_offal"
+system_boundary:
+  rules:
+    - rule_id: boundary_gate
+      applies_to: "foreground"
+      rule: "From receipt after post-mortem edible acceptance through product dispatch; include sorting, washing, cold conditioning and attributable waste."
+      source_ids:
+        - cpc30-notes
+        - fao-animal-food-2009
+    - rule_id: upstream_link
+      applies_to: "incoming_offal"
+      rule: "Link traceable slaughter and livestock upstream datasets to incoming offal and disclose their allocation method."
+      source_ids: []
+    - rule_id: exclude_downstream
+      applies_to: "foreground"
+      rule: "Retail, cooking and consumer use are outside this plant-gate boundary."
+      source_ids: []
+boundary_abstraction:
+  declared_starting_condition: "Unwashed offal accepted as edible after post-mortem inspection, with its source slaughter operation"
+  starting_condition_role: "Traceable incoming-material gate"
+  product_classification_scope: "CPC 3.0 21159, qualified by actual species, organ and state"
+  recursive_input_rule: "Record purchased same-category offal as a separate input linked to an upstream dataset; do not count it again as this process output"
+  upstream_dataset_requirement: "Traceable slaughter and livestock datasets with disclosed offal co-product allocation"
+  disclosure: "Disclose receipt state, species, organ, exclusions and upstream data gaps"
+reference_flow_definition:
+  reference_amount: "1"
+  product_flow_ref:
+    name: "Edible offal of mammals, fresh, chilled or frozen, n.e.c."
+    uuid: ""
+  flow_property_ref:
+    uuid: "93a60a56-a3c8-11da-a746-0800200b9a66"
+  unit_group_ref:
+    uuid: "93a60a57-a4c8-11da-a746-0800200c9a66"
+  reference_unit: "kg"
+  required_qualifiers:
+    - species
+    - organ
+    - "fresh/chilled/frozen state"
+    - "post-mortem acceptance"
+    - "site and period"
+    - "upstream dataset and its allocation method"
+reference_flows:
+  []
+measurement_rules:
+  - id: reference_mass
+    applies_to: "reference product"
+    required_property_ref:
+      name: "Mass"
+      uuid: ""
+    required_unit: "kg"
+    rule: "Reference product is net accepted edible mass from the same lot; weigh under cp_output and normalize per 1 kg accepted dispatch."
+  - id: electricity_conversion
+    applies_to: "electricity"
+    required_property_ref:
+      name: "Net calorific value"
+      uuid: ""
+    required_unit: "MJ"
+    rule: "Convert metered kWh to selected-flow MJ using 1 kWh = 3.6 MJ; preserve raw kWh records."
+process_map:
+  - id: offal_conditioning
+    name: "Post-acceptance offal conditioning"
+    inclusion: "required"
+    inclusion_condition: "all covered lots"
+    role: "Sorting, washing and necessary cold conditioning"
+    quantitative_reference: "per 1 kg accepted dispatched offal"
+process_inventory:
+  - id: offal_conditioning
+    label: "Post-acceptance offal conditioning"
+    inputs:
+      product:
+        - row_id: incoming_offal
+          role: "Unwashed edible mammalian offal, fresh, n.e.c."
+          name: "Unwashed edible mammalian offal, fresh, n.e.c."
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Record the weighed incoming edible offal lot before washing or trimming, with species and organ identified."
+          amount:
+            expression: "Collect actual amount under cp_incoming; normalize per 1 kg accepted dispatched offal."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_incoming
+              source_ids:
+                - cpc30-notes
+            ranges: []
+        - row_id: tap_water
+          role: "Tap water"
+          name: "Tap water"
+          flow_type: "product"
+          flow_ref:
+            uuid: "3a8411b6-e476-4f98-9d77-0d492661a07f"
+          property_unit: "Volume / m3"
+          description: "Meter tap water used for offal washing and equipment sanitation; separate other facility uses."
+          amount:
+            expression: "Collect actual amount under cp_water; normalize per 1 kg accepted dispatched offal."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_water
+              source_ids:
+                - fao-animal-food-2009
+            ranges: []
+        - row_id: electricity
+          role: "Electricity"
+          name: "Electricity"
+          flow_type: "product"
+          flow_ref:
+            uuid: "b989a649-ca09-44b8-abab-a069148d0b1e"
+          property_unit: "Net calorific value / MJ"
+          description: "Record attributable electricity for handling and cold conditioning, with metered kWh converted to MJ."
+          amount:
+            expression: "Collect actual amount under cp_electricity; normalize per 1 kg accepted dispatched offal."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_electricity
+              source_ids:
+                - fao-animal-food-2009
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        - row_id: finished_offal
+          role: "Edible offal of mammals, fresh, chilled or frozen, n.e.c."
+          name: "Edible offal of mammals, fresh, chilled or frozen, n.e.c."
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Weigh accepted edible offal at the declared fresh, chilled, or frozen dispatch state."
+          amount:
+            expression: "1 kg"
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_output
+              source_ids:
+                - cpc30-notes
+                - fao-animal-food-2009
+            ranges: []
+      waste:
+        - row_id: rejected_offal
+          role: "Rejected edible mammalian offal from sorting"
+          name: "Rejected edible mammalian offal from sorting"
+          flow_type: "waste"
+          property_unit: "Mass / kg"
+          description: "Weigh the rejected offal stream separately from accepted product and other slaughter waste."
+          amount:
+            expression: "Collect actual amount under cp_reject; normalize per 1 kg accepted dispatched offal."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_reject
+              source_ids:
+                - fao-animal-food-2009
+            ranges: []
+        - row_id: cleaning_effluent
+          role: "Wastewater from cleaning"
+          name: "Wastewater from cleaning"
+          flow_type: "waste"
+          flow_ref:
+            uuid: "f0402393-e82c-47e8-9cd8-a486c97f3e89"
+          property_unit: "Mass / kg"
+          description: "Measure cleaning effluent delivered to treatment, excluding uncontaminated runoff and sanitary sewage."
+          amount:
+            expression: "Collect actual amount under cp_effluent; normalize per 1 kg accepted dispatched offal."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_effluent
+              source_ids:
+                - fao-animal-food-2009
+            ranges: []
+      elementary:
+        []
+allocation_rules:
+  - rule_id: separate_lots
+    applies_to: "foreground"
+    rule: "Prefer separately metered lots and equipment; do not pool species, organs or market states without disclosure."
+    source_ids: []
+  - rule_id: shared_utilities
+    applies_to: "foreground"
+    rule: "For unmetered shared washing and cold-conditioning inputs, allocate by processed wet mass of accepted lots in the same period; disclose denominator and coverage."
+    source_ids: []
+  - rule_id: upstream_allocation
+    applies_to: "upstream"
+    rule: "Carry through verified slaughter-dataset offal co-product allocation and disclose it; do not invent slaughter allocation factors."
+    source_ids: []
+dataset_production:
+  collection_protocols:
+    - protocol_id: cp_incoming
+      process_id: "offal_conditioning"
+      flow_role: "incoming_offal"
+      record_type: "lot or meter record"
+      raw_fields: "lot; species; organ; state; meter or scale reading; timestamp"
+      collection_method: "Use traceable scale, flow meter or electricity meter; reconcile lot and separate meter boundary"
+      unit: "kg"
+      frequency: "each lot and monthly aggregation"
+      temporal_coverage: "all accepted lots in reporting period"
+      site_scope: "same-site processing line"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "calibration, lot mass reconciliation and original meter logs"
+    - protocol_id: cp_water
+      process_id: "offal_conditioning"
+      flow_role: "tap_water"
+      record_type: "lot or meter record"
+      raw_fields: "lot; species; organ; state; meter or scale reading; timestamp"
+      collection_method: "Use traceable scale, flow meter or electricity meter; reconcile lot and separate meter boundary"
+      unit: "m3"
+      frequency: "each lot and monthly aggregation"
+      temporal_coverage: "all accepted lots in reporting period"
+      site_scope: "same-site processing line"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "calibration, lot mass reconciliation and original meter logs"
+    - protocol_id: cp_electricity
+      process_id: "offal_conditioning"
+      flow_role: "electricity"
+      record_type: "lot or meter record"
+      raw_fields: "lot; species; organ; state; meter or scale reading; timestamp"
+      collection_method: "Use traceable scale, flow meter or electricity meter; reconcile lot and separate meter boundary"
+      unit: "MJ"
+      frequency: "each lot and monthly aggregation"
+      temporal_coverage: "all accepted lots in reporting period"
+      site_scope: "same-site processing line"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "calibration, lot mass reconciliation and original meter logs"
+    - protocol_id: cp_output
+      process_id: "offal_conditioning"
+      flow_role: "finished_offal"
+      record_type: "lot or meter record"
+      raw_fields: "lot; species; organ; state; meter or scale reading; timestamp"
+      collection_method: "Use traceable scale, flow meter or electricity meter; reconcile lot and separate meter boundary"
+      unit: "kg"
+      frequency: "each lot and monthly aggregation"
+      temporal_coverage: "all accepted lots in reporting period"
+      site_scope: "same-site processing line"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "calibration, lot mass reconciliation and original meter logs"
+    - protocol_id: cp_reject
+      process_id: "offal_conditioning"
+      flow_role: "rejected_offal"
+      record_type: "lot or meter record"
+      raw_fields: "lot; species; organ; state; meter or scale reading; timestamp"
+      collection_method: "Use traceable scale, flow meter or electricity meter; reconcile lot and separate meter boundary"
+      unit: "kg"
+      frequency: "each lot and monthly aggregation"
+      temporal_coverage: "all accepted lots in reporting period"
+      site_scope: "same-site processing line"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "calibration, lot mass reconciliation and original meter logs"
+    - protocol_id: cp_effluent
+      process_id: "offal_conditioning"
+      flow_role: "cleaning_effluent"
+      record_type: "lot or meter record"
+      raw_fields: "lot; species; organ; state; meter or scale reading; timestamp"
+      collection_method: "Use traceable scale, flow meter or electricity meter; reconcile lot and separate meter boundary"
+      unit: "kg"
+      frequency: "each lot and monthly aggregation"
+      temporal_coverage: "all accepted lots in reporting period"
+      site_scope: "same-site processing line"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "calibration, lot mass reconciliation and original meter logs"
+  calculation_rules:
+    - id: normalize_lot
+      applies_to: "all inventory rows"
+      rule: "q_ref = q_period / m_accepted; q_period is measured period total for each row; m_accepted is accepted net product mass (kg) in the same period from cp_output."
+      inputs:
+        - q_period
+        - m_accepted
+        - cp_output
+      output: "q_ref"
+      source_ids: []
+    - id: convert_electricity
+      applies_to: "electricity"
+      rule: "MJ = kWh × 3.6; retain original electricity meter values."
+      inputs:
+        - kWh
+        - cp_electricity
+      output: "MJ"
+      source_ids: []
+  data_quality_requirements:
+    - id: species_traceability
+      applies_to: "finished_offal"
+      requirement: "Record species, organ and fresh/chilled/frozen state for each lot."
+      evidence: "receipt and dispatch lot records"
+    - id: meter_consistency
+      applies_to: "all inventory rows"
+      requirement: "Reconcile period, site, product denominator and meter calibration."
+      evidence: "raw meter and calibration records"
+validation_rules:
+  - rule_id: validate_identity
+    applies_to: "finished_offal"
+    rule: "Reject datasets for separately classified species or salted, dried or smoked states."
+    source_ids:
+      - cpc30-notes
+  - rule_id: validate_mass
+    applies_to: "all inventory rows"
+    rule: "Normalize every row to accepted net product mass in the same period; retain original numerator and denominator."
+    source_ids: []
+  - rule_id: validate_waste
+    applies_to: "cleaning_effluent"
+    rule: "Record cleaning effluent ducted to drains and its treatment destination separately from other water outputs."
+    source_ids:
+      - fao-animal-food-2009
+published_dataset_profile:
+  dataset_role: "Foreground package for residual mammalian offal conditioning"
+  downstream_use: "secondary_dataset; background_dataset"
+  allowed_use: "Use in process or lifecycle models when species, organ, state, site and upstream allocation match"
+  excluded_use: "No generic proxy for cattle, pigs, sheep, poultry or prepared offal"
+  required_metadata: "species; organ; state; site; period; product mass; upstream slaughter dataset and allocation; measurement methods"
+  required_quality_disclosure: "unresolved product and incoming-flow UUIDs; missing empirical ranges; shared-utility allocation"
+  update_trigger: "Review when exact public flow identity, foreground lot data or comparable empirical ranges become available"
+data_sources:
+  - id: "cpc30-notes"
+    type: "official_guidance"
+    reference: "United Nations Statistics Division, CPC Ver. 3.0 Explanatory Notes (30 June 2025), https://unstats.un.org/unsd/classifications/Econ/Download/In%20Text/CPC_Ver_3.0_Exp_Notes_30Jun2025.pdf"
+    used_for: "product classification boundary"
+  - id: "fao-animal-food-2009"
+    type: "official_guidance"
+    reference: "FAO, Animal food production, second edition (2009), Code of Hygienic Practice for Meat, https://www.fao.org/4/i1111e/i1111e.pdf"
+    used_for: "hygiene, drainage and cold-chain process"
+projection_metadata:
+  contract_version: "1"
+  generator: "tiangong-pcr-builder/markdown-projection"
+  canonical_markdown:
+    path: "pcr.en-US.md"
+    normalization: "utf8-lf-v1"
+    hash_algorithm: "sha256"
+    sha256: "sha256:0ef7ca0a0fa6894610401a0568432a03650e69d005c519d4111dbe512da39ee4"
+  generated_content_sha256: "sha256:c975a17f5e771fcf1009745c14b6a49048b818e271d9df5b85e76e3b5357a20a"

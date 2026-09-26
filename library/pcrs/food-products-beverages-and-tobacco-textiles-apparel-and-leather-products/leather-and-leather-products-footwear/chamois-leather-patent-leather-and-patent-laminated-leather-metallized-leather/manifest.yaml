@@ -2,12 +2,12 @@ schema_version: 1
 id: pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.leather-and-leather-products-footwear.chamois-leather-patent-leather-and-patent-laminated-leather-metallized-leather
 title:
   en-US: "Chamois leather; patent leather and patent laminated leather; metallized leather"
-  zh-CN: null
-status: scaffold
+  zh-CN: "油鞣皮革；漆皮及层压漆皮；镀金属皮革"
+status: candidate
 pcr_kind: product_category_rule
-content_maturity: empty_scaffold
+content_maturity: authored_methodology
 domains:
-  - "food-products-beverages-and-tobacco-textiles-apparel-and-leather-products"
+  - food-products-beverages-and-tobacco-textiles-apparel-and-leather-products
 modules:
   core:
     - pcr-minimum-content
@@ -22,16 +22,53 @@ target_entities:
   - flow
   - process
   - lifecyclemodel
+  - dataset
 languages:
   canonical: en-US
   available:
     - en-US
     - zh-CN
 translation_status:
-  zh-CN: scaffold_pending_translation
+  zh-CN: aligned
 classification_refs:
   - system: CPC
     version: "3.0"
     code: "29110"
     title: "Chamois leather; patent leather and patent laminated leather; metallized leather"
     mapping_type: exact
+review_metadata:
+  inventory_contract:
+    atomic_flows: v1
+    localized_flow_names: tiangong_zh_v1
+  unresolved:
+    inventory_flow_uuids:
+      - row_id: sheepskin_split
+        reason_code: no_exact_candidate
+        explanation: "Public candidate identities do not establish this exact product state, material or compartment; retain a distinct foreground exchange pending verified flow creation or review."
+      - row_id: tanned_base_leather
+        reason_code: no_exact_candidate
+        explanation: "Public candidate identities do not establish this exact product state, material or compartment; retain a distinct foreground exchange pending verified flow creation or review."
+      - row_id: cod_oil
+        reason_code: no_exact_candidate
+        explanation: "Public candidate identities do not establish this exact product state, material or compartment; retain a distinct foreground exchange pending verified flow creation or review."
+      - row_id: process_water
+        reason_code: manual_review_required
+        explanation: "Public candidate identities are indistinguishable for the required supply and unit; manual flow selection is required."
+      - row_id: tannery_wastewater
+        reason_code: no_exact_candidate
+        explanation: "Public candidate identities do not establish this exact product state, material or compartment; retain a distinct foreground exchange pending verified flow creation or review."
+      - row_id: preformed_plastic_film
+        reason_code: no_exact_candidate
+        explanation: "Public candidate identities do not establish this exact product state, material or compartment; retain a distinct foreground exchange pending verified flow creation or review."
+      - row_id: alternating_current
+        reason_code: manual_review_required
+        explanation: "Public candidate identities are indistinguishable for the required supply and unit; manual flow selection is required."
+      - row_id: finished_leather
+        reason_code: no_exact_candidate
+        explanation: "Public candidate identities do not establish this exact product state, material or compartment; retain a distinct foreground exchange pending verified flow creation or review."
+      - row_id: leather_cuttings
+        reason_code: no_exact_candidate
+        explanation: "Public candidate identities do not establish this exact product state, material or compartment; retain a distinct foreground exchange pending verified flow creation or review."
+    range_evidence_needs:
+      - "Independent, boundary-compatible measured input and output ranges for each declared leather finishing route are unavailable; collect site-level mass, electricity, water, wastewater, scrap and solvent records."
+      - "Do not use the cited classification limits or patent example as empirical inventory ranges."

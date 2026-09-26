@@ -1,10 +1,479 @@
 schema_version: 1
-status: scaffold
-classification_seed:
-  system: CPC
-  version: "3.0"
-  code: "28310"
-  title: "Tanned or dressed furskins"
-reference_flows: []
-inventory_patterns: []
-qa_rules: []
+generated_from: markdown
+source_markdown: pcr.en-US.md
+product_category_identity:
+  canonical_pcr_id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.knitted-or-crocheted-fabrics-wearing-apparel.tanned-or-dressed-furskins"
+  classification_refs: "CPC 3.0: 28310 [cpc30]"
+  covered_products: "Hair-on animal furskins sold after tanning, tawing or dressing."
+  excluded_products: "Raw furskins; hair-off leather; artificial fur; garments and other assembled fur articles; dressing service sold without ownership of the skin."
+  representative_product: "Conditioned, saleable hair-on dressed furskin at the dressing site gate."
+  production_route: "Record actual preservation, soaking, fleshing, tanning or tawing, drying, and finishing steps; dyeing is conditional."
+  market_state: "Finished, conditioned, hair-on skin before garment assembly."
+functional_unit:
+  what: "A finished hair-on dressed furskin material suitable for further fabrication."
+  how_much: "1 kg of accepted finished material."
+  how_well: "Hair retained and skin dressed to the declared specification and moisture condition."
+  how_long_or_cycle: "One completed dressing batch; no use-phase duration is claimed."
+  reference_flow_link: "finished_furskin"
+system_boundary:
+  rules:
+    - rule_id: boundary_included
+      applies_to: "foreground dressing"
+      rule: "Include receipt, soaking, fleshing, tanning or tawing, drying and finishing operations that turn raw hair-on pelts into accepted dressed material."
+      source_ids:
+        - fur-quality-2022
+        - fur-tanning-2020
+    - rule_id: boundary_conditional
+      applies_to: "route-specific operations"
+      rule: "Include dyeing, oil application, drum cleaning and on-site fuel combustion only when performed; report any omitted or outsourced stage."
+      source_ids:
+        - fur-quality-2022
+        - fur-activated-water
+        - fur-tanning-2020
+    - rule_id: boundary_upstream
+      applies_to: "incoming raw pelt and supplies"
+      rule: "Keep upstream raw-pelt production and supply processes linked as background datasets, without treating those activities as measured dressing foreground."
+      source_ids:
+        - cpc30
+boundary_abstraction:
+  declared_starting_condition: "Preserved raw hair-on pelts received at the dressing site; species and preservation condition declared."
+  starting_condition_role: "Purchased or transferred raw material with its upstream production represented separately."
+  product_classification_scope: "Dressed furskin product only; not assembled articles or service transactions."
+  recursive_input_rule: "A purchased already-dressed furskin used for re-dressing remains a separately identified input with upstream burden; do not relabel it raw pelt or net it against output."
+  upstream_dataset_requirement: "Link raw pelt, purchased chemicals, water, electricity, gas and waste treatment to state- and geography-appropriate upstream datasets."
+  disclosure: "Declare site gate, route, included steps, outsourced work, dye status, direct fuel combustion and treatment boundary."
+reference_flow_definition:
+  reference_amount: "1"
+  product_flow_ref:
+    name: "Finished hair-on dressed furskin"
+    uuid: ""
+  flow_property_ref:
+    uuid: "93a60a56-a3c8-11da-a746-0800200b9a66"
+  unit_group_ref:
+    uuid: "93a60a57-a4c8-11da-a746-0800200c9a66"
+  reference_unit: "kg"
+  required_qualifiers:
+    - "animal species"
+    - "hair-on state"
+    - "dressing route"
+    - "preservation state of input"
+    - "dye status"
+    - "accepted output moisture condition"
+    - "site and production period"
+reference_flows:
+  []
+measurement_rules:
+  - id: reference_mass
+    applies_to: "finished_furskin"
+    required_property_ref:
+      name: "Mass"
+      uuid: ""
+    required_unit: "kg"
+    rule: "Measure accepted conditioned net output mass using cp_output; exclude transport packaging."
+  - id: batch_normalization
+    applies_to: "all inventory rows"
+    required_property_ref:
+      name: "Row-specific property"
+      uuid: ""
+    required_unit: "row-specific unit per kg"
+    rule: "Divide attributable batch exchange by accepted finished output kg for the same batch; retain the original meter and weighbridge records."
+  - id: electricity_conversion
+    applies_to: "electricity"
+    required_property_ref:
+      name: "Net calorific value"
+      uuid: ""
+    required_unit: "MJ"
+    rule: "Convert metered kWh to MJ with the physical identity 1 kWh = 3.6 MJ; do not use a fuel heating value."
+process_map:
+  - id: dress_furskin
+    name: "Integrated pelt preparation, tanning or tawing, drying and finishing"
+    inclusion: "required"
+    inclusion_condition: "Every accepted finished batch; conditional materials are recorded only when actually used."
+    role: "foreground transformation"
+    quantitative_reference: "1 kg accepted finished furskin"
+process_inventory:
+  - id: dress_furskin
+    label: "Integrated pelt preparation, tanning or tawing, drying and finishing"
+    inputs:
+      product:
+        - row_id: raw_pelt
+          role: "Preserved hair-on raw furskin"
+          name: "Preserved hair-on raw furskin"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "all batches; collect batch records and normalize to 1 kg accepted finished output except for the reference output itself."
+          amount:
+            expression: "Input mass of preserved pelts accepted into the batch; record preservation state and moisture condition."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_material
+              source_ids: []
+            ranges: []
+        - row_id: process_water
+          role: "Process Water"
+          name: "Process Water"
+          flow_type: "product"
+          flow_ref:
+            uuid: "94a04f7e-2d5c-41f0-b182-d54a3b373a02"
+          property_unit: "Mass / kg"
+          description: "all wet-processing batches; collect batch records and normalize to 1 kg accepted finished output except for the reference output itself."
+          amount:
+            expression: "Meter or weigh water added to soaking, rinsing and tanning; allocate measured batch total."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_water
+              source_ids: []
+            ranges: []
+        - row_id: sodium_chloride
+          role: "Sodium chloride"
+          name: "Sodium chloride"
+          flow_type: "product"
+          flow_ref:
+            uuid: "a413ea86-0887-42c8-be77-3bee86d5863b"
+          property_unit: "Mass / kg"
+          description: "when sodium chloride is charged; collect batch records and normalize to 1 kg accepted finished output except for the reference output itself."
+          amount:
+            expression: "Weigh purchased sodium chloride actually charged to preservation, soaking or pickling."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_material
+              source_ids: []
+            ranges: []
+        - row_id: potassium_alum
+          role: "Potassium aluminum sulfate"
+          name: "Potassium aluminum sulfate"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "only for alum-tawing route; collect batch records and normalize to 1 kg accepted finished output except for the reference output itself."
+          amount:
+            expression: "Weigh the declared potassium alum formulation charged to alum tawing."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_material
+              source_ids: []
+            ranges: []
+        - row_id: fish_oil
+          role: "Fish Oil"
+          name: "Fish Oil"
+          flow_type: "product"
+          flow_ref:
+            uuid: "dacba994-e061-44ed-940e-61f7820422c6"
+          property_unit: "Mass / kg"
+          description: "only when fish oil is used; collect batch records and normalize to 1 kg accepted finished output except for the reference output itself."
+          amount:
+            expression: "Weigh fish oil charged for oil tannage or lubrication; do not count other oils as this flow."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_material
+              source_ids: []
+            ranges: []
+        - row_id: electricity
+          role: "Alternating current"
+          name: "Alternating current"
+          flow_type: "product"
+          flow_ref:
+            uuid: "4d0361a3-56cc-45f9-aa42-bb9103285bf9"
+          property_unit: "Net calorific value / MJ"
+          description: "when purchased electricity is used; collect batch records and normalize to 1 kg accepted finished output except for the reference output itself."
+          amount:
+            expression: "Record metered alternating-current electricity attributable to dressing; convert kWh to MJ by 3.6 MJ/kWh."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_energy
+              source_ids: []
+            ranges: []
+        - row_id: natural_gas
+          role: "natural gas in the gaseous state"
+          name: "natural gas in the gaseous state"
+          flow_type: "product"
+          flow_ref:
+            uuid: "4f19ca0e-7b3b-11dd-ad8b-0800200c9a66"
+          property_unit: "Volume / m3"
+          description: "only when on-site natural gas is used; collect batch records and normalize to 1 kg accepted finished output except for the reference output itself."
+          amount:
+            expression: "Record metered gaseous natural gas used for on-site process heat or drying."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_energy
+              source_ids: []
+            ranges: []
+        - row_id: hardwood_sawdust
+          role: "Loose hardwood sawdust"
+          name: "Loose hardwood sawdust"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "only when sawdust drum cleaning is used; collect batch records and normalize to 1 kg accepted finished output except for the reference output itself."
+          amount:
+            expression: "Weigh fresh sawdust added to drum cleaning, excluding reused material until replenished."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_material
+              source_ids: []
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        - row_id: finished_furskin
+          role: "Finished hair-on dressed furskin"
+          name: "Finished hair-on dressed furskin"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "all accepted output; collect batch records and normalize to 1 kg accepted finished output except for the reference output itself."
+          amount:
+            expression: "1 kg"
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_output
+              source_ids: []
+            ranges: []
+      waste:
+        - row_id: fleshing_waste
+          role: "Pelt flesh and fat trimmings"
+          name: "Pelt flesh and fat trimmings"
+          flow_type: "waste"
+          property_unit: "Mass / kg"
+          description: "when fleshing removes tissue; collect batch records and normalize to 1 kg accepted finished output except for the reference output itself."
+          amount:
+            expression: "Weigh separately collected flesh-side trimmings leaving the foreground site."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_waste
+              source_ids: []
+            ranges: []
+        - row_id: spent_liquor
+          role: "Spent fur-dressing aqueous liquor"
+          name: "Spent fur-dressing aqueous liquor"
+          flow_type: "waste"
+          property_unit: "Mass / kg"
+          description: "when wet processing discharges liquor; collect batch records and normalize to 1 kg accepted finished output except for the reference output itself."
+          amount:
+            expression: "Measure discharged aqueous liquor before on-site treatment; do not combine with sludge."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_waste
+              source_ids: []
+            ranges: []
+      elementary:
+        []
+allocation_rules:
+  - rule_id: allocation_subdivide
+    applies_to: "shared operations"
+    rule: "First subdivide separately metered or weighed operations and avoid allocation where measured stage records identify a product batch."
+    source_ids:
+      - ghg-product
+  - rule_id: allocation_shared
+    applies_to: "unavoidable shared utilities"
+    rule: "If subdivision is impossible, assign common electricity, fuel and water using a documented causal driver such as stage operating time and rated load; disclose driver, numerator, denominator and residual. Do not allocate by output mass when it would hide route-specific energy differences."
+    source_ids:
+      - ghg-product
+  - rule_id: allocation_outputs
+    applies_to: "recoverable co-products"
+    rule: "Keep saleable recovered material separate from waste and document any physical or economic allocation used; show both gross exchanges and allocated burdens."
+    source_ids:
+      - ghg-product
+dataset_production:
+  collection_protocols:
+    - protocol_id: cp_output
+      process_id: "dress_furskin"
+      flow_role: "finished output"
+      record_type: "batch weigh record"
+      raw_fields: "batch id; species; route; accepted net mass; moisture condition"
+      collection_method: "Weigh saleable conditioned skins on calibrated scale excluding packaging."
+      unit: "kg"
+      frequency: "each batch"
+      temporal_coverage: "representative production period"
+      site_scope: "dressing site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "calibration and acceptance records"
+    - protocol_id: cp_material
+      process_id: "dress_furskin"
+      flow_role: "pelt and chemicals"
+      record_type: "goods receipt and batch issue"
+      raw_fields: "batch id; material identity; input state; issued mass; returns"
+      collection_method: "Reconcile supplier and batch issue records with calibrated weighing."
+      unit: "kg"
+      frequency: "each batch"
+      temporal_coverage: "representative production period"
+      site_scope: "dressing site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "invoices, inventory reconciliation and scale checks"
+    - protocol_id: cp_water
+      process_id: "dress_furskin"
+      flow_role: "process water"
+      record_type: "meter record"
+      raw_fields: "batch id; meter start/end; shared-use driver"
+      collection_method: "Read calibrated water meter and document any batch allocation."
+      unit: "kg"
+      frequency: "each batch or meter period"
+      temporal_coverage: "representative production period"
+      site_scope: "dressing site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "meter calibration and reconciliation"
+    - protocol_id: cp_energy
+      process_id: "dress_furskin"
+      flow_role: "electricity and gas"
+      record_type: "meter and fuel record"
+      raw_fields: "batch id; kWh; gas m3; operating time; shared-use driver"
+      collection_method: "Read separate electricity and gas meters; document batch attribution and kWh-to-MJ conversion."
+      unit: "MJ; m3"
+      frequency: "each batch or meter period"
+      temporal_coverage: "representative production period"
+      site_scope: "dressing site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "meter bills and allocation worksheet"
+    - protocol_id: cp_waste
+      process_id: "dress_furskin"
+      flow_role: "tissue waste and spent liquor"
+      record_type: "dispatch or treatment record"
+      raw_fields: "batch id; material identity; measured mass; treatment route"
+      collection_method: "Weigh or meter each distinct waste stream before on-site treatment or dispatch."
+      unit: "kg"
+      frequency: "each batch"
+      temporal_coverage: "representative production period"
+      site_scope: "dressing site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "transfer note, meter and treatment log"
+  calculation_rules:
+    - id: normalize_batch
+      applies_to: "all inventory rows"
+      rule: "q_ref = q_batch / m_finished; q_batch is the attributable batch exchange in its row unit; m_finished is accepted finished mass in kg for the same batch."
+      inputs:
+        - q_batch
+        - m_finished
+        - cp_output
+      output: "exchange per 1 kg accepted finished furskin"
+      source_ids: []
+    - id: convert_electricity
+      applies_to: "electricity"
+      rule: "MJ = kWh × 3.6."
+      inputs:
+        - kWh
+        - cp_energy
+      output: "MJ of electricity input"
+      source_ids: []
+  data_quality_requirements:
+    - id: dq_identity
+      applies_to: "each batch"
+      requirement: "Declare species, hair-on state, actual route, preservation and final moisture state; do not mix raw and dressed skins."
+      evidence: "batch traveller and acceptance record"
+    - id: dq_completeness
+      applies_to: "each batch"
+      requirement: "Reconcile input, accepted output, rejected product and separately identified waste; explain missing streams and shared meters."
+      evidence: "mass-balance worksheet and utility reconciliation"
+    - id: dq_time
+      applies_to: "reporting period"
+      requirement: "Report site, period, batch coverage, outsourcing and allocation drivers."
+      evidence: "production register and supplier or contractor records"
+validation_rules:
+  - rule_id: validate_reference
+    applies_to: "finished output"
+    rule: "Confirm finished_furskin is hair-on, dressed, conditioned and weighed net in kg; reject raw pelt or wet-blue intermediate as an unqualified reference flow."
+    source_ids:
+      - cpc30
+      - fur-activated-water
+  - rule_id: validate_inventory
+    applies_to: "inventory rows"
+    rule: "Check each exchange has an atomic material identity, route applicability, attributable quantity, unit and collection evidence; unresolved UUIDs remain explicit."
+    source_ids:
+      - fur-quality-2022
+      - fur-tanning-2020
+  - rule_id: validate_mass
+    applies_to: "batch records"
+    rule: "Confirm every normalized batch row uses the same accepted output mass denominator and that waste streams are not netted against input."
+    source_ids: []
+published_dataset_profile:
+  dataset_role: "Foreground dressed-furskin production dataset."
+  downstream_use: "secondary_dataset; background_dataset after review and publication."
+  allowed_use: "Declared hair-on furskin route and market state at the stated site and period."
+  excluded_use: "Raw furskin, hair-off leather, artificial fur, garments, and unqualified proxy substitution."
+  required_metadata: "Species; preservation; route; dye status; moisture condition; site; period; production volume; allocation basis."
+  required_quality_disclosure: "Data gaps, unresolved UUIDs, conditional steps, meter coverage, batch yield, waste treatment and source age."
+  update_trigger: "Material change in route, species mix, input state, energy supply or product specification."
+data_sources:
+  - id: "cpc30"
+    type: "official_guidance"
+    reference: "UN Statistics Division, CPC Version 3.0 Structure, 30 June 2025, https://unstats.un.org/unsd/classifications/Econ/Download/In%20Text/CPC_Ver_3.0_Structure_30Jun2025.csv"
+    used_for: "product identity and adjacent exclusions"
+  - id: "fur-quality-2022"
+    type: "literature"
+    reference: "Gaidău, Amanatidou and Tonea, Fur Skin – A Valuable Material, Considerations on Quality Assessment, Leather and Footwear Journal 22(2), 2022, https://revistapielarieincaltaminte.ro/revistapielarieincaltaminteresurse/en/fisiere/full/vol22-nr2/article5_vol22_issue2.pdf"
+    used_for: "Figure 1 identifies preparation, industrial wet processing, tanning, dyeing and finishing stages; qualitative only"
+  - id: "fur-activated-water"
+    type: "literature"
+    reference: "Danylkovych, Lishchuk and Romaniuk, Use of electrochemically activated aqueous solutions in the manufacture of fur materials, SpringerPlus 5:214, 2016, https://pmc.ncbi.nlm.nih.gov/articles/PMC4771650/"
+    used_for: "Rabbit and nutria fur soaking, degreasing, alum and chromium tanning, greasing and drying; experimental route only"
+  - id: "fur-tanning-2020"
+    type: "literature"
+    reference: "Yefimchuk et al., Multicriteria Compromise Optimization for Leather and Fur Skin Materials Tanning Technology, Leather and Footwear Journal 20(2), 2020, https://lib.lntu.edu.ua/sites/default/files/2021-01/article9_vol20_issue2.pdf"
+    used_for: "Rabbit fur wetting, pickling, tanning, greasing and drying sequence; experimental route only"
+  - id: "ghg-product"
+    type: "standard"
+    reference: "GHG Protocol, Product Life Cycle Accounting and Reporting Standard, 2011, https://ghgprotocol.org/sites/default/files/standards/Product-Life-Cycle-Accounting-Reporting-Standard_041613.pdf"
+    used_for: "allocation avoidance and disclosure method; applied to this product by author judgement"
+projection_metadata:
+  contract_version: "1"
+  generator: "tiangong-pcr-builder/markdown-projection"
+  canonical_markdown:
+    path: "pcr.en-US.md"
+    normalization: "utf8-lf-v1"
+    hash_algorithm: "sha256"
+    sha256: "sha256:e825dadba7a0dba8381e92420be7f2361db34a8baee8a28fb3a67a87898f79a7"
+  generated_content_sha256: "sha256:6bf79e8c134a2d9a25014f43f3b56168e1f5caf36778b51b18e4f6b4d4661f19"
