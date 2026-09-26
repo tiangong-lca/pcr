@@ -1,10 +1,594 @@
 schema_version: 1
-status: scaffold
-classification_seed:
-  system: CPC
-  version: "3.0"
-  code: "29120"
-  title: "Other leather, of bovine or equine animals, without hair on"
-reference_flows: []
-inventory_patterns: []
-qa_rules: []
+generated_from: markdown
+source_markdown: pcr.en-US.md
+product_category_identity:
+  canonical_pcr_id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.leather-and-leather-products-footwear.other-leather-of-bovine-or-equine-animals-without-hair-on"
+  classification_refs: "CPC 3.0: 29120; classification context only"
+  covered_products: "Dry finished hairless bovine or equine leather"
+  excluded_products: "Hair-on, reconstituted, other-species, patent, metallised, wet-blue and crust leather"
+  representative_product: "Chromium-tanned dry finished hairless bovine leather"
+  production_route: "Raw hide reception → unhairing/liming → pickling/chrome tanning → dry finishing"
+  market_state: "Accepted dry leather, not a fabricated article, delivered by measured mass"
+functional_unit:
+  what: "Supply processable hairless bovine or equine leather material"
+  how_much: "1 kg accepted dry finished leather"
+  how_well: "Declared species, tanning technology, final state and accepted quality specification"
+  how_long_or_cycle: "One delivery at factory gate; no service life specified"
+  reference_flow_link: "finished_leather"
+system_boundary:
+  rules:
+    - rule_id: boundary_1
+      applies_to: "foreground"
+      rule: "Include hide reception through dry finished leather acceptance, on-site unhairing, tanning, finishing, electricity and effluent handover."
+      source_ids:
+        - eu-jrc-tan-bref-2013
+    - rule_id: boundary_2
+      applies_to: "upstream"
+      rule: "Link actual upstream datasets for hides, chemicals, tap water and electricity; do not treat this foreground rule as their upstream production data."
+      source_ids:
+        - eu-jrc-tan-bref-2013
+    - rule_id: boundary_3
+      applies_to: "wastewater"
+      rule: "If effluent goes off site, record its handover and link treatment data; record chromium(III) elementary release only for measured direct discharge after on-site treatment."
+      source_ids:
+        - eu-jrc-tan-bref-2013
+boundary_abstraction:
+  declared_starting_condition: "Received bovine or equine raw hide; record fresh, salted or dried condition"
+  starting_condition_role: "Foreground manufacturing start"
+  product_classification_scope: "Hairless bovine or equine leather; CPC 29120 as classification context"
+  recursive_input_rule: "Purchased wet-blue or crust leather from the same category may enter only a separately declared partial-production route; do not double-count it with the integrated route."
+  upstream_dataset_requirement: "Require upstream datasets matching the geography, technology and state of hides and purchased inputs."
+  disclosure: "Disclose species, hide preservation, on-site scope, effluent destination and receiving water for direct discharge."
+reference_flow_definition:
+  reference_amount: "1"
+  product_flow_ref:
+    name: "Finished hairless bovine or equine leather"
+    uuid: ""
+  flow_property_ref:
+    uuid: "93a60a56-a3c8-11da-a746-0800200b9a66"
+  unit_group_ref:
+    uuid: "93a60a57-a4c8-11da-a746-0800200c9a66"
+  reference_unit: "kg"
+  required_qualifiers:
+    - species
+    - "incoming hide state"
+    - "tanning route"
+    - "finished moisture state"
+    - "leather end use"
+    - "accepted quality"
+reference_flows:
+  []
+measurement_rules:
+  - id: reference_mass
+    applies_to: "reference product"
+    required_property_ref:
+      name: "Mass"
+      uuid: ""
+    required_unit: "kg"
+    rule: "Weigh net dry finished leather after acceptance, excluding transport packaging; divide all attributable batch inputs and releases by this same mass."
+  - id: electricity_conversion
+    applies_to: "electricity_ac"
+    required_property_ref:
+      name: "Energy"
+      uuid: ""
+    required_unit: "MJ"
+    rule: "If meter records kWh, convert at 1 kWh = 3.6 MJ and retain original readings."
+  - id: effluent_compartment
+    applies_to: "chromium_effluent, chromium_water"
+    required_property_ref:
+      name: "Volume or mass"
+      uuid: ""
+    required_unit: "m3 or kg"
+    rule: "Distinguish transferred liquid effluent from chromium(III) directly released to receiving water; do not double-count one chromium load."
+process_map:
+  - id: beamhouse
+    name: "Hide preparation and unhairing"
+    inclusion: "required"
+    inclusion_condition: "All integrated routes"
+    role: "foreground production"
+    quantitative_reference: "per 1 kg dry finished leather"
+  - id: tanyard
+    name: "Pickling and chromium tanning"
+    inclusion: "conditional"
+    inclusion_condition: "When chromium tanning route applies"
+    role: "foreground production"
+    quantitative_reference: "per 1 kg dry finished leather"
+  - id: site_services
+    name: "Site electricity supply"
+    inclusion: "required"
+    inclusion_condition: "All integrated routes"
+    role: "foreground production"
+    quantitative_reference: "per 1 kg dry finished leather"
+  - id: finishing
+    name: "Dry finishing and acceptance"
+    inclusion: "required"
+    inclusion_condition: "All integrated routes"
+    role: "foreground production"
+    quantitative_reference: "per 1 kg dry finished leather"
+process_inventory:
+  - id: beamhouse
+    label: "Hide preparation and unhairing"
+    inputs:
+      product:
+        - row_id: raw_bovine_hide
+          role: "Bovine raw hide"
+          name: "Rawhide"
+          flow_type: "product"
+          flow_ref:
+            uuid: "440c2098-2f4e-4632-9dcf-32329bcbe4de"
+          property_unit: "Mass / kg"
+          description: "Only for bovine batches; weigh raw hide as received."
+          amount:
+            expression: "Measure the attributable batch quantity and divide by the accepted dry finished leather mass of that batch."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_inputs
+              source_ids:
+                - eu-jrc-tan-bref-2013
+            ranges: []
+        - row_id: raw_equine_hide
+          role: "Equine raw hide"
+          name: "Raw hides and skins of equine animals"
+          flow_type: "product"
+          flow_ref:
+            uuid: "a1d67ddb-fb38-433d-8fa7-1d0e18216c34"
+          property_unit: "Mass / kg"
+          description: "Only for equine batches; weigh raw hide as received."
+          amount:
+            expression: "Measure the attributable batch quantity and divide by the accepted dry finished leather mass of that batch."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_inputs
+              source_ids:
+                - un-cpc-3-2025
+            ranges: []
+        - row_id: process_water
+          role: "Tap water"
+          name: "Tap water"
+          flow_type: "product"
+          flow_ref:
+            uuid: "d1e0e36c-07f0-4a75-bdcb-efb5d9e2ac36"
+          property_unit: "Mass / kg"
+          description: "Meter or weigh supplied tap water used in wet processing."
+          amount:
+            expression: "Measure the attributable batch quantity and divide by the accepted dry finished leather mass of that batch."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_water
+              source_ids:
+                - eu-jrc-tan-bref-2013
+            ranges: []
+        - row_id: unhairing_sulfide
+          role: "Sodium sulfide for unhairing"
+          name: "Sodium sulfide"
+          flow_type: "product"
+          flow_ref:
+            uuid: "a3b3c67f-ef15-4a1e-ba7f-8c97ae352b5c"
+          property_unit: "Mass / kg"
+          description: "Record purchased sodium sulfide product mass for the sulfide unhairing route."
+          amount:
+            expression: "Measure the attributable batch quantity and divide by the accepted dry finished leather mass of that batch."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_inputs
+              source_ids:
+                - eu-jrc-tan-bref-2013
+            ranges: []
+        - row_id: liming_lime
+          role: "Slaked lime for liming"
+          name: "Slaked lime"
+          flow_type: "product"
+          flow_ref:
+            uuid: "49bf5000-b2da-4a30-8349-b0bb44171616"
+          property_unit: "Mass / kg"
+          description: "Record slaked lime product mass for the liming route."
+          amount:
+            expression: "Measure the attributable batch quantity and divide by the accepted dry finished leather mass of that batch."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_inputs
+              source_ids:
+                - eu-jrc-tan-bref-2013
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        []
+      waste:
+        - row_id: fleshing_waste
+          role: "Hide fleshing waste"
+          name: "Hide fleshing waste"
+          flow_type: "waste"
+          property_unit: "Mass / kg"
+          description: "Weigh fleshing removed from hides; disclose any sale as a co-product."
+          amount:
+            expression: "Measure the attributable batch quantity and divide by the accepted dry finished leather mass of that batch."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_waste
+              source_ids:
+                - eu-jrc-tan-bref-2013
+            ranges: []
+      elementary:
+        []
+  - id: tanyard
+    label: "Pickling and chromium tanning"
+    inputs:
+      product:
+        - row_id: pickling_acid
+          role: "Sulfuric acid solution for pickling"
+          name: "Sulfuric acid solution, 98%"
+          flow_type: "product"
+          flow_ref:
+            uuid: "efbf8d56-3521-45c1-aac1-3564408f3d01"
+          property_unit: "Mass / kg"
+          description: "Record 98% sulfuric acid solution product mass charged to pickling."
+          amount:
+            expression: "Measure the attributable batch quantity and divide by the accepted dry finished leather mass of that batch."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_inputs
+              source_ids:
+                - eu-jrc-tan-bref-2013
+            ranges: []
+        - row_id: pickling_salt
+          role: "Sodium chloride for pickling"
+          name: "Industrial sodium chloride"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Record sodium chloride product mass charged to pickling."
+          amount:
+            expression: "Measure the attributable batch quantity and divide by the accepted dry finished leather mass of that batch."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_inputs
+              source_ids:
+                - eu-jrc-tan-bref-2013
+            ranges: []
+        - row_id: chrome_tan
+          role: "Basic chromium sulfate tanning agent"
+          name: "Basic chromium sulfate"
+          flow_type: "product"
+          flow_ref:
+            uuid: "fcccd040-e728-4932-9cbe-363051c308a5"
+          property_unit: "Mass / kg"
+          description: "Record basic chromium sulfate product mass for the chrome-tanning route."
+          amount:
+            expression: "Measure the attributable batch quantity and divide by the accepted dry finished leather mass of that batch."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_inputs
+              source_ids:
+                - eu-jrc-tan-bref-2013
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        []
+      waste:
+        - row_id: chromium_effluent
+          role: "Chromium-bearing tannery effluent"
+          name: "Chromium-bearing tannery effluent"
+          flow_type: "waste"
+          property_unit: "Volume / m3"
+          description: "For transfer to off-site treatment or sewer, meter this segregated liquid effluent at handover."
+          amount:
+            expression: "Measure the attributable batch quantity and divide by the accepted dry finished leather mass of that batch."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_effluent
+              source_ids:
+                - eu-jrc-tan-bref-2013
+            ranges: []
+      elementary:
+        - row_id: chromium_water
+          role: "Chromium(III) discharged to receiving water"
+          name: "Chromium(III), to water"
+          flow_type: "elementary"
+          property_unit: "Mass / kg"
+          description: "Only for measured direct discharge after on-site treatment; calculate mass from sampled concentration and discharge volume."
+          amount:
+            expression: "Measure the attributable batch quantity and divide by the accepted dry finished leather mass of that batch."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_emission
+              source_ids:
+                - eu-jrc-tan-bref-2013
+            ranges: []
+  - id: site_services
+    label: "Site electricity supply"
+    inputs:
+      product:
+        - row_id: electricity_ac
+          role: "Purchased alternating-current electricity"
+          name: "Purchased AC electricity, medium voltage"
+          flow_type: "product"
+          property_unit: "Energy / MJ"
+          description: "Record purchased AC electricity attributable to the integrated leather line in MJ."
+          amount:
+            expression: "Measure the attributable batch quantity and divide by the accepted dry finished leather mass of that batch."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_electricity
+              source_ids:
+                - eu-jrc-tan-bref-2013
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        []
+      waste:
+        []
+      elementary:
+        []
+  - id: finishing
+    label: "Dry finishing and acceptance"
+    inputs:
+      product:
+        []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        - row_id: finished_leather
+          role: "Accepted dry finished leather"
+          name: "Finished hairless bovine or equine leather"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Weigh saleable dry finished hairless leather after final conditioning and quality acceptance."
+          amount:
+            expression: "1 kg"
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_product
+              source_ids:
+                - un-cpc-3-2025
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+allocation_rules:
+  - rule_id: allocation_1
+    applies_to: "foreground_process"
+    rule: "First subdivide measured operations and assign inputs, wastes and releases to the leather batches that cause them."
+    source_ids:
+      - eu-jrc-tan-bref-2013
+  - rule_id: allocation_2
+    applies_to: "marketable_fleshings"
+    rule: "If fleshings are sold as a marketable co-product, record the sale, traceable mass and allocation basis; do not treat the same material both as zero-burden waste and a co-product."
+    source_ids:
+      - eu-jrc-tan-bref-2013
+dataset_production:
+  collection_protocols:
+    - protocol_id: cp_inputs
+      process_id: "beamhouse_tanyard"
+      flow_role: "purchased material"
+      record_type: "delivery and batch use ledger"
+      raw_fields: "material name; species or grade; received mass; batch id"
+      collection_method: "Weigh or reconcile delivery and batch issue records"
+      unit: "kg"
+      frequency: "each batch"
+      temporal_coverage: "production batch or representative year"
+      site_scope: "reporting site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "meter calibration, batch ledger and handover records"
+    - protocol_id: cp_water
+      process_id: "beamhouse"
+      flow_role: "tap water"
+      record_type: "water meter"
+      raw_fields: "meter start; meter end; batch allocation"
+      collection_method: "Read calibrated meter and allocate measured draw"
+      unit: "kg"
+      frequency: "each batch"
+      temporal_coverage: "production batch or representative year"
+      site_scope: "reporting site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "meter calibration, batch ledger and handover records"
+    - protocol_id: cp_waste
+      process_id: "beamhouse"
+      flow_role: "fleshings"
+      record_type: "weighbridge or bin scale"
+      raw_fields: "batch id; tare; gross; disposal or sale route"
+      collection_method: "Weigh segregated fleshing waste"
+      unit: "kg"
+      frequency: "each batch"
+      temporal_coverage: "production batch or representative year"
+      site_scope: "reporting site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "meter calibration, batch ledger and handover records"
+    - protocol_id: cp_effluent
+      process_id: "tanyard"
+      flow_role: "chromium-bearing effluent"
+      record_type: "effluent flow meter"
+      raw_fields: "volume; chromium stream; destination; batch id"
+      collection_method: "Meter segregated effluent at transfer point"
+      unit: "m3"
+      frequency: "each batch"
+      temporal_coverage: "production batch or representative year"
+      site_scope: "reporting site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "meter calibration, batch ledger and handover records"
+    - protocol_id: cp_emission
+      process_id: "tanyard"
+      flow_role: "chromium(III) direct release"
+      record_type: "discharge sampling and meter"
+      raw_fields: "Cr(III) concentration; discharge volume; date; receiving water"
+      collection_method: "Measure direct discharge after on-site treatment"
+      unit: "kg"
+      frequency: "each batch"
+      temporal_coverage: "production batch or representative year"
+      site_scope: "reporting site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "meter calibration, batch ledger and handover records"
+    - protocol_id: cp_electricity
+      process_id: "site_services"
+      flow_role: "purchased AC electricity"
+      record_type: "electricity meter"
+      raw_fields: "meter start; meter end; kWh; allocation key"
+      collection_method: "Read calibrated electricity meter and convert kWh to MJ"
+      unit: "MJ"
+      frequency: "each batch"
+      temporal_coverage: "production batch or representative year"
+      site_scope: "reporting site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "meter calibration, batch ledger and handover records"
+    - protocol_id: cp_product
+      process_id: "finishing"
+      flow_role: "accepted leather"
+      record_type: "calibrated scale and acceptance record"
+      raw_fields: "species; batch id; dry finished net mass; moisture state; acceptance"
+      collection_method: "Weigh accepted dry leather excluding transport packaging"
+      unit: "kg"
+      frequency: "each batch"
+      temporal_coverage: "production batch or representative year"
+      site_scope: "reporting site"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "meter calibration, batch ledger and handover records"
+  calculation_rules:
+    - id: batch_basis
+      applies_to: "all inventory rows"
+      rule: "Divide each attributable batch quantity by the accepted dry finished leather kg of that batch; retain raw readings and allocation records."
+      inputs:
+        - "batch quantity"
+        - cp_product
+      output: "per 1 kg reference flow"
+      source_ids:
+        - eu-jrc-tan-bref-2013
+    - id: electricity_kwh_to_mj
+      applies_to: "electricity_ac"
+      rule: "Metered kWh × 3.6 = MJ; convert before batch normalization."
+      inputs:
+        - cp_electricity
+      output: "MJ"
+      source_ids: []
+  data_quality_requirements:
+    - id: dq_identity
+      applies_to: "all inventory rows"
+      requirement: "Species, route, chemical concentration and final market state must match flow and upstream dataset identities."
+      evidence: "batch ledger; supplier records"
+    - id: dq_balance
+      applies_to: "all inventory rows"
+      requirement: "Trace finished leather, incoming hide, fleshings and chromium effluent; explain material-balance residuals."
+      evidence: "weighing records; waste manifests"
+    - id: dq_time
+      applies_to: "all inventory rows"
+      requirement: "Disclose collection period, missing values, allocation method and calibration."
+      evidence: "primary records"
+validation_rules:
+  - rule_id: validation_1
+    applies_to: "reference_flow"
+    rule: "The reference product must be accepted dry hairless bovine or equine leather; the reference quantity and every inventory basis use the same batch 1 kg."
+    source_ids:
+      - eu-jrc-tan-bref-2013
+  - rule_id: validation_2
+    applies_to: "conditional_rows"
+    rule: "Bovine and equine raw-hide inputs are mutually exclusive by batch; transferred effluent and direct-water chromium loads must not duplicate one release."
+    source_ids:
+      - eu-jrc-tan-bref-2013
+  - rule_id: validation_3
+    applies_to: "uuid_and_range"
+    rule: "Keep unresolved flow UUIDs under review; without two independent original-text sources, do not replace foreground measurements with external numeric intervals."
+    source_ids: []
+published_dataset_profile:
+  dataset_role: "Foreground manufacturing dataset for dry finished hairless bovine or equine leather"
+  downstream_use: "secondary_dataset; background_dataset"
+  allowed_use: "Model leather material inputs when species, state, geography and chromium-tanning technology match."
+  excluded_use: "Do not substitute for wet-blue, crust, ovine, reconstituted leather or fabricated articles."
+  required_metadata: "species; received hide state; chrome route; final moisture state; geography; collection year; effluent destination"
+  required_quality_disclosure: "meter coverage; unresolved UUIDs; missing range evidence; co-product handling; mass-balance residual"
+  update_trigger: "Material change in technology, incoming state, electricity supply or effluent route."
+data_sources:
+  - id: "un-cpc-3-2025"
+    type: "official_guidance"
+    reference: "UN Statistics Division, CPC Version 3.0 Structure, 30 June 2025; https://unstats.un.org/unsd/classifications/Econ/Download/In%20Text/CPC_Ver_3.0_Structure_30Jun2025.csv"
+    used_for: "classification identity; adjacent-category boundary"
+  - id: "eu-jrc-tan-bref-2013"
+    type: "official_guidance"
+    reference: "European Commission JRC, Best Available Techniques Reference Document for the Tanning of Hides and Skins, 2013; https://eippcb.jrc.ec.europa.eu/sites/default/files/2019-11/TAN_Published_def.pdf"
+    used_for: "process decomposition; main inputs and outputs; effluent boundary"
+projection_metadata:
+  contract_version: "1"
+  generator: "tiangong-pcr-builder/markdown-projection"
+  canonical_markdown:
+    path: "pcr.en-US.md"
+    normalization: "utf8-lf-v1"
+    hash_algorithm: "sha256"
+    sha256: "sha256:6746f5a423f731d543de57e5f4605de9000d7e945feae57cea66071c11062b48"
+  generated_content_sha256: "sha256:ccc7eefdb393bf12a77b40a0df74eae7c3281f3368c382c5ddaad5744f8fd3e7"

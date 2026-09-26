@@ -1,10 +1,358 @@
 schema_version: 1
-status: scaffold
-classification_seed:
-  system: CPC
-  version: "3.0"
-  code: "21920"
-  title: "Flours and meals of oil seeds or oleaginous fruits, except those of mustard"
-reference_flows: []
-inventory_patterns: []
-qa_rules: []
+generated_from: markdown
+source_markdown: pcr.en-US.md
+product_category_identity:
+  canonical_pcr_id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.meat-fish-fruits-vegetables-oils-and-fats.flours-and-meals-of-oil-seeds-or-oleaginous-fruits-except-those-of-mustard"
+  classification_refs: "CPC 3.0 21920 (unsd-cpc-3-2025)"
+  covered_products: "Dry flour and coarse meal intentionally milled from non-mustard oilseeds or oleaginous fruits; soybean is the documented representative."
+  excluded_products: "Mustard flour; oil-cake and solid oil-extraction residues marketed as residues; protein concentrate or isolate; blended feed; other vegetable flours."
+  representative_product: "Soybean flour, full-fat or prepared from edible defatted flakes."
+  production_route: "Whole-bean dehulling and milling, or receipt of prepared edible defatted flakes and milling; record conditioning and drying only where actually performed (isu-soy-processing-2018)."
+  market_state: "Dry, market-ready bulk flour or meal at the producer gate, before downstream use or transport."
+functional_unit:
+  what: "Dry market-ready flour or meal from a declared non-mustard oilseed; soybean flour is the representative foreground product."
+  how_much: "1 kg accepted finished product."
+  how_well: "Declare species, fat state, heat-treatment state, grind specification, moisture and food/feed grade for the actual lot."
+  how_long_or_cycle: "One production campaign up to factory-gate acceptance."
+  reference_flow_link: "finished_soy_flour"
+system_boundary:
+  rules:
+    - rule_id: system_boundary_rule_1
+      applies_to: "foreground_system_boundary"
+      rule: "Cradle-to-factory-gate reporting includes upstream supply of purchased soybean material, electricity and delivered steam heat and the on-site dehulling, conditioning, drying and milling that actually occur. The documented foreground starts at the incoming whole soybeans or prepared defatted flakes. If the latter are purchased, their upstream oil-extraction burdens belong to the supplier dataset and must not be silently assigned to the flour mill. Packaging, distribution, use and end-of-life are outside this bulk-product boundary. The process route and all excluded stages are disclosed."
+      source_ids: []
+    - rule_id: boundary_product_state
+      applies_to: "finished product"
+      rule: "Include only intentionally prepared flour or coarse meal of a non-mustard oilseed; exclude oil-cake residues and mustard flour."
+      source_ids:
+        - unsd-cpc-3-2025
+    - rule_id: boundary_route
+      applies_to: "incoming material and foreground process"
+      rule: "Declare whether whole-bean preparation or prepared defatted-flake milling applies; include only operations actually performed at the site and link the purchased input to its upstream dataset."
+      source_ids:
+        - isu-soy-processing-2018
+boundary_abstraction:
+  declared_starting_condition: "Incoming whole soybeans for the full-fat route, or edible defatted soybean flakes for the defatted route; record supplier, state and origin."
+  starting_condition_role: "Purchased product input to the foreground flour-preparation process."
+  product_classification_scope: "CPC 3.0 21920 finished flour/meal; separately purchased inputs retain their own product identities."
+  recursive_input_rule: "If finished flour of this same category is remilled, record its purchased mass as a distinct input with a nonrecursive supplier dataset and disclose the remilling share."
+  upstream_dataset_requirement: "Supply datasets must cover the declared incoming material state and purchased utilities without double counting on-site operations."
+  disclosure: "Publish route, starting material, geographic supply context, facility operations, allocation and any excluded stages."
+reference_flow_definition:
+  reference_amount: "1"
+  product_flow_ref:
+    name: "Soybean flour"
+    uuid: ""
+  flow_property_ref:
+    uuid: "93a60a56-a3c8-11da-a746-0800200b9a66"
+  unit_group_ref:
+    uuid: "93a60a57-a4c8-11da-a746-0800200c9a66"
+  reference_unit: "kg"
+  required_qualifiers:
+    - "botanical species"
+    - "flour or coarse meal"
+    - "full-fat or defatted state"
+    - "heat treatment"
+    - "grind specification"
+    - "accepted moisture"
+    - "product grade"
+    - "facility and campaign"
+reference_flows:
+  []
+measurement_rules:
+  - id: reference_mass
+    applies_to: "finished_soy_flour"
+    required_property_ref:
+      name: "Mass"
+      uuid: "93a60a56-a3c8-11da-a746-0800200b9a66"
+    required_unit: "kg"
+    rule: "Weigh accepted, net finished flour or meal without transport packaging on a calibrated scale; use its campaign mass as the denominator for all reported exchanges."
+  - id: energy_basis
+    applies_to: "purchased_electricity, purchased_steam_heat"
+    required_property_ref:
+      name: "Energy"
+      uuid: ""
+    required_unit: "MJ"
+    rule: "Convert metered kWh to MJ using 1 kWh = 3.6 MJ; do not mix purchased steam heat with on-site fuel combustion or count the same heat twice."
+process_map:
+  - id: soy_flour_preparation
+    name: "Soybean flour or coarse-meal preparation"
+    inclusion: "required"
+    inclusion_condition: "Every documented soybean representative dataset; route-specific exchanges apply as stated in their cards."
+    role: "Foreground dehulling where performed, conditioning, drying and milling."
+    quantitative_reference: "1 kg accepted finished soybean flour or meal."
+process_inventory:
+  - id: soy_flour_preparation
+    label: "Soybean flour or coarse-meal preparation"
+    inputs:
+      product:
+        - row_id: whole_soybeans_input
+          role: "Whole soybean input"
+          name: "Soybean (whole, non-mustard oilseed; UUID unresolved)"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Record whole soybeans only when the facility makes full-fat flour or meal from whole beans. The incoming mass is weighed before any on-site dehulling or conditioning."
+          amount:
+            expression: "Weighed incoming soybean mass divided by accepted finished flour mass for the same campaign; applicable only to the whole-bean route."
+            value_mode: "foreground_record"
+            specificity: "route_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_seed_mass
+              source_ids:
+                - isu-soy-processing-2018
+            ranges: []
+        - row_id: defatted_soy_flakes_input
+          role: "Defatted soybean flakes input"
+          name: "Defatted soybean flakes (edible intermediate; UUID unresolved)"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Record purchased edible defatted soybean flakes only for the defatted-flour route. The supplier product is not the finished flour and must carry its own upstream dataset."
+          amount:
+            expression: "Weighed incoming defatted-flake mass divided by accepted finished flour mass for the same campaign; applicable only to the defatted-flake route."
+            value_mode: "foreground_record"
+            specificity: "route_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_flake_mass
+              source_ids:
+                - isu-soy-processing-2018
+            ranges: []
+        - row_id: purchased_electricity
+          role: "Purchased electricity"
+          name: "Electricity"
+          flow_type: "product"
+          flow_ref:
+            uuid: "b989a649-ca09-44b8-abab-a069148d0b1e"
+          property_unit: "Net calorific value / MJ"
+          description: "Record metered electricity used for the documented conditioning, drying and milling process; exclude separately metered upstream oil extraction."
+          amount:
+            expression: "Purchased electricity attributable to the campaign, converted from kWh to MJ and divided by accepted finished flour mass."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_electricity
+              source_ids: []
+            ranges: []
+        - row_id: purchased_steam_heat
+          role: "Purchased steam heat"
+          name: "Steam heat (UUID unresolved)"
+          flow_type: "product"
+          property_unit: "Energy / MJ"
+          description: "Record delivered steam heat only where a purchased steam supply is used for conditioning or drying. If heat is generated on-site, replace this exchange with individually identified fuel and emission rows in a reviewed extension."
+          amount:
+            expression: "Metered delivered steam heat divided by accepted finished flour mass; applicable only when purchased steam heat crosses the facility boundary."
+            value_mode: "foreground_record"
+            specificity: "technology_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_steam_heat
+              source_ids: []
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        - row_id: finished_soy_flour
+          role: "Accepted soybean flour or coarse meal"
+          name: "Soybean flour"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Record only accepted dry finished product at the factory gate. This row is the representative reference product; no database flow UUID is asserted."
+          amount:
+            expression: "1 kg"
+            value_mode: "foreground_record"
+            specificity: "product_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_product_mass
+              source_ids:
+                - isu-soy-processing-2018
+            ranges: []
+      waste:
+        - row_id: separated_soy_hulls
+          role: "Separated soybean hulls"
+          name: "Soybean hulls (separated solid; UUID unresolved)"
+          flow_type: "waste"
+          property_unit: "Mass / kg"
+          description: "Record hulls removed during on-site dehulling as a distinct outgoing solid stream. Declare whether they are sold as a co-product or managed as waste; do not relabel them as oil-cake."
+          amount:
+            expression: "Weighed outgoing soybean-hull mass divided by accepted finished flour mass; applicable only when dehulling occurs within this facility."
+            value_mode: "foreground_record"
+            specificity: "route_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_hull_mass
+              source_ids:
+                - isu-soy-processing-2018
+            ranges: []
+      elementary:
+        []
+allocation_rules:
+  - rule_id: allocation_rule_1
+    applies_to: "foreground_burden_allocation"
+    rule: "Separate measured dehulling, heat conditioning and milling operations where records permit. If marketable hulls leave the process, report their dry mass and destination and disclose the selected allocation principle and the value or physical relationship used. Do not allocate purchased-defatted-flake upstream extraction burdens again in this foreground process. No fixed economic or mass allocation factor is specified without foreground co-product evidence."
+    source_ids: []
+  - rule_id: allocation_subdivide
+    applies_to: "foreground operations"
+    rule: "Prefer subdivision using independently metered or weighed operations before allocating shared burdens."
+    source_ids: []
+  - rule_id: allocation_hulls
+    applies_to: "marketable soybean hulls"
+    rule: "If hulls are a saleable co-product, disclose the allocation method and measured product quantities; if disposed, treat them as waste and include the actual treatment."
+    source_ids: []
+dataset_production:
+  collection_protocols:
+    - protocol_id: cp_seed_mass
+      process_id: "soy_flour_preparation"
+      flow_role: "whole_soybeans_input"
+      record_type: "receiving scale and lot record"
+      raw_fields: "lot ID; incoming net mass; moisture; species"
+      collection_method: "Calibrated receiving scale, excluding vehicle and packaging tare."
+      unit: "kg"
+      frequency: "Each lot"
+      temporal_coverage: "Same production campaign as accepted output"
+      site_scope: "Actual facility"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "Scale calibration and lot reconciliation"
+    - protocol_id: cp_flake_mass
+      process_id: "soy_flour_preparation"
+      flow_role: "defatted_soy_flakes_input"
+      record_type: "receiving scale and supplier record"
+      raw_fields: "supplier; lot ID; incoming net mass; fat state"
+      collection_method: "Calibrated receiving scale and supplier specification."
+      unit: "kg"
+      frequency: "Each lot"
+      temporal_coverage: "Same production campaign as accepted output"
+      site_scope: "Actual facility"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "Scale calibration and supplier specification"
+    - protocol_id: cp_electricity
+      process_id: "soy_flour_preparation"
+      flow_role: "purchased_electricity"
+      record_type: "meter reading or invoice"
+      raw_fields: "meter ID; start and end kWh; allocation share"
+      collection_method: "Read calibrated meter or reconcile invoice to the documented process."
+      unit: "MJ"
+      frequency: "Each campaign"
+      temporal_coverage: "Same campaign as accepted output"
+      site_scope: "Actual facility"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "Meter calibration or invoice reconciliation"
+    - protocol_id: cp_steam_heat
+      process_id: "soy_flour_preparation"
+      flow_role: "purchased_steam_heat"
+      record_type: "delivered heat meter"
+      raw_fields: "meter ID; delivered heat MJ; allocation share"
+      collection_method: "Read calibrated steam heat meter at the facility boundary."
+      unit: "MJ"
+      frequency: "Each campaign with purchased steam"
+      temporal_coverage: "Same campaign as accepted output"
+      site_scope: "Actual facility"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "Meter certificate and heat balance"
+    - protocol_id: cp_product_mass
+      process_id: "soy_flour_preparation"
+      flow_role: "finished_soy_flour"
+      record_type: "accepted product scale and quality record"
+      raw_fields: "lot ID; accepted net mass; moisture; grind specification"
+      collection_method: "Weigh accepted unpackaged product on a calibrated scale."
+      unit: "kg"
+      frequency: "Each accepted lot"
+      temporal_coverage: "Same production campaign as inputs"
+      site_scope: "Actual facility"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "Scale calibration and acceptance record"
+    - protocol_id: cp_hull_mass
+      process_id: "soy_flour_preparation"
+      flow_role: "separated_soy_hulls"
+      record_type: "outgoing scale and destination record"
+      raw_fields: "hull mass; destination; sale or waste state"
+      collection_method: "Weigh separated hulls before dispatch or treatment."
+      unit: "kg"
+      frequency: "Each hull removal"
+      temporal_coverage: "Same campaign as accepted output"
+      site_scope: "Actual facility"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "Scale calibration and dispatch record"
+  calculation_rules:
+    []
+  data_quality_requirements:
+    - id: dq_campaign
+      applies_to: "all inventory rows"
+      requirement: "Use one reconciled campaign and a single accepted-output denominator; report missing meter or lot coverage."
+      evidence: "Batch ledger, meter readings and scale records"
+    - id: dq_route
+      applies_to: "product and input rows"
+      requirement: "Match the declared whole-bean or defatted-flake route and retain supplier product-state evidence."
+      evidence: "Supplier specification and process log"
+    - id: dq_mass
+      applies_to: "mass-bearing rows"
+      requirement: "Reconcile incoming, accepted product, hull and documented moisture or other losses; investigate unexplained imbalance."
+      evidence: "Weighing records and mass-balance worksheet"
+validation_rules:
+  - rule_id: validate_identity
+    applies_to: "reference product"
+    rule: "Reject a dataset that omits species, flour/meal and fat-state qualifiers or uses oil-cake or mustard material as the reference product."
+    source_ids:
+      - unsd-cpc-3-2025
+  - rule_id: validate_denominator
+    applies_to: "all inventory rows"
+    rule: "Confirm that every reported exchange is normalized to the same accepted finished-product kg and that the reference output is 1 kg."
+    source_ids: []
+  - rule_id: validate_route
+    applies_to: "whole soybeans and defatted flakes"
+    rule: "Require the declared route and associated purchased input state; do not count the same upstream oil extraction twice."
+    source_ids:
+      - isu-soy-processing-2018
+  - rule_id: validate_evidence
+    applies_to: "unresolved flow and range identities"
+    rule: "Flag unconfirmed Tiangong flow UUIDs and missing independent empirical ranges for review before publication."
+    source_ids: []
+published_dataset_profile:
+  dataset_role: "Foreground product dataset for dry oilseed flour or meal production."
+  downstream_use: "Process and lifecyclemodel projections of the foreground data package."
+  allowed_use: "A qualified soybean flour route with measured campaign inputs, output and flow identities."
+  excluded_use: "Proxy use for mustard flour, oil-cake residues, other species without a reviewed extension, or unmeasured utility demand."
+  required_metadata: "Species, incoming material state, route, fat state, heat treatment, grind specification, moisture, product grade, geography, year and co-product treatment."
+  required_quality_disclosure: "Meter and scale coverage, missing-flow identities, unmeasured losses, range-evidence gaps and allocation decision."
+  update_trigger: "Change in incoming material, milling or heating technology, supplier state, product grade or validated flow identity."
+data_sources:
+  - id: "unsd-cpc-3-2025"
+    type: "official_guidance"
+    reference: "UN Statistics Division, CPC Version 3.0 Structure, 30 June 2025, https://unstats.un.org/unsd/classifications/Econ/Download/In%20Text/CPC_Ver_3.0_Structure_30Jun2025.csv"
+    used_for: "Product identity and adjacent oil-cake distinction."
+  - id: "isu-soy-processing-2018"
+    type: "literature"
+    reference: "Stanford and Keener, Iowa State University, Cedar Rapids Food and Bioprocessors Manufacturing Report, 2018, pp. 38 and 40, https://www.cals.iastate.edu/files/inline-files/2018-ISU-Report.pdf"
+    used_for: "Full-fat and defatted soybean flour process routes and flour, meal and hull product distinctions; no empirical inventory range inferred."
+projection_metadata:
+  contract_version: "1"
+  generator: "tiangong-pcr-builder/markdown-projection"
+  canonical_markdown:
+    path: "pcr.en-US.md"
+    normalization: "utf8-lf-v1"
+    hash_algorithm: "sha256"
+    sha256: "sha256:85b761edaf904b6ee6d9c8f9b27d7de1134f49584ada03acb5d6c0846299ec49"
+  generated_content_sha256: "sha256:1aa89fab736367621db0b674aa811c4706baa4b31d577bd08b03848558ec4a2b"

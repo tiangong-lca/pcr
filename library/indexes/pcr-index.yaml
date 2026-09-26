@@ -2,7 +2,7 @@ schema_version: 1
 index_kind: "tiangong-pcr-material-catalog"
 status: "current"
 summary:
-  total: 751
+  total: 766
 pcrs:
   - id: "pcr.agriculture-forestry-and-fishery-products.fish-crustaceans-molluscs-and-other-aquatic-invertebrates-products.coral-and-similar-products-shells-of-molluscs-crustaceans-or-echinoderms-and-cuttle-bone"
     path: "library/pcrs/agriculture-forestry-and-fishery-products/fish-crustaceans-molluscs-and-other-aquatic-invertebrates-products/coral-and-similar-products-shells-of-molluscs-crustaceans-or-echinoderms-and-cuttle-bone"
@@ -599,6 +599,13 @@ pcrs:
       zh-CN: "咖啡提取物、浓缩物、代用品及相关制品"
     status: "candidate"
     content_maturity: "authored_methodology"
+  - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.grain-mill-products-starches-and-starch-products-other-food-products.crispbread-rusks-toasted-bread-and-similar-toasted-products"
+    path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/grain-mill-products-starches-and-starch-products-other-food-products/crispbread-rusks-toasted-bread-and-similar-toasted-products"
+    title:
+      en-US: "Crispbread; rusks, toasted bread and similar toasted products"
+      zh-CN: "脆面包、面包干、烤面包及类似烘烤制品"
+    status: "candidate"
+    content_maturity: "authored_methodology"
   - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.grain-mill-products-starches-and-starch-products-other-food-products.dog-or-cat-food-put-up-for-retail-sale"
     path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/grain-mill-products-starches-and-starch-products-other-food-products/dog-or-cat-food-put-up-for-retail-sale"
     title:
@@ -809,6 +816,13 @@ pcrs:
       zh-CN: "不含可可的糖果（包括白巧克力）；糖渍蔬菜、水果、坚果、果皮及植物其他部分"
     status: "candidate"
     content_maturity: "authored_methodology"
+  - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.grain-mill-products-starches-and-starch-products-other-food-products.tapioca-and-substitutes-therefor-prepared-from-starch-in-the-form-of-flakes-grains-sift-d4017625"
+    path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/grain-mill-products-starches-and-starch-products-other-food-products/tapioca-and-substitutes-therefor-prepared-from-starch-in-the-form-of-flakes-grains-sift-d4017625"
+    title:
+      en-US: "Tapioca and substitutes therefor prepared from starch, in the form of flakes, grains, siftings or similar forms"
+      zh-CN: "珍粉及淀粉制成的珍粉代用品（片状、粒状、筛下物或类似形态）"
+    status: "candidate"
+    content_maturity: "authored_methodology"
   - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.grain-mill-products-starches-and-starch-products-other-food-products.uncooked-pasta-not-stuffed-or-otherwise-prepared"
     path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/grain-mill-products-starches-and-starch-products-other-food-products/uncooked-pasta-not-stuffed-or-otherwise-prepared"
     title:
@@ -898,6 +912,13 @@ pcrs:
     title:
       en-US: "Garments made up of felt or nonwovens; garments made up of textile fabrics impregnated or coated with plastics, rubber or other materials"
       zh-CN: "毡或非织造布制服装；塑料、橡胶或其他材料浸渍或涂覆的纺织物制服装"
+    status: "candidate"
+    content_maturity: "authored_methodology"
+  - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.knitted-or-crocheted-fabrics-wearing-apparel.gloves-shawls-scarves-veils-ties-cravats-and-other-made-up-clothing-accessories-knitted-9984ae4f"
+    path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/knitted-or-crocheted-fabrics-wearing-apparel/gloves-shawls-scarves-veils-ties-cravats-and-other-made-up-clothing-accessories-knitted-9984ae4f"
+    title:
+      en-US: "Gloves, shawls, scarves, veils, ties, cravats and other made-up clothing accessories, knitted or crocheted; knitted or crocheted parts of garments or of clothing accessories"
+      zh-CN: "针织或钩编的手套、披肩、围巾、面纱、领带、领结及其他制成服装附件；针织或钩编的服装或服装附件零件"
     status: "candidate"
     content_maturity: "authored_methodology"
   - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.knitted-or-crocheted-fabrics-wearing-apparel.handkerchiefs-shawls-scarves-veils-ties-cravats-gloves-and-other-made-up-clothing-acces-e3e3c0c4"
@@ -991,6 +1012,13 @@ pcrs:
       zh-CN: "针织或钩编的T恤衫、汗衫及其他背心"
     status: "candidate"
     content_maturity: "authored_methodology"
+  - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.knitted-or-crocheted-fabrics-wearing-apparel.tanned-or-dressed-furskins"
+    path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/knitted-or-crocheted-fabrics-wearing-apparel/tanned-or-dressed-furskins"
+    title:
+      en-US: "Tanned or dressed furskins"
+      zh-CN: "鞣制或整饰毛皮"
+    status: "candidate"
+    content_maturity: "authored_methodology"
   - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.knitted-or-crocheted-fabrics-wearing-apparel.track-suits-ski-suits-swimwear-and-other-garments-knitted-or-crocheted-n-e-c"
     path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/knitted-or-crocheted-fabrics-wearing-apparel/track-suits-ski-suits-swimwear-and-other-garments-knitted-or-crocheted-n-e-c"
     title:
@@ -1033,6 +1061,13 @@ pcrs:
       zh-CN: "非针织或钩编纺织物制女式或女童套装、大衣、夹克、连衣裙、裙子、裤、短裤及类似品"
     status: "candidate"
     content_maturity: "authored_methodology"
+  - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.leather-and-leather-products-footwear.chamois-leather-patent-leather-and-patent-laminated-leather-metallized-leather"
+    path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/leather-and-leather-products-footwear/chamois-leather-patent-leather-and-patent-laminated-leather-metallized-leather"
+    title:
+      en-US: "Chamois leather; patent leather and patent laminated leather; metallized leather"
+      zh-CN: "油鞣皮革；漆皮及层压漆皮；镀金属皮革"
+    status: "candidate"
+    content_maturity: "authored_methodology"
   - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.leather-and-leather-products-footwear.footwear-incorporating-a-protective-metal-toe-cap-except-those-covered-in-subclass-29320"
     path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/leather-and-leather-products-footwear/footwear-incorporating-a-protective-metal-toe-cap-except-those-covered-in-subclass-29320"
     title:
@@ -1059,6 +1094,27 @@ pcrs:
     title:
       en-US: "Footwear with uppers of textile materials, other than sports footwear"
       zh-CN: "鞋帮以纺织材料制成的鞋类，运动鞋除外"
+    status: "candidate"
+    content_maturity: "authored_methodology"
+  - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.leather-and-leather-products-footwear.luggage-handbags-and-the-like-of-leather-composition-leather-plastic-sheeting-textile-m-ad74b041"
+    path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/leather-and-leather-products-footwear/luggage-handbags-and-the-like-of-leather-composition-leather-plastic-sheeting-textile-m-ad74b041"
+    title:
+      en-US: "Luggage, handbags and the like, of leather, composition leather, plastic sheeting, textile materials, vulcanized fibre or paperboard; travel sets for personal toilet, sewing or shoe or clothes cleaning"
+      zh-CN: "皮革、再生皮革、塑料片材、纺织材料、硬化纤维或纸板制行李箱、手提包及类似制品；个人梳洗、缝纫或鞋履及衣物清洁用旅行套装"
+    status: "candidate"
+    content_maturity: "authored_methodology"
+  - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.leather-and-leather-products-footwear.other-articles-of-leather-or-composition-leather-including-articles-of-a-kind-used-in-m-48f68eb5"
+    path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/leather-and-leather-products-footwear/other-articles-of-leather-or-composition-leather-including-articles-of-a-kind-used-in-m-48f68eb5"
+    title:
+      en-US: "Other articles of leather or composition leather (including articles of a kind used in machinery or mechanical appliances or for other technical uses) n.e.c."
+      zh-CN: "其他皮革或再生皮革制品（包括机械、机械器具或其他技术用途制品），未另分类"
+    status: "candidate"
+    content_maturity: "authored_methodology"
+  - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.leather-and-leather-products-footwear.other-leather-of-bovine-or-equine-animals-without-hair-on"
+    path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/leather-and-leather-products-footwear/other-leather-of-bovine-or-equine-animals-without-hair-on"
+    title:
+      en-US: "Other leather, of bovine or equine animals, without hair on"
+      zh-CN: "牛科或马科动物的其他去毛皮革"
     status: "candidate"
     content_maturity: "authored_methodology"
   - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.leather-and-leather-products-footwear.other-sports-footwear-except-skating-boots"
@@ -1306,6 +1362,13 @@ pcrs:
       zh-CN: "山羊可食用内脏，鲜、冷藏或冷冻"
     status: "candidate"
     content_maturity: "authored_methodology"
+  - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.meat-fish-fruits-vegetables-oils-and-fats.edible-offal-of-mammals-fresh-chilled-or-frozen-n-e-c"
+    path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/meat-fish-fruits-vegetables-oils-and-fats/edible-offal-of-mammals-fresh-chilled-or-frozen-n-e-c"
+    title:
+      en-US: "Edible offal of mammals, fresh, chilled or frozen, n.e.c."
+      zh-CN: "其他哺乳动物可食用内脏，鲜、冷藏或冷冻（未另分类）"
+    status: "candidate"
+    content_maturity: "authored_methodology"
   - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.meat-fish-fruits-vegetables-oils-and-fats.edible-offal-of-pigs-fresh-chilled-or-frozen"
     path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/meat-fish-fruits-vegetables-oils-and-fats/edible-offal-of-pigs-fresh-chilled-or-frozen"
     title:
@@ -1451,6 +1514,13 @@ pcrs:
     title:
       en-US: "Flour, meal, powder, flakes, granules and pellets of potatoes"
       zh-CN: "马铃薯粉、粗粉、粉末、薄片、颗粒和团粒"
+    status: "candidate"
+    content_maturity: "authored_methodology"
+  - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.meat-fish-fruits-vegetables-oils-and-fats.flours-and-meals-of-oil-seeds-or-oleaginous-fruits-except-those-of-mustard"
+    path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/meat-fish-fruits-vegetables-oils-and-fats/flours-and-meals-of-oil-seeds-or-oleaginous-fruits-except-those-of-mustard"
+    title:
+      en-US: "Flours and meals of oil seeds or oleaginous fruits, except those of mustard"
+      zh-CN: "含油子仁或果实的细粉及粗粉（芥子粉除外）"
     status: "candidate"
     content_maturity: "authored_methodology"
   - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.meat-fish-fruits-vegetables-oils-and-fats.flours-meals-and-pellets-inedible-of-fish-crustaceans-molluscs-or-other-aquatic-invertebrates"
@@ -1789,6 +1859,13 @@ pcrs:
       zh-CN: "橄榄渣油"
     status: "candidate"
     content_maturity: "authored_methodology"
+  - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.meat-fish-fruits-vegetables-oils-and-fats.olive-oil-crude"
+    path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/meat-fish-fruits-vegetables-oils-and-fats/olive-oil-crude"
+    title:
+      en-US: "Olive oil, crude"
+      zh-CN: "粗制橄榄油"
+    status: "candidate"
+    content_maturity: "authored_methodology"
   - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.meat-fish-fruits-vegetables-oils-and-fats.olive-oil-refined"
     path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/meat-fish-fruits-vegetables-oils-and-fats/olive-oil-refined"
     title:
@@ -1836,6 +1913,13 @@ pcrs:
     title:
       en-US: "Other dried fruit, n.e.c."
       zh-CN: "其他未另分类干果"
+    status: "candidate"
+    content_maturity: "authored_methodology"
+  - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.meat-fish-fruits-vegetables-oils-and-fats.other-fish-frozen"
+    path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/meat-fish-fruits-vegetables-oils-and-fats/other-fish-frozen"
+    title:
+      en-US: "Other fish, frozen"
+      zh-CN: "其他冷冻鱼"
     status: "candidate"
     content_maturity: "authored_methodology"
   - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.meat-fish-fruits-vegetables-oils-and-fats.other-fruit-juices-n-e-c"
@@ -2202,6 +2286,13 @@ pcrs:
       zh-CN: "用醋或乙酸保藏的蔬菜、豆类和马铃薯"
     status: "candidate"
     content_maturity: "authored_methodology"
+  - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.textile-articles-other-than-apparel.bed-linen-table-linen-toilet-linen-and-kitchen-linen"
+    path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/textile-articles-other-than-apparel/bed-linen-table-linen-toilet-linen-and-kitchen-linen"
+    title:
+      en-US: "Bed linen, table linen, toilet linen and kitchen linen"
+      zh-CN: "床上、餐桌、盥洗及厨房用织物制品"
+    status: "candidate"
+    content_maturity: "authored_methodology"
   - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.textile-articles-other-than-apparel.blankets-and-travelling-rugs-except-electric-blankets"
     path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/textile-articles-other-than-apparel/blankets-and-travelling-rugs-except-electric-blankets"
     title:
@@ -2284,6 +2375,13 @@ pcrs:
     title:
       en-US: "Nonwovens"
       zh-CN: "非织造布"
+    status: "candidate"
+    content_maturity: "authored_methodology"
+  - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.textile-articles-other-than-apparel.other-carpets-and-textile-floor-coverings-including-those-of-felt"
+    path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/textile-articles-other-than-apparel/other-carpets-and-textile-floor-coverings-including-those-of-felt"
+    title:
+      en-US: "Other carpets and textile floor coverings (including those of felt)"
+      zh-CN: "其他地毯和纺织材料铺地制品（包括毡制品）"
     status: "candidate"
     content_maturity: "authored_methodology"
   - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.textile-articles-other-than-apparel.parachutes"
@@ -2543,6 +2641,13 @@ pcrs:
     title:
       en-US: "Woven fabrics of cotton, containing 85% or more by weight of cotton, weighing more than 200 g/m2"
       zh-CN: "含棉 85% 及以上且克重超过 200 g/m² 的棉机织物"
+    status: "candidate"
+    content_maturity: "authored_methodology"
+  - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.yarn-and-thread-woven-and-tufted-textile-fabrics.woven-fabrics-of-cotton-containing-85-or-more-by-weight-of-cotton-weighing-not-more-tha-66cf480e"
+    path: "library/pcrs/food-products-beverages-and-tobacco-textiles-apparel-and-leather-products/yarn-and-thread-woven-and-tufted-textile-fabrics/woven-fabrics-of-cotton-containing-85-or-more-by-weight-of-cotton-weighing-not-more-tha-66cf480e"
+    title:
+      en-US: "Woven fabrics of cotton, containing 85% or more by weight of cotton, weighing not more than 200 g/m2"
+      zh-CN: "含棉量不少于85%、单位面积质量不超过200克/平方米的棉机织物"
     status: "candidate"
     content_maturity: "authored_methodology"
   - id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.yarn-and-thread-woven-and-tufted-textile-fabrics.woven-fabrics-of-cotton-containing-less-than-85-by-weight-of-cotton-mixed-mainly-or-sol-4647ce51"

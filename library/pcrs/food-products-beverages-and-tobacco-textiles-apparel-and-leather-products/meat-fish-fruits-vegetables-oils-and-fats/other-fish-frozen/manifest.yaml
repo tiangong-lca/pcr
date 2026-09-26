@@ -2,10 +2,10 @@ schema_version: 1
 id: pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.meat-fish-fruits-vegetables-oils-and-fats.other-fish-frozen
 title:
   en-US: "Other fish, frozen"
-  zh-CN: null
-status: scaffold
+  zh-CN: "其他冷冻鱼"
+status: candidate
 pcr_kind: product_category_rule
-content_maturity: empty_scaffold
+content_maturity: authored_methodology
 domains:
   - "food-products-beverages-and-tobacco-textiles-apparel-and-leather-products"
 modules:
@@ -22,16 +22,40 @@ target_entities:
   - flow
   - process
   - lifecyclemodel
+  - dataset
 languages:
   canonical: en-US
   available:
     - en-US
     - zh-CN
 translation_status:
-  zh-CN: scaffold_pending_translation
+  zh-CN: aligned
 classification_refs:
   - system: CPC
     version: "3.0"
     code: "21219"
     title: "Other fish, frozen"
     mapping_type: exact
+review_metadata:
+  inventory_contract:
+    atomic_flows: v1
+    localized_flow_names: tiangong_zh_v1
+  unresolved:
+    inventory_flow_uuids:
+      - row_id: raw_whole_fish
+        reason_code: no_exact_candidate
+        explanation: "No public state-100 flow identified for fresh or chilled whole fish covering both wild and farmed residual species; CPC 04291 candidate is wild-only."
+      - row_id: freezing_electricity
+        reason_code: manual_review_required
+        explanation: "Four public alternating-current records have indistinguishable direct-read identity; select the correct market and supply context in dataset production."
+      - row_id: polyethylene_film
+        reason_code: classification_mismatch
+        explanation: "Named polyethylene-film candidate conflicts with CPC 29220 luggage classification; no defensible exact packaging-film UUID."
+      - row_id: fish_viscera
+        reason_code: no_exact_candidate
+        explanation: "Waste candidates are generic offal, broader by-products, bycatch or tuna-specific residues, not fish viscera."
+      - row_id: frozen_other_fish
+        reason_code: no_exact_candidate
+        explanation: "Generic frozen-fish candidates resolve to fillets or meat; the CPC 21219 trash-fish record is narrower than residual whole fish."
+    range_evidence_needs:
+      - "Compatible independent frozen whole-fish processor-gate sources are needed for raw-fish yield, freezing and storage electricity, glazing water, polyethylene film and gutting viscera; collect site values meanwhile."

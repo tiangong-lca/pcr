@@ -27,9 +27,9 @@ checkPaths:
   - classifications/**
   - library/modules/**
   - docs/**
-lastReviewedAt: 2026-09-23
-lastReviewedCommit: 4e55b3a1df902c545524797fe7beb3204db6e3ac
-lastReviewedNote: "Current PCR ownership, source boundaries, generation, and validation rules are reviewed."
+lastReviewedAt: 2026-09-27
+lastReviewedCommit: 8663b271cf6555bb46ac6a06cb66d843b83daccb
+lastReviewedNote: "Reviewed PR #30/#33 merge composition: canonical PCR and ADR bytes are preserved; accepted mapping boundaries, deterministic alias/catalog/coverage generation, and ownership/validation contracts remain unchanged. Linux CI qualifies the updated PR head; local content lint and Docpact pass."
 ---
 
 # AGENTS.md - TianGong LCA PCR Library

@@ -2,12 +2,12 @@ schema_version: 1
 id: pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.textile-articles-other-than-apparel.other-carpets-and-textile-floor-coverings-including-those-of-felt
 title:
   en-US: "Other carpets and textile floor coverings (including those of felt)"
-  zh-CN: null
-status: scaffold
+  zh-CN: "其他地毯和纺织材料铺地制品（包括毡制品）"
+status: candidate
 pcr_kind: product_category_rule
-content_maturity: empty_scaffold
+content_maturity: authored_methodology
 domains:
-  - "food-products-beverages-and-tobacco-textiles-apparel-and-leather-products"
+  - food-products-beverages-and-tobacco-textiles-apparel-and-leather-products
 modules:
   core:
     - pcr-minimum-content
@@ -22,16 +22,43 @@ target_entities:
   - flow
   - process
   - lifecyclemodel
+  - dataset
 languages:
   canonical: en-US
   available:
     - en-US
     - zh-CN
 translation_status:
-  zh-CN: scaffold_pending_translation
+  zh-CN: aligned
 classification_refs:
   - system: CPC
     version: "3.0"
     code: "27290"
     title: "Other carpets and textile floor coverings (including those of felt)"
     mapping_type: exact
+review_metadata:
+  inventory_contract:
+    atomic_flows: v1
+    localized_flow_names: tiangong_zh_v1
+  unresolved:
+    inventory_flow_uuids:
+      - row_id: finished_covering
+        reason_code: no_exact_candidate
+        explanation: Public candidates inspected for the finished residual CPC 27290 floor covering were woven, tufted, knotted or unrelated products; no exact finished needle-felt floor-covering flow was verified.
+      - row_id: sb_latex_binder
+        reason_code: product_state_mismatch
+        explanation: Available styrene-butadiene polymer and latex candidates do not establish the aqueous binder dispersion state and solids basis required by this conditional row.
+      - row_id: polyester_backing
+        reason_code: classification_mismatch
+        explanation: The closest named polyester nonwoven candidate is classified as quilted textile products, and other candidates do not establish the polyester backing identity.
+    range_evidence_needs:
+      - row_id: polyester_fibre
+        need: Independent original-text evidence on fibre consumption per accepted kg for a compatible needle-felt route.
+      - row_id: needle_electricity
+        need: Independent original-text evidence on electricity per accepted kg with compatible process boundary and grid context.
+      - row_id: sb_latex_binder
+        need: Route-specific independent evidence on wet dispersion consumption and solids content per accepted kg.
+      - row_id: polyester_backing
+        need: Route-specific independent evidence on backing mass per accepted kg.
+      - row_id: clean_pet_trim
+        need: Independent evidence on segregated clean PET trim yield per accepted kg.

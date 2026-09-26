@@ -1,10 +1,392 @@
 schema_version: 1
-status: scaffold
-classification_seed:
-  system: CPC
-  version: "3.0"
-  code: "29290"
-  title: "Other articles of leather or composition leather (including articles of a kind used in machinery or mechanical appliances or for other technical uses) n.e.c."
-reference_flows: []
-inventory_patterns: []
-qa_rules: []
+generated_from: markdown
+source_markdown: pcr.en-US.md
+product_category_identity:
+  canonical_pcr_id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.leather-and-leather-products-footwear.other-articles-of-leather-or-composition-leather-including-articles-of-a-kind-used-in-m-48f68eb5"
+  classification_refs: "CPC 3.0 29290, candidate correspondence only; mapping acceptance is separate."
+  covered_products: "Finished miscellaneous leather or leather-fibre composition-leather articles, including technical cut or assembled articles, when not classified more specifically."
+  excluded_products: "Unconverted leather sheet; luggage and handbags; saddlery and harness; watch straps; footwear; apparel and clothing accessories; products whose defining material is not leather or composition leather."
+  representative_product: "One specified finished leather or composition-leather article with declared function and configuration."
+  production_route: "Cutting or punching of purchased finished sheet, followed by applicable stitching, riveting or bonding, inspection and packing."
+  market_state: "Accepted finished article at factory gate, net of transport packaging; packaging is a separate inventory input when supplied."
+functional_unit:
+  what: "One specified accepted finished miscellaneous leather or composition-leather article."
+  how_much: "1 kg accepted net article mass."
+  how_well: "Meets the declared drawing, material specification and acceptance criteria."
+  how_long_or_cycle: "One production lot at factory gate; service life is outside this product-stage boundary."
+  reference_flow_link: "finished_article"
+system_boundary:
+  rules:
+    - rule_id: boundary_factory_gate
+      applies_to: "product_stage"
+      rule: "Include fabrication from purchased finished material through accepted factory-gate article and the upstream supply of all included inputs."
+      source_ids:
+        - un-cpc-2025
+    - rule_id: boundary_conditional_routes
+      applies_to: "foreground_operations"
+      rule: "Include stitching, riveting, bonding and box packing only when recorded for the declared product configuration."
+      source_ids:
+        - ilo-isco68-1969
+boundary_abstraction:
+  declared_starting_condition: "Purchased finished leather or leather-fibre composition-leather sheet and other specified inputs enter fabrication."
+  starting_condition_role: "Foreground gate-to-gate fabrication start; upstream supply burdens are linked as separate datasets."
+  product_classification_scope: "One specified article within the residual leather-article boundary, subject to actual product classification review."
+  recursive_input_rule: "If a purchased input is another article covered by this PCR, represent it as a separate upstream dataset and stop same-category recursion at the declared purchase boundary."
+  upstream_dataset_requirement: "Link traceable upstream datasets for leather or composition leather, thread, adhesive, rivets, electricity and packaging actually used; disclose unresolved matches."
+  disclosure: "Record material composition, function, included operations, product mass, co-products, offcut treatment, packaging and excluded stages."
+reference_flow_definition:
+  reference_amount: "1"
+  product_flow_ref:
+    name: "Other finished article of leather or composition leather, n.e.c."
+    uuid: ""
+  flow_property_ref:
+    uuid: "93a60a56-a3c8-11da-a746-0800200b9a66"
+  unit_group_ref:
+    uuid: "93a60a57-a4c8-11da-a746-0800200c9a66"
+  reference_unit: "kg"
+  required_qualifiers:
+    - "Article type and technical function"
+    - "configuration and dimensions"
+    - "natural or leather-fibre composition-leather route"
+    - "leather species where relevant"
+    - "acceptance specification"
+    - "factory geography and period"
+    - "net output mass."
+reference_flows:
+  []
+measurement_rules:
+  - id: reference_mass
+    applies_to: "finished_article"
+    required_property_ref:
+      name: "Mass"
+      uuid: ""
+    required_unit: "kg"
+    rule: "Measure accepted net article mass with a calibrated scale, excluding transport packaging; reconcile rejected units and returns."
+  - id: inventory_basis
+    applies_to: "all inventory rows"
+    required_property_ref:
+      name: "Mass or flow-specific property"
+      uuid: ""
+    required_unit: "row unit"
+    rule: "Report each applicable exchange per 1 kg reference flow using the same accepted output lot and mass denominator; retain raw meter and ledger records."
+  - id: electricity_conversion
+    applies_to: "electricity_ac"
+    required_property_ref:
+      name: "Net calorific value"
+      uuid: ""
+    required_unit: "MJ"
+    rule: "Convert metered kWh to MJ using 1 kWh = 3.6 MJ; retain the original kWh record and voltage/supply disclosure."
+process_map:
+  - id: article_fabrication
+    name: "Leather-article cutting, assembly and inspection"
+    inclusion: "required"
+    inclusion_condition: "Always for an accepted article; individual joining and packing exchanges apply only when present in the bill of materials."
+    role: "Foreground production"
+    quantitative_reference: "per 1 kg reference flow"
+process_inventory:
+  - id: article_fabrication
+    label: "Leather-article cutting, assembly and inspection"
+    inputs:
+      product:
+        - row_id: finished_bovine_leather
+          role: "Finished bovine leather sheet"
+          name: "Finished bovine leather sheet"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "When natural leather is used, record only incoming accepted finished bovine leather cut for this article."
+          amount:
+            expression: "Record the attributable exchange from foreground records per 1 kg reference flow."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_material
+              source_ids:
+                - un-cpc-2025
+            ranges: []
+        - row_id: composition_leather_sheet
+          role: "Composition leather sheet made from leather fibres"
+          name: "Composition leather sheet made from leather fibres"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Include only when leather-fibre composition leather is actually used; supplier composition and incoming mass must be documented."
+          amount:
+            expression: "Record the attributable exchange from foreground records per 1 kg reference flow."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_material
+              source_ids:
+                - un-cpc-2025
+            ranges: []
+        - row_id: polyester_sewing_thread
+          role: "Polyester sewing thread"
+          name: "Polyester sewing thread"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Include only for stitched construction; weigh issued thread and reconcile unused returns."
+          amount:
+            expression: "Record the attributable exchange from foreground records per 1 kg reference flow."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_material
+              source_ids:
+                - ilo-isco68-1969
+            ranges: []
+        - row_id: pu_adhesive
+          role: "Solvent free polyurethane adhesive"
+          name: "Solvent free polyurethane adhesive"
+          flow_type: "product"
+          flow_ref:
+            uuid: "669d2f68-79e9-47c2-96fa-316fc7d33b62"
+          property_unit: "Mass / kg"
+          description: "Include only when this exact adhesive formulation is used for bonding; use net consumed formulated mass."
+          amount:
+            expression: "Record the attributable exchange from foreground records per 1 kg reference flow."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_material
+              source_ids:
+                - ilo-isco68-1969
+            ranges: []
+        - row_id: steel_rivet
+          role: "Steel rivet"
+          name: "Steel rivet"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Include only where steel rivets fasten the article; use issued mass less returned unused rivets."
+          amount:
+            expression: "Record the attributable exchange from foreground records per 1 kg reference flow."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_material
+              source_ids:
+                - ilo-isco68-1969
+            ranges: []
+        - row_id: electricity_ac
+          role: "Purchased alternating-current electricity"
+          name: "Purchased alternating-current electricity"
+          flow_type: "product"
+          property_unit: "Net calorific value / MJ"
+          description: "Meter cutting, sewing, pressing and assembly electricity attributable to the accepted article lot."
+          amount:
+            expression: "Record the attributable exchange from foreground records per 1 kg reference flow."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_energy
+              source_ids: []
+            ranges: []
+        - row_id: corrugated_box
+          role: "corrugated board boxes"
+          name: "corrugated board boxes"
+          flow_type: "product"
+          flow_ref:
+            uuid: "4f197bec-7b3b-11dd-ad8b-0800200c9a66"
+          property_unit: "Mass / kg"
+          description: "Include only where the producer supplies a corrugated box with the finished article; weigh boxes used."
+          amount:
+            expression: "Record the attributable exchange from foreground records per 1 kg reference flow."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_material
+              source_ids: []
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        - row_id: finished_article
+          role: "Other finished article of leather or composition leather, n.e.c."
+          name: "Other finished article of leather or composition leather, n.e.c."
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Weigh accepted finished articles net of transport packaging; one reference flow is 1 kg of this accepted output."
+          amount:
+            expression: "1 kg"
+            value_mode: "foreground_record"
+            specificity: "product_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_output
+              source_ids:
+                - un-cpc-2025
+            ranges: []
+      waste:
+        - row_id: leather_offcut
+          role: "Segregated leather offcut"
+          name: "Bovine leather cutting offcut waste"
+          flow_type: "waste"
+          property_unit: "Mass / kg"
+          description: "When bovine leather is cut, segregate and weigh offcuts leaving the fabrication process."
+          amount:
+            expression: "Weigh segregated waste per 1 kg reference flow."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_waste
+              source_ids: []
+            ranges: []
+      elementary:
+        []
+allocation_rules:
+  - rule_id: allocation_subdivide
+    applies_to: "shared_operations"
+    rule: "Prefer separate meters and material issue records for each article family and production line."
+    source_ids: []
+  - rule_id: allocation_shared
+    applies_to: "unavoidable_shared_inputs"
+    rule: "If direct subdivision is impossible, allocate shared input by measured machine time for equipment energy or measured net material issue for material handling; record numerator, denominator and sensitivity."
+    source_ids: []
+  - rule_id: allocation_recycling
+    applies_to: "leather_offcuts"
+    rule: "Record offcut mass and actual destination separately; do not assume a recycling credit without an explicit downstream system and allocation method."
+    source_ids: []
+dataset_production:
+  collection_protocols:
+    - protocol_id: cp_output
+      process_id: "article_fabrication"
+      flow_role: "accepted article"
+      record_type: "weighing and acceptance log"
+      raw_fields: "article ID; configuration; accepted net mass; rejected mass"
+      collection_method: "Weigh accepted articles on a calibrated scale without transport packaging and reconcile acceptance records."
+      unit: "kg"
+      frequency: "each lot"
+      temporal_coverage: "declared production period"
+      site_scope: "article line"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "calibration record; signed acceptance log"
+    - protocol_id: cp_material
+      process_id: "article_fabrication"
+      flow_role: "each material input"
+      record_type: "issue and return ledger"
+      raw_fields: "material SKU; formulation; issued mass; returned mass; lot"
+      collection_method: "Record net material consumed for this article lot; verify supplier specification and bill of materials."
+      unit: "kg"
+      frequency: "each lot"
+      temporal_coverage: "declared production period"
+      site_scope: "article line"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "supplier specification; issue ledger"
+    - protocol_id: cp_energy
+      process_id: "article_fabrication"
+      flow_role: "purchased AC electricity"
+      record_type: "electricity meter"
+      raw_fields: "meter ID; kWh; period; voltage; article lot"
+      collection_method: "Read a dedicated meter or allocate shared meter electricity by documented machine time; convert kWh to MJ."
+      unit: "MJ"
+      frequency: "each lot"
+      temporal_coverage: "declared production period"
+      site_scope: "article line"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "meter readings; allocation worksheet"
+    - protocol_id: cp_waste
+      process_id: "article_fabrication"
+      flow_role: "bovine leather offcut"
+      record_type: "waste weighing and transfer log"
+      raw_fields: "material ID; offcut mass; destination; lot"
+      collection_method: "Segregate and weigh cutting offcuts before transfer to treatment or recovery."
+      unit: "kg"
+      frequency: "each lot"
+      temporal_coverage: "declared production period"
+      site_scope: "article line"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "waste scale record; transfer note"
+  calculation_rules:
+    []
+  data_quality_requirements:
+    - id: dq_identity
+      applies_to: "all inventory rows"
+      requirement: "Record article configuration, material species or composition, joining method and actual supplier product; do not substitute a category proxy for unresolved UUIDs."
+      evidence: "drawing; bill of materials; supplier specification"
+    - id: dq_mass_balance
+      applies_to: "material and output rows"
+      requirement: "Reconcile issued material, accepted product, offcuts and documented rejects by material route; explain any unexplained mass difference."
+      evidence: "issue ledger; scales; reject log"
+    - id: dq_period
+      applies_to: "all rows"
+      requirement: "Use the same site, article configuration and declared production period for numerator and accepted output denominator."
+      evidence: "lot and meter timestamps"
+validation_rules:
+  - rule_id: validate_reference
+    applies_to: "reference_product"
+    rule: "Require one article configuration, accepted net output mass and 1 kg reference basis; reject packaged gross mass as the denominator."
+    source_ids: []
+  - rule_id: validate_atomic_flows
+    applies_to: "inventory"
+    rule: "Require a separate physical exchange for each input, waste and output; check conditional rows against actual bill of materials."
+    source_ids: []
+  - rule_id: validate_uuids
+    applies_to: "unresolved_flows"
+    rule: "Do not claim a public Tiangong match for unresolved rows; require later exact state-100 direct-read review before release."
+    source_ids: []
+  - rule_id: validate_balance
+    applies_to: "material_balance"
+    rule: "Check leather and composition-leather issued amounts against accepted articles, segregated offcuts and rejects, and disclose unexplained differences."
+    source_ids: []
+published_dataset_profile:
+  dataset_role: "Foreground product-stage article fabrication dataset."
+  downstream_use: "May feed process or lifecyclemodel after upstream input datasets are linked and unresolved identities are reviewed."
+  allowed_use: "One declared article configuration, material route, site and period."
+  excluded_use: "Automatic use as a generic factor for all CPC 29290 goods, use-phase or end-of-life modelling, and unreviewed UUID substitution."
+  required_metadata: "Article function, configuration, leather material specification, mass basis, joining operations, packaging, site and period."
+  required_quality_disclosure: "Unresolved flow identities, missing source-backed ranges, shared-meter allocation, rejects and waste destinations."
+  update_trigger: "Change in article design, leather composition, joining technology, site energy supply or packing specification."
+data_sources:
+  - id: "un-cpc-2025"
+    type: "official_guidance"
+    reference: "UN Statistics Division, CPC Version 3.0 Structure, 30 June 2025, https://unstats.un.org/unsd/classifications/Econ/Download/In%20Text/CPC_Ver_3.0_Structure_30Jun2025.csv"
+    used_for: "Classification identity and adjacent exclusions, not a production factor."
+  - id: "ilo-isco68-1969"
+    type: "official_guidance"
+    reference: "International Labour Office, International Standard Classification of Occupations, revised edition 1968, published 1969, p. 193, https://webapps.ilo.org/ilostat-files/ISCO/newdocs-08-2021/Previous%20versions%20of%20ISCO/ISCO-68/ISCO-68%20EN%20Structure%20and%20defnitions.pdf"
+    used_for: "Cutting, sewing, fastening and assembly operations only; historical occupational description, not quantitative LCA evidence."
+projection_metadata:
+  contract_version: "1"
+  generator: "tiangong-pcr-builder/markdown-projection"
+  canonical_markdown:
+    path: "pcr.en-US.md"
+    normalization: "utf8-lf-v1"
+    hash_algorithm: "sha256"
+    sha256: "sha256:18ff6a941940f9025eb4d5d7c53d45c73a729bb9cffc8b9a2e83509a9fe44b83"
+  generated_content_sha256: "sha256:93c74cfd79409c387b6b737984fecc058958e013224ac922605cf3897ff29d00"

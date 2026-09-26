@@ -4,8 +4,8 @@ pcr_index: "library/indexes/pcr-index.yaml"
 pcr_id_aliases:
   path: "classifications/aliases/pcr-id-aliases.yaml"
   hash_mode: "exact_bytes"
-  sha256: "sha256:3f62a530d218e7db375ec48ad933659b30c668b88c753f46b255d153f7e45299"
-  entry_count: 2128
+  sha256: "sha256:44769f4703d7b4408761a3d8f4c2a389a44d82f0bfb74c3d4e9ac63461275e6d"
+  entry_count: 2113
 classification_mappings:
   - "classifications/mappings/cpc-3.0-to-pcr.yaml"
   - "classifications/mappings/cpc-2.1-to-pcr.yaml"

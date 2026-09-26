@@ -1,10 +1,386 @@
 schema_version: 1
-status: scaffold
-classification_seed:
-  system: CPC
-  version: "3.0"
-  code: "21219"
-  title: "Other fish, frozen"
-reference_flows: []
-inventory_patterns: []
-qa_rules: []
+generated_from: markdown
+source_markdown: pcr.en-US.md
+product_category_identity:
+  canonical_pcr_id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.meat-fish-fruits-vegetables-oils-and-fats.other-fish-frozen"
+  classification_refs: "CPC 3.0 21219, residual other fish, frozen [un-cpc-3-2025]"
+  covered_products: "Frozen whole finfish not assigned to CPC 21211–21216; uneviscerated or eviscerated, with or without head"
+  excluded_products: "Live, fresh or chilled fish; frozen fillets, fish meat, livers and roes; named frozen-fish subclasses 21211–21216 [un-cpc-3-2025]"
+  representative_product: "Frozen whole residual-category finfish at processor gate, net fish mass excluding glaze and packaging"
+  production_route: "Raw whole-fish reception, optional gutting, quick freezing, optional glazing, packing and frozen storage"
+  market_state: "Frozen whole fish; species, origin, presentation and glaze declared"
+functional_unit:
+  what: "Frozen whole finfish in the residual other-fish category at processor gate"
+  how_much: "1 kg net fish mass, excluding glaze and packaging"
+  how_well: "Product frozen and held at or colder than −18 °C at the thermal centre after stabilization for quick-frozen product; record the actual standard applied [fao-cxs-36-1981]"
+  how_long_or_cycle: "One production lot through processor-gate release; declare on-site frozen storage duration"
+  reference_flow_link: "frozen_other_fish"
+system_boundary:
+  rules:
+    - rule_id: boundary_gate
+      applies_to: "foreground scope"
+      rule: "Include reception, optional gutting, freezing, optional glazing, packing and on-site frozen storage until product release."
+      source_ids:
+        - fao-cac-rcp-52-2012
+    - rule_id: boundary_upstream
+      applies_to: "raw_whole_fish"
+      rule: "Link the actual received-fish upstream route and avoid double counting upstream production."
+      source_ids: []
+boundary_abstraction:
+  declared_starting_condition: "Received raw whole fish at processor intake; record species, source, fresh/chilled/frozen condition and measured mass"
+  starting_condition_role: "Foreground starting input with upstream fish-production burden linked"
+  product_classification_scope: "Residual frozen whole fish CPC 21219; upstream raw fish retains its own origin and state classification"
+  recursive_input_rule: "If already frozen fish is reprocessed, disclose its incoming state and link its upstream product dataset once; do not model it again as newly landed raw fish."
+  upstream_dataset_requirement: "Link representative wild-catch or aquaculture and inbound transport datasets for received fish; disclose unavailable links."
+  disclosure: "Report species mix, source route, head/gut state, glaze, packaging, freezer technology, storage duration and any excluded exchanges."
+reference_flow_definition:
+  reference_amount: "1"
+  product_flow_ref:
+    name: "Other fish, frozen"
+    uuid: ""
+  flow_property_ref:
+    uuid: "93a60a56-a3c8-11da-a746-0800200b9a66"
+  unit_group_ref:
+    uuid: "93a60a57-a4c8-11da-a746-0800200c9a66"
+  reference_unit: "kg"
+  required_qualifiers:
+    - species
+    - "wild or farmed origin"
+    - "whole/head/gut presentation"
+    - "frozen temperature and method"
+    - "glaze present and mass"
+    - packaging
+    - "on-site frozen storage duration"
+    - "geographic and technological scope"
+reference_flows:
+  []
+measurement_rules:
+  - id: reference_mass
+    applies_to: "frozen_other_fish"
+    required_property_ref:
+      name: "Mass"
+      uuid: "93a60a56-a3c8-11da-a746-0800200b9a66"
+    required_unit: "kg"
+    rule: "Measure accepted net fish mass, excluding glaze and packaging, using cp_output_mass; this is the 1 kg denominator."
+  - id: input_normalization
+    applies_to: "all inventory rows"
+    required_property_ref:
+      name: "Row-specific property"
+      uuid: ""
+    required_unit: "row-specific"
+    rule: "Record each exchange per production lot and divide by accepted net fish mass in kg using normalize_lot; preserve its original numerator unit."
+process_map:
+  - id: fish_freezing
+    name: "Whole-fish reception, freezing, packing and storage"
+    inclusion: "required"
+    inclusion_condition: "All covered lots"
+    role: "Foreground production"
+    quantitative_reference: "Per 1 kg accepted net frozen fish mass"
+process_inventory:
+  - id: fish_freezing
+    label: "Whole-fish reception, freezing, packing and storage"
+    inputs:
+      product:
+        - row_id: raw_whole_fish
+          role: "Received raw whole fish"
+          name: "Fresh or chilled whole fish in the residual species scope"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Received raw whole fish crosses the foreground boundary as one product input."
+          amount:
+            expression: "Weigh accepted fish entering the process per production lot."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_raw_fish
+              source_ids:
+                - fao-cac-rcp-52-2012
+            ranges: []
+        - row_id: glazing_tap_water
+          role: "Tap water for optional glazing"
+          name: "Tap water"
+          flow_type: "product"
+          flow_ref:
+            uuid: "d1e0e36c-07f0-4a75-bdcb-efb5d9e2ac36"
+          property_unit: "Mass / kg"
+          description: "Tap water for optional glazing crosses the foreground boundary as one product input. Include only when glazing with tap water."
+          amount:
+            expression: "Measure potable tap water supplied for glaze per lot; zero only when glazing is absent."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_glazing_water
+              source_ids:
+                - fao-cxs-36-1981
+            ranges: []
+        - row_id: freezing_electricity
+          role: "Electricity for freezing and on-site storage"
+          name: "Alternating current electricity"
+          flow_type: "product"
+          property_unit: "Energy / MJ"
+          description: "Electricity for freezing and on-site storage crosses the foreground boundary as one product input."
+          amount:
+            expression: "Measure attributable electricity for freezing, packing and frozen storage over the lot storage interval."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_electricity
+              source_ids:
+                - fao-cac-rcp-52-2012
+            ranges: []
+        - row_id: polyethylene_film
+          role: "Polyethylene packaging film"
+          name: "Polyethylene packaging film"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Polyethylene packaging film crosses the foreground boundary as one product input. Include only when polyethylene film route."
+          amount:
+            expression: "Weigh film consumed in packaging the accepted lot; use another atomic row for a different resin."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_film
+              source_ids:
+                - fao-cxs-36-1981
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        - row_id: frozen_other_fish
+          role: "Frozen other whole fish"
+          name: "Other fish, frozen"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Accepted frozen whole-fish output is the reference product at processor gate. Exclude glaze and packaging from its net mass."
+          amount:
+            expression: "1 kg"
+            value_mode: "foreground_record"
+            specificity: "product_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_output_mass
+              source_ids:
+                - fao-cxs-36-1981
+            ranges: []
+      waste:
+        - row_id: fish_viscera
+          role: "Fish viscera from optional gutting"
+          name: "Fish viscera"
+          flow_type: "waste"
+          property_unit: "Mass / kg"
+          description: "Record segregated fish viscera removed during gutting as one waste output; this row applies only when gutting occurs."
+          amount:
+            expression: "Weigh segregated viscera per production lot; zero only if no gutting occurs."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_viscera
+              source_ids:
+                - fao-cac-rcp-52-2012
+            ranges: []
+      elementary:
+        []
+allocation_rules:
+  - rule_id: allocation_subdivide
+    applies_to: "jointly operated lines"
+    rule: "First subdivide metered freezing and storage activities by line or lot where records permit."
+    source_ids:
+      - fao-cac-rcp-52-2012
+  - rule_id: allocation_shared
+    applies_to: "shared fish-processing inputs"
+    rule: "If subdivision is unavailable, quantify a causal allocation using metered equipment time or another measured physical driver, disclose the driver and co-products, and seek review if no defensible driver exists."
+    source_ids: []
+  - rule_id: allocation_byproduct
+    applies_to: "fish_viscera"
+    rule: "Record viscera as waste when disposed; if sold as a product, report its mass, destination and a separately justified allocation decision instead of silently assigning zero burden."
+    source_ids:
+      - fao-cac-rcp-52-2012
+dataset_production:
+  collection_protocols:
+    - protocol_id: cp_raw_fish
+      process_id: "fish_freezing"
+      flow_role: "raw_whole_fish"
+      record_type: "receiving and scale records"
+      raw_fields: "lot; species; origin; raw mass; condition"
+      collection_method: "Calibrated scale or reconciled intake records"
+      unit: "kg"
+      frequency: "each lot"
+      temporal_coverage: "production campaign"
+      site_scope: "processor gate"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "scale calibration and intake tickets"
+    - protocol_id: cp_glazing_water
+      process_id: "fish_freezing"
+      flow_role: "glazing_tap_water"
+      record_type: "water meter and batch records"
+      raw_fields: "lot; potable-water mass; glazing status"
+      collection_method: "Meter or weigh supplied tap water"
+      unit: "kg"
+      frequency: "each glazing lot"
+      temporal_coverage: "production campaign"
+      site_scope: "processor gate"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "meter and potable-water records"
+    - protocol_id: cp_electricity
+      process_id: "fish_freezing"
+      flow_role: "freezing_electricity"
+      record_type: "electricity meter and freezer log"
+      raw_fields: "lot; meter readings; freezer run time; storage duration"
+      collection_method: "Meter electricity and allocate shared draw by recorded operating time"
+      unit: "MJ"
+      frequency: "each lot or campaign"
+      temporal_coverage: "reception to release"
+      site_scope: "processor gate"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "meter calibration and log"
+    - protocol_id: cp_film
+      process_id: "fish_freezing"
+      flow_role: "polyethylene_film"
+      record_type: "packaging issue records"
+      raw_fields: "lot; film resin; issued mass; returned mass"
+      collection_method: "Weigh net polyethylene film issued to lot"
+      unit: "kg"
+      frequency: "each lot"
+      temporal_coverage: "production campaign"
+      site_scope: "processor gate"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "resin specification and stock reconciliation"
+    - protocol_id: cp_output_mass
+      process_id: "fish_freezing"
+      flow_role: "frozen_other_fish"
+      record_type: "deglazed scale and release records"
+      raw_fields: "lot; species; presentation; gross mass; glaze mass; net fish mass"
+      collection_method: "Weigh deglazed accepted fish or reconcile traceable net-content records"
+      unit: "kg"
+      frequency: "each lot"
+      temporal_coverage: "release at processor gate"
+      site_scope: "processor gate"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "calibrated scale, deglazing and release records"
+    - protocol_id: cp_viscera
+      process_id: "fish_freezing"
+      flow_role: "fish_viscera"
+      record_type: "segregated waste scale records"
+      raw_fields: "lot; gutting status; viscera mass; destination"
+      collection_method: "Weigh segregated viscera"
+      unit: "kg"
+      frequency: "each gutted lot"
+      temporal_coverage: "production campaign"
+      site_scope: "processor gate"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "waste tickets and mass balance"
+  calculation_rules:
+    - id: normalize_lot
+      applies_to: "all inventory rows"
+      rule: "q_ref = q_lot / m_net, where m_net is accepted net fish mass excluding glaze and packaging; retain each row's numerator unit."
+      inputs:
+        - q_lot
+        - m_net
+        - cp_output_mass
+      output: "q_ref per 1 kg reference flow"
+      source_ids:
+        - fao-cxs-36-1981
+    - id: reconcile_mass
+      applies_to: "raw_whole_fish; frozen_other_fish; fish_viscera"
+      rule: "Reconcile measured incoming fish with accepted net fish, viscera and documented process losses; investigate unexplained difference rather than assume zero."
+      inputs:
+        - cp_raw_fish
+        - cp_output_mass
+        - cp_viscera
+      output: "mass-balance check"
+      source_ids:
+        - fao-cac-rcp-52-2012
+  data_quality_requirements:
+    - id: dq_identity
+      applies_to: "all lots"
+      requirement: "Record species, origin, head/gut state, packaging resin and product state."
+      evidence: "intake, packaging and release records"
+    - id: dq_net_mass
+      applies_to: "frozen_other_fish"
+      requirement: "Separate glaze and packaging from fish net mass."
+      evidence: "deglazing, scale and label records [fao-cxs-36-1981]"
+    - id: dq_cold_chain
+      applies_to: "frozen_other_fish"
+      requirement: "Retain freezing thermal-centre and cold-store temperature records with storage duration."
+      evidence: "calibrated thermometer and freezer logs [fao-cac-rcp-52-2012]"
+    - id: dq_completeness
+      applies_to: "all inventory rows"
+      requirement: "Reconcile meters and material tickets to the same lot and report missing coverage."
+      evidence: "lot reconciliation records"
+validation_rules:
+  - rule_id: validate_identity
+    applies_to: "reference product"
+    rule: "Reject a dataset that substitutes fillets, minced fish, liver, roe or a named frozen-fish subclass for residual whole fish."
+    source_ids:
+      - un-cpc-3-2025
+  - rule_id: validate_net_mass
+    applies_to: "frozen_other_fish"
+    rule: "Check that reference mass is accepted fish mass excluding glaze and packaging and that all rows use the same 1 kg denominator."
+    source_ids:
+      - fao-cxs-36-1981
+  - rule_id: validate_routes
+    applies_to: "conditional rows"
+    rule: "Require glazing-water records when glazed, viscera records when gutted, and a documented packaging film material when used."
+    source_ids:
+      - fao-cac-rcp-52-2012
+  - rule_id: validate_temperature
+    applies_to: "frozen_other_fish"
+    rule: "For a quick-frozen claim, verify thermal-centre temperature at or colder than −18 °C after stabilization and disclose storage conditions."
+    source_ids:
+      - fao-cxs-36-1981
+published_dataset_profile:
+  dataset_role: "Processor-gate foreground data package for other frozen whole fish"
+  downstream_use: "Publish product flow, process and lifecyclemodel projections after dataset checks"
+  allowed_use: "Product-specific frozen whole-fish modelling with declared species, origin and technology"
+  excluded_use: "Generic fillets, minced fish, fish liver/roe or named frozen-fish subclass modelling"
+  required_metadata: "Species mix; source route; presentation; net mass; freezing method and temperature; glaze; packaging; storage duration; geography"
+  required_quality_disclosure: "Meter coverage, allocation, mass balance, missing flow UUIDs, missing ranges and upstream data links"
+  update_trigger: "Change in species mix, source route, freezing technology, packaging or storage regime"
+data_sources:
+  - id: "un-cpc-3-2025"
+    type: "official_guidance"
+    reference: "CPC Ver. 3.0 Explanatory Notes, 30 June 2025, section 21219; https://unstats.un.org/unsd/classifications/Econ/Download/In%20Text/CPC_Ver_3.0_Exp_Notes_30Jun2025.pdf"
+    used_for: "Product boundary and exclusions"
+  - id: "fao-cxs-36-1981"
+    type: "standard"
+    reference: "Codex Standard for Quick Frozen Finfish, Uneviscerated and Eviscerated, CXS 36-1981, revised 1995, amended 2013; https://www.fao.org/input/download/standards/103/CXS_036e.pdf"
+    used_for: "Whole-fish state, freezing, net mass and glaze"
+  - id: "fao-cac-rcp-52-2012"
+    type: "official_guidance"
+    reference: "Code of Practice for Fish and Fishery Products, second edition, 2012, sections 8.1 and 8.3; https://www.fao.org/4/i2382e/i2382e.pdf"
+    used_for: "Reception, freezing, glazing and cold-storage records"
+projection_metadata:
+  contract_version: "1"
+  generator: "tiangong-pcr-builder/markdown-projection"
+  canonical_markdown:
+    path: "pcr.en-US.md"
+    normalization: "utf8-lf-v1"
+    hash_algorithm: "sha256"
+    sha256: "sha256:c0300528061f134afd9b39ccb597953a7cade4b27a27791f34433637b0851311"
+  generated_content_sha256: "sha256:80aaa5b28eda5e5418821121af47ccf0787e8494c7cee30e955230689cd47393"

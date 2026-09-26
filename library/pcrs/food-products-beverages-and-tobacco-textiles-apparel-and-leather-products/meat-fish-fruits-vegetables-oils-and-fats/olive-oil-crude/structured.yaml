@@ -1,10 +1,401 @@
 schema_version: 1
-status: scaffold
-classification_seed:
-  system: CPC
-  version: "3.0"
-  code: "21671"
-  title: "Olive oil, crude"
-reference_flows: []
-inventory_patterns: []
-qa_rules: []
+generated_from: markdown
+source_markdown: pcr.en-US.md
+product_category_identity:
+  canonical_pcr_id: "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.meat-fish-fruits-vegetables-oils-and-fats.olive-oil-crude"
+  classification_refs: "CPC 3.0 21671, Olive oil, crude (unsd-cpc3-2025)"
+  covered_products: "Bulk unrefined olive oil mechanically or physically extracted from olive fruit, including declared virgin and lampante grades before refining."
+  excluded_products: "Refined olive oil; olive-pomace oil; blends with refined olive oil; solvent-extracted oil; packaged retail product."
+  representative_product: "Bulk crude olive oil leaving the extraction mill before refining."
+  production_route: "Fruit receipt, cleaning where applied, crushing, malaxation, phase separation and physical clarification where applied; declare press, two-phase or three-phase separation."
+  market_state: "Unrefined bulk oil at mill gate; grade and filtration state declared."
+functional_unit:
+  what: "Bulk unrefined olive oil from fruit extraction at the mill gate."
+  how_much: "1 kg accepted crude olive oil."
+  how_well: "Grade, separation route, filtration state and water/impurity specification are declared from actual product records."
+  how_long_or_cycle: "One completed production campaign; inventory is normalized to its accepted oil output."
+  reference_flow_link: "crude_oil_output"
+system_boundary:
+  rules:
+    - rule_id: boundary_mill_gate
+      applies_to: "foreground_scope"
+      rule: "Include fruit receipt, cleaning when used, crushing, malaxation, phase separation and physical oil clarification up to bulk transfer; exclude refining and pomace-oil extraction."
+      source_ids:
+        - cxs33-2015
+        - turkey-olive-lca-2023
+    - rule_id: boundary_route_outputs
+      applies_to: "route_outputs"
+      rule: "Record pomace and segregated wastewater under the declared press, two-phase or three-phase route; absence of a separate wastewater stream requires route evidence."
+      source_ids:
+        - turkey-olive-lca-2023
+        - argentina-water-2024
+boundary_abstraction:
+  declared_starting_condition: "Olives physically received at the mill gate, with origin, mass, condition and campaign recorded."
+  starting_condition_role: "Upstream agricultural input to the mill foreground."
+  product_classification_scope: "Crude fruit-derived olive oil only; no refining, pomace-oil extraction or blended-oil production."
+  recursive_input_rule: "If purchased crude olive oil enters the site, record it separately and do not count it as oil produced from the campaign's received olives."
+  upstream_dataset_requirement: "Link the received olive input to an appropriate olive-fruit upstream dataset when a cradle-to-gate result is requested; disclose transport and orchard coverage separately."
+  disclosure: "Declare fruit origin, separator route, washing, oil clarification, pomace disposition, wastewater handling and treatment boundaries."
+reference_flow_definition:
+  reference_amount: "1"
+  product_flow_ref:
+    name: "Olive oil, crude (UUID unresolved)"
+    uuid: ""
+  flow_property_ref:
+    uuid: "93a60a56-a3c8-11da-a746-0800200b9a66"
+  unit_group_ref:
+    uuid: "93a60a57-a4c8-11da-a746-0800200c9a66"
+  reference_unit: "kg"
+  required_qualifiers:
+    - "Fruit origin and campaign"
+    - "mechanical extraction route"
+    - grade
+    - "filtration state"
+    - "bulk transfer point"
+    - "accepted net oil mass measurement."
+reference_flows:
+  []
+measurement_rules:
+  - id: reference_mass
+    applies_to: "crude_oil_output"
+    required_property_ref:
+      name: "Mass"
+      uuid: "93a60a56-a3c8-11da-a746-0800200b9a66"
+    required_unit: "kg"
+    rule: "Weigh or reconcile accepted net bulk oil mass at the declared mill-gate transfer point using cp_oil_mass; exclude container tare, rejected oil and oil sent for later refining from this reference output."
+  - id: campaign_normalization
+    applies_to: "all inventory rows"
+    required_property_ref:
+      name: "Mass or row-specific energy/volume property"
+      uuid: ""
+    required_unit: "row-specific unit per 1 kg reference flow"
+    rule: "Use the same campaign and accepted oil mass denominator for every included exchange; retain raw meter units and documented conversions."
+process_map:
+  - id: olive_milling
+    name: "Integrated olive milling and physical extraction"
+    inclusion: "required"
+    inclusion_condition: "All included mill routes; record actual separation technology and conditioning stages."
+    role: "Foreground production from fruit receipt through bulk crude oil transfer."
+    quantitative_reference: "per 1 kg reference flow"
+process_inventory:
+  - id: olive_milling
+    label: "Integrated olive milling and physical extraction"
+    inputs:
+      product:
+        - row_id: olives_input
+          role: "Received olive fruit"
+          name: "Olives"
+          flow_type: "product"
+          flow_ref:
+            uuid: "b07470dd-3947-4e02-8058-11967225f927"
+          property_unit: "Mass / kg"
+          description: "Accepted olive fruit crosses the mill gate and is the physical feedstock for the recorded extraction campaign."
+          amount:
+            expression: "Record net accepted fruit mass from weighbridge or intake records for the campaign."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_olive_intake
+              source_ids: []
+            ranges: []
+        - row_id: mill_water
+          role: "Mill process water"
+          name: "Process Water"
+          flow_type: "product"
+          flow_ref:
+            uuid: "94a04f7e-2d5c-41f0-b182-d54a3b373a02"
+          property_unit: "Mass / kg"
+          description: "Supplied water crosses the mill boundary when washing or oil-separation operations use it."
+          amount:
+            expression: "Record supplied process water used for fruit washing, paste conditioning or oil separation; report zero only when meter and route records establish no use."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_water_meter
+              source_ids: []
+            ranges: []
+        - row_id: mill_electricity
+          role: "Purchased mill electricity"
+          name: "Alternating current (UUID unresolved)"
+          flow_type: "product"
+          property_unit: "Energy / kWh"
+          description: "Purchased alternating current crosses the site boundary to operate the integrated mill."
+          amount:
+            expression: "Record metered electricity attributable to the campaign, including cleaning, crushing, malaxation, separation and physical clarification."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_electricity_meter
+              source_ids: []
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        - row_id: crude_oil_output
+          role: "Accepted crude olive oil"
+          name: "Olive oil, crude (UUID unresolved)"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Accepted unrefined oil leaves the mill in bulk form and defines the reference output."
+          amount:
+            expression: "1 kg"
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_oil_mass
+              source_ids: []
+            ranges: []
+        - row_id: pomace_product
+          role: "Pomace transferred as a product"
+          name: "Olive pomace, olive mill solid residue"
+          flow_type: "product"
+          flow_ref:
+            uuid: "95c56835-2417-4ffa-8375-d0df138fd887"
+          property_unit: "Mass / kg wet pomace"
+          description: "Residual olive paste leaves the mill as a documented material product for productive use."
+          amount:
+            expression: "Record wet pomace transferred for documented productive use; exclude the same material from pomace_waste."
+            value_mode: "foreground_record"
+            specificity: "route_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_pomace_transfer
+              source_ids: []
+            ranges: []
+      waste:
+        - row_id: pomace_waste
+          role: "Pomace transferred as waste"
+          name: "Olive pomace"
+          flow_type: "waste"
+          flow_ref:
+            uuid: "d93812f9-63c9-4f5f-a3c2-adcd88482a5e"
+          property_unit: "Mass / kg wet pomace"
+          description: "Residual olive paste leaves the mill for waste management when it has no documented product destination."
+          amount:
+            expression: "Record wet pomace sent to waste management; exclude the same material from pomace_product."
+            value_mode: "foreground_record"
+            specificity: "route_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_pomace_transfer
+              source_ids: []
+            ranges: []
+        - row_id: mill_wastewater
+          role: "Segregated untreated olive-mill wastewater"
+          name: "Olive mill wastewater, untreated (UUID unresolved)"
+          flow_type: "waste"
+          property_unit: "Volume / m3"
+          description: "Separately collected aqueous effluent leaves the mill before treatment where the declared route produces this stream."
+          amount:
+            expression: "Measure separately collected fruit-washing or aqueous-separation effluent before treatment; record zero only if no segregated stream exists and route evidence supports it."
+            value_mode: "foreground_record"
+            specificity: "route_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_effluent_meter
+              source_ids: []
+            ranges: []
+      elementary:
+        []
+allocation_rules:
+  - rule_id: allocation_disposition
+    applies_to: "pomace_output"
+    rule: "Distinguish pomace sold for productive use from pomace managed as waste using transfer evidence. Never count the same wet mass in both output rows."
+    source_ids:
+      - turkey-olive-lca-2023
+  - rule_id: allocation_method
+    applies_to: "shared_milling_burdens"
+    rule: "First subdivide separately metered operations. If oil and product pomace share inseparable burdens, declare the study's allocation method, mass basis and sensitivity; do not apply an unverified fixed fraction."
+    source_ids:
+      - turkey-olive-lca-2023
+dataset_production:
+  collection_protocols:
+    - protocol_id: cp_olive_intake
+      process_id: "olive_milling"
+      flow_role: "accepted olive input"
+      record_type: "weighbridge ticket"
+      raw_fields: "date; lot; origin; gross mass; tare; rejected mass"
+      collection_method: "Reconcile incoming tickets and exclusions to the same campaign."
+      unit: "kg"
+      frequency: "each delivery"
+      temporal_coverage: "whole declared campaign"
+      site_scope: "mill gate"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "calibrated scale; ticket reconciliation"
+    - protocol_id: cp_water_meter
+      process_id: "olive_milling"
+      flow_role: "process water"
+      record_type: "meter or invoice"
+      raw_fields: "meter opening; closing; shared-use split; source"
+      collection_method: "Record water mass from a calibrated mass meter, or convert metered volume using measured water density; document any allocation from shared supply."
+      unit: "kg"
+      frequency: "campaign"
+      temporal_coverage: "whole declared campaign"
+      site_scope: "mill water supply"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "meter calibration; supply record"
+    - protocol_id: cp_electricity_meter
+      process_id: "olive_milling"
+      flow_role: "purchased electricity"
+      record_type: "meter or invoice"
+      raw_fields: "kWh opening; closing; shared-use split; voltage"
+      collection_method: "Read electricity meter and reconcile shared loads."
+      unit: "kWh"
+      frequency: "campaign"
+      temporal_coverage: "whole declared campaign"
+      site_scope: "mill electricity supply"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "meter record; invoice reconciliation"
+    - protocol_id: cp_oil_mass
+      process_id: "olive_milling"
+      flow_role: "accepted crude oil output"
+      record_type: "calibrated tank or scale"
+      raw_fields: "tank opening; closing; density if volume-based; tare; reject; grade; route"
+      collection_method: "Weigh accepted net bulk oil or reconcile calibrated tank measurements and measured density at transfer."
+      unit: "kg"
+      frequency: "batch and campaign"
+      temporal_coverage: "whole declared campaign"
+      site_scope: "mill-gate transfer"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "calibration; transfer record; grade record"
+    - protocol_id: cp_pomace_transfer
+      process_id: "olive_milling"
+      flow_role: "pomace product or waste"
+      record_type: "transfer ticket"
+      raw_fields: "wet mass; recipient; purpose; route; moisture"
+      collection_method: "Weigh wet pomace and classify each transfer by documented disposition."
+      unit: "kg"
+      frequency: "each transfer"
+      temporal_coverage: "whole declared campaign"
+      site_scope: "mill gate"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "tickets; recipient records; no double count"
+    - protocol_id: cp_effluent_meter
+      process_id: "olive_milling"
+      flow_role: "segregated untreated olive-mill effluent"
+      record_type: "meter or tank record"
+      raw_fields: "stream origin; opening; closing; route; treatment handoff"
+      collection_method: "Meter or measure each segregated untreated stream before treatment handoff."
+      unit: "m3"
+      frequency: "campaign"
+      temporal_coverage: "whole declared campaign"
+      site_scope: "mill effluent outlet"
+      aggregation_rule: "per 1 kg reference flow"
+      quality_evidence: "meter calibration; treatment receipt"
+  calculation_rules:
+    - id: normalize_campaign
+      applies_to: "all inventory rows"
+      rule: "Divide each campaign exchange amount by the accepted crude olive oil mass of that same campaign; report per 1 kg reference flow."
+      inputs:
+        - "campaign exchange"
+        - "accepted oil mass"
+        - "linked collection protocols"
+      output: "normalized exchange amount"
+      source_ids: []
+    - id: pomace_exclusivity
+      applies_to: "pomace_product; pomace_waste"
+      rule: "Classify each pomace transfer once by documented destination before aggregating the two output rows."
+      inputs:
+        - "transfer tickets"
+        - recipient
+        - disposition
+      output: "separate product and waste wet masses"
+      source_ids:
+        - turkey-olive-lca-2023
+  data_quality_requirements:
+    - id: dq_route
+      applies_to: "campaign"
+      requirement: "Disclose separator type, washing, filtration, grade and pomace disposition; do not infer absent wastewater from a generic two-phase label."
+      evidence: "equipment log; batch records; effluent records"
+    - id: dq_balance
+      applies_to: "campaign"
+      requirement: "Reconcile incoming fruit, oil, wet pomace and aqueous streams; disclose unmeasured moisture or losses without forcing an artificial closed mass balance."
+      evidence: "weighbridge; tank; transfer and effluent records"
+    - id: dq_temporal
+      applies_to: "all inventory rows"
+      requirement: "Match numerator records to the same declared campaign and report missing meter or transfer coverage."
+      evidence: "dated primary records"
+validation_rules:
+  - rule_id: validate_reference
+    applies_to: "reference_product"
+    rule: "Require accepted oil mass greater than zero, a disclosed unrefined state and an exact public crude-oil flow identity before UUID-backed publication."
+    source_ids:
+      - cxs33-2015
+      - ioc-trade-standard-2026
+  - rule_id: validate_denominator
+    applies_to: "inventory"
+    rule: "Every included exchange uses the same accepted-oil campaign denominator; reconcile original units and prevent product/waste pomace double counting."
+    source_ids:
+      - turkey-olive-lca-2023
+  - rule_id: validate_route
+    applies_to: "process_outputs"
+    rule: "Confirm the declared separation route and observed water, pomace and effluent streams; unsupported zero effluent entries fail review."
+    source_ids:
+      - turkey-olive-lca-2023
+      - argentina-water-2024
+published_dataset_profile:
+  dataset_role: "Foreground mill-gate data package for unrefined fruit-derived olive oil."
+  downstream_use: "secondary_dataset; background_dataset after review and documented upstream links."
+  allowed_use: "Model a declared mill route and grade with measured campaign inputs and outputs."
+  excluded_use: "Do not represent refined oil, pomace oil, a retail pack, or universal olive-oil production intensity."
+  required_metadata: "Site and period; fruit origin; extraction and clarification route; oil grade; accepted net oil mass; pomace disposition; water and wastewater treatment boundaries."
+  required_quality_disclosure: "Meter and mass calibration; campaign completeness; missing flows; allocation method; unresolved UUIDs and range evidence."
+  update_trigger: "Changed extraction route, product state, treatment boundary, data period or newly verified flow identity."
+data_sources:
+  - id: "unsd-cpc3-2025"
+    type: "official_guidance"
+    reference: "UN Statistics Division, CPC Ver. 3.0 Structure, 30 Jun 2025, https://unstats.un.org/unsd/classifications/Econ/Download/In%20Text/CPC_Ver_3.0_Structure_30Jun2025.csv"
+    used_for: "Classification title only; not methodology."
+  - id: "cxs33-2015"
+    type: "standard"
+    reference: "Codex Alimentarius, Standard for Olive Oils and Olive-Pomace Oils, CXS 33-1981, revision 2015, https://www.fao.org/input/download/standards/88/CXS_033e_2015.pdf"
+    used_for: "Fruit-derived virgin-oil and pomace-oil identity."
+  - id: "ioc-trade-standard-2026"
+    type: "official_guidance"
+    reference: "International Olive Council, Trade Standard Applying to Olive Oils and Olive Pomace Oils, COI/T.15/NC No. 3/Rev. 22 (June 2026), https://www.internationaloliveoil.org/wp-content/uploads/2026/09/TRADE-STANDARD-REV-22_EN.pdf"
+    used_for: "Virgin, lampante, refined and pomace-oil distinctions."
+  - id: "turkey-olive-lca-2023"
+    type: "literature"
+    reference: "Agriculture 2023, 13(6), 1192, Life Cycle Assessment of Olive Oil Production in Turkey, a Territory with an Intensive Production Project, https://res.mdpi.com/d_attachment/agriculture/agriculture-13-01192/article_deploy/agriculture-13-01192.pdf"
+    used_for: "Turkey case: mill stages, two/three-phase routes, pomace and wastewater identity; no case intensity adopted."
+  - id: "argentina-water-2024"
+    type: "literature"
+    reference: "Water 2024, 16(11), 1612, Wastewater and Grey Water Footprint Assessment of the Olive Oil Production Process in Northwest Argentina, https://res.mdpi.com/d_attachment/water/water-16-01612/article_deploy/water-16-01612.pdf"
+    used_for: "Counterexample to assuming two-phase milling eliminates all separate wastewater."
+projection_metadata:
+  contract_version: "1"
+  generator: "tiangong-pcr-builder/markdown-projection"
+  canonical_markdown:
+    path: "pcr.en-US.md"
+    normalization: "utf8-lf-v1"
+    hash_algorithm: "sha256"
+    sha256: "sha256:c9ddd9f31157493bdb4300de332e89cb75137f926bc143754b956c85351cda93"
+  generated_content_sha256: "sha256:b4f7e7c42e21a9bff533a70fefdb7a563db96f036f70e90dd583f20e80f5fd37"

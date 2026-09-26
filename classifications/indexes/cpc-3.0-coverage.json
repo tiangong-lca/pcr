@@ -15,13 +15,13 @@
     "mapping": {
       "path": "classifications/mappings/cpc-3.0-to-pcr.yaml",
       "hash_mode": "exact_bytes",
-      "sha256": "sha256:043305c523ee1cc100f16c9e49272ef78344a6f02e2de7d09d573d97b96f28c6"
+      "sha256": "sha256:884ac853a439f3b66563f19374d2b6ede1ce25771f6be7cfcb7b2ea9360c0e6e"
     }
   },
   "summary": {
     "total": 2877,
-    "mapped": 749,
-    "unmapped": 2128,
+    "mapped": 764,
+    "unmapped": 2113,
     "candidate_suggestion": 0,
     "manual_review": 0,
     "unknown": 0
@@ -8392,8 +8392,18 @@
         "Edible offal of mammals, fresh, chilled or frozen",
         "Edible offal of mammals, fresh, chilled or frozen, n.e.c."
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.meat-fish-fruits-vegetables-oils-and-fats.edible-offal-of-mammals-fresh-chilled-or-frozen-n-e-c",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "codex-harness-independent-review",
+          "decided_at_utc": "2026-09-23T23:41:44.924Z",
+          "decision_ref": "docs/adr/0146-accept-cpc2-recovery-20260924-snapshot-3d482c5f96e95c44.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -8909,8 +8919,18 @@
         "Fish, frozen (excluding fish fillets and fish meat)",
         "Other fish, frozen"
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.meat-fish-fruits-vegetables-oils-and-fats.other-fish-frozen",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "codex-harness-independent-review",
+          "decided_at_utc": "2026-09-23T20:03:46.759Z",
+          "decision_ref": "docs/adr/0138-accept-cpc2-20260923-snapshot-4335a936506ae8fd.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -11937,8 +11957,18 @@
         "Olive oil",
         "Olive oil, crude"
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.meat-fish-fruits-vegetables-oils-and-fats.olive-oil-crude",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "codex-harness-independent-review",
+          "decided_at_utc": "2026-09-23T23:24:14.921Z",
+          "decision_ref": "docs/adr/0145-accept-cpc2-failures-redo-20260924-snapshot-2038353bee6e918d.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -12196,8 +12226,18 @@
         "Flours and meals of oil seeds or oleaginous fruits, except those of mustard",
         "Flours and meals of oil seeds or oleaginous fruits, except those of mustard"
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.meat-fish-fruits-vegetables-oils-and-fats.flours-and-meals-of-oil-seeds-or-oleaginous-fruits-except-those-of-mustard",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "codex-harness-independent-review",
+          "decided_at_utc": "2026-09-23T23:53:42.614Z",
+          "decision_ref": "docs/adr/0148-accept-cpc2-failures-redo-20260924-snapshot-d4a8c8e3fa71c84f.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -13271,8 +13311,18 @@
         "Tapioca and substitutes therefor prepared from starch, in the form of flakes, grains, siftings or similar forms",
         "Tapioca and substitutes therefor prepared from starch, in the form of flakes, grains, siftings or similar forms"
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.grain-mill-products-starches-and-starch-products-other-food-products.tapioca-and-substitutes-therefor-prepared-from-starch-in-the-form-of-flakes-grains-sift-d4017625",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "codex-harness-independent-review",
+          "decided_at_utc": "2026-09-23T20:36:19.926Z",
+          "decision_ref": "docs/adr/0140-accept-cpc2-20260923-snapshot-2c7cc0112caa9b1e.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -13385,8 +13435,18 @@
         "Crispbread; rusks, toasted bread and similar toasted products",
         "Crispbread; rusks, toasted bread and similar toasted products"
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.grain-mill-products-starches-and-starch-products-other-food-products.crispbread-rusks-toasted-bread-and-similar-toasted-products",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "codex-harness-independent-review",
+          "decided_at_utc": "2026-09-23T20:29:22.338Z",
+          "decision_ref": "docs/adr/0139-accept-cpc2-20260923-snapshot-2fbef61792c623c4.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -16302,8 +16362,18 @@
         "Woven fabrics of cotton, containing 85% or more by weight of cotton, weighing not more than 200 g/m2",
         "Woven fabrics of cotton, containing 85% or more by weight of cotton, weighing not more than 200 g/m2"
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.yarn-and-thread-woven-and-tufted-textile-fabrics.woven-fabrics-of-cotton-containing-85-or-more-by-weight-of-cotton-weighing-not-more-tha-66cf480e",
+        "mapping_type": "narrower",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "codex-harness-independent-review",
+          "decided_at_utc": "2026-09-24T07:15:12.335Z",
+          "decision_ref": "docs/adr/0151-accept-cpc2-interrupted-redo-20260924-snapshot-2bce25585074367e.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -16923,8 +16993,18 @@
         "Bed linen, table linen, toilet linen and kitchen linen",
         "Bed linen, table linen, toilet linen and kitchen linen"
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.textile-articles-other-than-apparel.bed-linen-table-linen-toilet-linen-and-kitchen-linen",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "codex-harness-independent-review",
+          "decided_at_utc": "2026-09-24T01:06:12.320Z",
+          "decision_ref": "docs/adr/0150-accept-cpc2-failures-redo-20260924-snapshot-5c3414b73138413b.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -17234,8 +17314,18 @@
         "Other carpets and textile floor coverings (including those of felt)",
         "Other carpets and textile floor coverings (including those of felt)"
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.textile-articles-other-than-apparel.other-carpets-and-textile-floor-coverings-including-those-of-felt",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "codex-harness-independent-review",
+          "decided_at_utc": "2026-09-24T00:58:49.868Z",
+          "decision_ref": "docs/adr/0149-accept-cpc2-failures-redo-20260924-snapshot-94a8fff6bcfbbf04.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -18032,8 +18122,18 @@
         "Wearing apparel, knitted or crocheted",
         "Gloves, shawls, scarves, veils, ties, cravats and other made-up clothing accessories, knitted or crocheted; knitted or crocheted parts of garments or of clothing accessories"
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.knitted-or-crocheted-fabrics-wearing-apparel.gloves-shawls-scarves-veils-ties-cravats-and-other-made-up-clothing-accessories-knitted-9984ae4f",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "codex-harness-independent-review",
+          "decided_at_utc": "2026-09-23T20:58:04.771Z",
+          "decision_ref": "docs/adr/0141-accept-cpc2-20260923-snapshot-08d22937c385ed2e.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -18518,8 +18618,18 @@
         "Tanned or dressed furskins",
         "Tanned or dressed furskins"
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.knitted-or-crocheted-fabrics-wearing-apparel.tanned-or-dressed-furskins",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "codex-harness-independent-review",
+          "decided_at_utc": "2026-09-23T23:03:31.719Z",
+          "decision_ref": "docs/adr/0143-accept-cpc2-recovery-20260924-snapshot-1ccb8195b8b4796f.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -18591,8 +18701,18 @@
         "Chamois leather; patent leather and patent laminated leather; metallized leather",
         "Chamois leather; patent leather and patent laminated leather; metallized leather"
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.leather-and-leather-products-footwear.chamois-leather-patent-leather-and-patent-laminated-leather-metallized-leather",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "codex-harness-independent-review",
+          "decided_at_utc": "2026-09-23T23:02:27.420Z",
+          "decision_ref": "docs/adr/0142-accept-cpc2-manual-redo-20260924-snapshot-5542f34ef7c797fb.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -18612,8 +18732,18 @@
         "Other leather, of bovine or equine animals, without hair on",
         "Other leather, of bovine or equine animals, without hair on"
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.leather-and-leather-products-footwear.other-leather-of-bovine-or-equine-animals-without-hair-on",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "codex-harness-independent-review",
+          "decided_at_utc": "2026-09-23T19:45:29.324Z",
+          "decision_ref": "docs/adr/0137-accept-cpc2-20260923-snapshot-916d0d1c77b1c41b.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -18685,8 +18815,18 @@
         "Luggage, handbags and the like, of leather, composition leather, plastic sheeting, textile materials, vulcanized fibre or paperboard; travel sets for personal toilet, sewing or shoe or clothes cleaning",
         "Luggage, handbags and the like, of leather, composition leather, plastic sheeting, textile materials, vulcanized fibre or paperboard; travel sets for personal toilet, sewing or shoe or clothes cleaning"
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.leather-and-leather-products-footwear.luggage-handbags-and-the-like-of-leather-composition-leather-plastic-sheeting-textile-m-ad74b041",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "codex-harness-independent-review",
+          "decided_at_utc": "2026-09-23T23:16:55.042Z",
+          "decision_ref": "docs/adr/0144-accept-cpc2-manual-redo-20260924-snapshot-3033043fb114f8f2.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -18737,8 +18877,18 @@
         "Other articles of leather or composition leather (including articles of a kind used in machinery or mechanical appliances or for other technical uses) n.e.c.",
         "Other articles of leather or composition leather (including articles of a kind used in machinery or mechanical appliances or for other technical uses) n.e.c."
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.food-products-beverages-and-tobacco-textiles-apparel-and-leather-products.leather-and-leather-products-footwear.other-articles-of-leather-or-composition-leather-including-articles-of-a-kind-used-in-m-48f68eb5",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "codex-harness-independent-review",
+          "decided_at_utc": "2026-09-23T23:43:11.622Z",
+          "decision_ref": "docs/adr/0147-accept-cpc2-manual-redo-20260924-snapshot-12fa48cd31ed563b.md"
+        }
+      },
       "legacy_reference": null
     },
     {
