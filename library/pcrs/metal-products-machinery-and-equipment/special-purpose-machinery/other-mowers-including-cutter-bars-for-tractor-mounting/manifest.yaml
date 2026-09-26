@@ -2,10 +2,11 @@ schema_version: 1
 id: pcr.metal-products-machinery-and-equipment.special-purpose-machinery.other-mowers-including-cutter-bars-for-tractor-mounting
 title:
   en-US: "Other mowers, including cutter bars for tractor mounting"
-  zh-CN: null
-status: scaffold
+  zh-CN: "其他割草机，包括用于拖拉机安装的刀杆"
+status: candidate
 pcr_kind: product_category_rule
-content_maturity: empty_scaffold
+content_maturity: authored_methodology
+updated_at_utc: "2026-09-11T20:56:50Z"
 domains:
   - "metal-products-machinery-and-equipment"
 modules:
@@ -22,16 +23,144 @@ target_entities:
   - flow
   - process
   - lifecyclemodel
+  - dataset
 languages:
   canonical: en-US
   available:
     - en-US
     - zh-CN
 translation_status:
-  zh-CN: scaffold_pending_translation
+  zh-CN: aligned
 classification_refs:
   - system: CPC
     version: "3.0"
     code: "44123"
     title: "Other mowers, including cutter bars for tractor mounting"
     mapping_type: exact
+review_metadata:
+  inventory_contract:
+    atomic_flows: v1
+    localized_flow_names: tiangong_zh_v1
+  unresolved:
+    inventory_flow_uuids:
+      - row_id: frame_and_hitch_assembly
+        reason_code: no_exact_candidate
+        explanation: "Receipt bbd85763-043a-427c-a931-7924e1a7ec12 returned complete mowers, an umbrella mower-components flow and unrelated products; none exactly denotes a purchased tractor-mounted-mower frame and hitch assembly."
+      - row_id: belt_drive_assembly
+        reason_code: no_exact_candidate
+        explanation: "Receipt 8c2c9981-df5f-449f-b59d-18b97d67d96b returned only the umbrella flow 'Mower materials and components', not an atomic belt-drive assembly."
+      - row_id: cutter_unit_assembly
+        reason_code: no_exact_candidate
+        explanation: "Receipt 1f574d51-c19e-416d-8415-d3bde6d5f8aa found the complete CPC 44123 mower/cutter-bar product used for the complete cutter-bar alternative, but no exact public state-100 internal cutter-unit assembly flow."
+      - row_id: mower_gearbox
+        reason_code: no_exact_candidate
+        explanation: "Receipt 0ed58fc6-9950-4300-b4ea-d959810af4c5 returned wind-turbine products and umbrella mower-component flows; none exactly denotes a mower gearbox."
+      - row_id: pto_driveline
+        reason_code: no_exact_candidate
+        explanation: "Receipt e026871e-d725-4e42-83b3-4b0f1cb8e18c returned wind-turbine shafts, gearboxes and pitch drives; none exactly denotes a tractor PTO driveline."
+      - row_id: safety_guard_and_curtain_assembly
+        reason_code: no_exact_candidate
+        explanation: "Receipt c134a025-8e11-4c39-b098-4d5d36f14093 returned only the complete CPC 44123 product, not an atomic mower safety-guard and curtain assembly."
+      - row_id: frame_hitch_hex_head_cap_screws
+        reason_code: no_exact_candidate
+        explanation: "Receipt ff499458-4207-42cc-9e1c-8093df105808 returned an aluminium closure, a generic steel screw and an umbrella steel-fasteners flow; none exactly denotes the specified frame-and-hitch steel hex-head cap-screw family."
+      - row_id: frame_hitch_steel_hex_nuts
+        reason_code: no_exact_candidate
+        explanation: "Receipt cbf067ca-b80f-4f33-b307-ea7a7fafa6a8 returned a steel screw and generic steel-fasteners flows; none exactly denotes the specified frame-and-hitch steel hex-nut family."
+      - row_id: frame_hitch_steel_washers
+        reason_code: no_exact_candidate
+        explanation: "Receipt f7af7ee9-27bd-4776-accd-c29c405ece58 returned only generic steel-fasteners flows; none exactly denotes the specified flat, spring-lock and Belleville washer family."
+      - row_id: frame_hitch_retaining_pins
+        reason_code: no_exact_candidate
+        explanation: "Receipt 097ff7a8-86d0-4b85-9cc2-d34e9acbc84e returned umbrella steel-fastener, small-hardware and mechanical-component flows; none exactly denotes the specified wire-retaining and linch-pin family."
+      - row_id: solid_steel_welding_wire
+        reason_code: no_exact_candidate
+        explanation: "Receipt 414fd68b-02df-4d40-8fb7-7b4e13680d37 found no exact public state-100 solid steel GMAW welding-wire product flow; the flux-cored candidate has a different product state and the remaining candidates are services or other wire products."
+      - row_id: sae_90_gear_lubricating_oil
+        reason_code: no_exact_candidate
+        explanation: "Receipt fcf5557e-f51c-4bc2-8b1b-043fe79b472b found no exact public state-100 SAE 90 gear-lubricating-oil product flow; all returned candidates were diesel-fuel combustion exchanges."
+      - row_id: captured_welding_fume_dust
+        reason_code: classification_mismatch
+        explanation: "Receipt 81447e14-a4fd-44d3-8ab5-61a5a54e6108 found a welding-fumes waste flow whose public classification fixes non-hazardous incineration; the actual captured residue hazard class and treatment route must be collected before a UUID is selected."
+      - row_id: wooden_pallet_scrap
+        reason_code: no_exact_candidate
+        explanation: "Receipt c541eade-848e-4ed4-bdf5-2704ef00ed41 returned wood offcut and generic wood-waste flows under agglomerated-wood classifications, not an exact damaged or rejected wooden-pallet waste flow."
+    range_evidence_needs:
+      - row_id: hot_rolled_non_alloy_flat_steel
+        explanation: "Collect the model-specific bill-of-material mass; no compatible two-source empirical range was verified."
+      - row_id: frame_and_hitch_assembly
+        explanation: "Collect the purchased frame-and-hitch assembly mass from the model BOM and supplier records; no compatible two-source empirical range was verified."
+      - row_id: hydraulic_cylinder
+        explanation: "Collect the installed hydraulic-cylinder mass from the model BOM and supplier records; no compatible two-source empirical range was verified."
+      - row_id: belt_drive_assembly
+        explanation: "Collect the installed belt-drive assembly mass from the model BOM and supplier records; no compatible two-source empirical range was verified."
+      - row_id: cutter_unit_assembly
+        explanation: "Collect the purchased cutter-unit assembly mass when that make-or-buy route applies; no compatible two-source empirical range was verified."
+      - row_id: purchased_complete_cutter_bar
+        explanation: "Collect the purchased complete cutter-bar mass when incorporated into a complete mower; no compatible two-source empirical range was verified."
+      - row_id: mower_gearbox
+        explanation: "Collect the installed mower-gearbox mass from the model BOM and supplier records; no compatible two-source empirical range was verified."
+      - row_id: pto_driveline
+        explanation: "Collect the installed PTO-driveline mass from the model BOM and supplier records; no compatible two-source empirical range was verified."
+      - row_id: safety_guard_and_curtain_assembly
+        explanation: "Collect the installed safety-guard and curtain assembly mass from the model BOM and supplier records; no compatible two-source empirical range was verified."
+      - row_id: frame_hitch_hex_head_cap_screws
+        explanation: "Collect the consumed mass of the specified screw part numbers from verified counts, unit masses and usable-stock or issue/return records; no compatible two-source empirical range was verified."
+      - row_id: frame_hitch_steel_hex_nuts
+        explanation: "Collect the consumed mass of the specified nut part numbers from verified counts, unit masses and usable-stock or issue/return records; no compatible two-source empirical range was verified."
+      - row_id: frame_hitch_steel_washers
+        explanation: "Collect the consumed mass of the specified washer part numbers from verified counts, unit masses and usable-stock or issue/return records; no compatible two-source empirical range was verified."
+      - row_id: frame_hitch_retaining_pins
+        explanation: "Collect the consumed mass of the specified retaining-pin part numbers from verified counts, unit masses and usable-stock or issue/return records; no compatible two-source empirical range was verified."
+      - row_id: fabrication_electricity
+        explanation: "Collect fabrication electricity from allocated meter and production records; no compatible two-source empirical range was verified."
+      - row_id: fabrication_natural_gas
+        explanation: "Collect natural-gas consumption when the route applies; no compatible two-source empirical range was verified."
+      - row_id: industrial_oxygen
+        explanation: "Collect oxygen consumption when oxy-fuel cutting applies; no compatible two-source empirical range was verified."
+      - row_id: carbon_dioxide_shielding_gas
+        explanation: "Collect shielding-gas consumption when GMAW applies; no compatible two-source empirical range was verified."
+      - row_id: solid_steel_welding_wire
+        explanation: "Collect welding-wire issue and return mass when GMAW applies; no compatible two-source empirical range was verified."
+      - row_id: steel_scrap
+        explanation: "Weigh steel scrap by disposition; no compatible two-source empirical range was verified."
+      - row_id: welding_particulate_matter
+        explanation: "Measure direct welding particulate or calculate it transparently from site records; no compatible two-source empirical range was verified."
+      - row_id: fabrication_fossil_carbon_dioxide
+        explanation: "Measure or calculate direct combustion carbon dioxide from site fuel records; no compatible two-source empirical range was verified."
+      - row_id: shielding_carbon_dioxide_release_fossil
+        explanation: "Collect direct shielding-gas release and verify fossil origin and discharge compartment; no compatible two-source empirical range was verified."
+      - row_id: shielding_carbon_dioxide_release_biogenic
+        explanation: "Collect direct shielding-gas release and verify biogenic origin and discharge compartment; no compatible two-source empirical range was verified."
+      - row_id: captured_welding_fume_dust
+        explanation: "Weigh captured welding fume and dust leaving the site by hazard class and destination; no compatible two-source empirical range was verified."
+      - row_id: powder_coating
+        explanation: "Collect fresh powder-coating issue mass net of documented internal recovery; no compatible two-source empirical range was verified."
+      - row_id: surface_treatment_electricity
+        explanation: "Collect surface-treatment electricity from allocated meter and production records; no compatible two-source empirical range was verified."
+      - row_id: surface_treatment_natural_gas
+        explanation: "Collect natural-gas consumption when a gas-fired curing oven applies; no compatible two-source empirical range was verified."
+      - row_id: powder_coating_waste
+        explanation: "Weigh unrecovered powder overspray, booth-filter residue and coating rejects leaving the system; no compatible two-source empirical range was verified."
+      - row_id: surface_treatment_fossil_carbon_dioxide
+        explanation: "Measure or calculate direct curing-oven carbon dioxide from site fuel records; no compatible two-source empirical range was verified."
+      - row_id: assembly_electricity
+        explanation: "Collect assembly and test electricity from allocated meter and production records; no compatible two-source empirical range was verified."
+      - row_id: sae_90_gear_lubricating_oil
+        explanation: "Collect first-fill gear-lubricant mass; no compatible two-source empirical range was verified."
+      - row_id: used_lubricating_oil
+        explanation: "Collect drained or spilled lubricant leaving the system; no compatible two-source empirical range was verified."
+      - row_id: diesel_test_fuel
+        explanation: "Collect diesel issued and returned when an engine-driven unit is tested; no compatible two-source empirical range was verified."
+      - row_id: corrugated_cardboard
+        explanation: "Collect corrugated-cardboard packaging mass when used; no compatible two-source empirical range was verified."
+      - row_id: corrugated_cardboard_scrap
+        explanation: "Weigh corrugated-cardboard packing rejects leaving the site; no compatible two-source empirical range was verified."
+      - row_id: wooden_pallet
+        explanation: "Collect the actual mass of new or ownership-transferred EURO pallets when used; no compatible two-source empirical range was verified."
+      - row_id: wooden_pallet_scrap
+        explanation: "Weigh damaged or rejected wooden pallets leaving the site; no compatible two-source empirical range was verified."
+      - row_id: diesel_fuel_retained_in_product
+        explanation: "Collect residual diesel transferred with the saleable product separately from test-combusted fuel; no compatible two-source empirical range was verified."
+      - row_id: test_fossil_carbon_dioxide
+        explanation: "Measure or calculate direct test-combustion carbon dioxide from site fuel records; no compatible two-source empirical range was verified."

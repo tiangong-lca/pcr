@@ -2,10 +2,10 @@ schema_version: 1
 id: pcr.metal-products-machinery-and-equipment.special-purpose-machinery.lathes-for-removing-metal
 title:
   en-US: "Lathes for removing metal"
-  zh-CN: null
-status: scaffold
+  zh-CN: "切削金属的车床"
+status: candidate
 pcr_kind: product_category_rule
-content_maturity: empty_scaffold
+content_maturity: authored_methodology
 domains:
   - "metal-products-machinery-and-equipment"
 modules:
@@ -22,16 +22,50 @@ target_entities:
   - flow
   - process
   - lifecyclemodel
+  - dataset
 languages:
   canonical: en-US
   available:
     - en-US
     - zh-CN
 translation_status:
-  zh-CN: scaffold_pending_translation
+  zh-CN: aligned
 classification_refs:
   - system: CPC
     version: "3.0"
     code: "44213"
     title: "Lathes for removing metal"
     mapping_type: exact
+review_metadata:
+  inventory_contract:
+    atomic_flows: v1
+    localized_flow_names: tiangong_zh_v1
+  unresolved:
+    inventory_flow_uuids:
+      - row_id: polyester_powder_coating
+        reason_code: no_exact_candidate
+        explanation: "The task-bound audit returned two generic powder-coating identities without polyester chemistry and an aluminium powder; no exact polyester powder coating was established."
+      - row_id: spent_machining_emulsion
+        reason_code: no_exact_candidate
+        explanation: "The task-bound candidate audit returned generic spent coolant, waste oils and a combined oil-and-coolant category; none establishes the specified spent aqueous machining emulsion."
+      - row_id: grey_iron_casting
+        reason_code: no_exact_candidate
+        explanation: "The finalized task-bound audit returned pig-iron feedstocks rather than shaped grey-iron castings; no exact public casting flow was established."
+      - row_id: low_alloy_steel_bar
+        reason_code: no_exact_candidate
+        explanation: "The finalized task-bound audit returned construction rebar, non-alloy or differently processed bars and broad hot-rolled products, not the specified hot-rolled low-alloy machining bar."
+      - row_id: tapered_roller_bearing
+        reason_code: no_exact_candidate
+        explanation: "The finalized task-bound audit returned a broad ball-or-roller-bearing family and a wind-turbine pitch bearing; neither establishes the specified tapered roller bearing."
+      - row_id: insulated_copper_cable
+        reason_code: no_exact_candidate
+        explanation: "The finalized task-bound audit found a copper control-and-power cable with an incompatible energy property, length-based voltage-specific cables and mismatched conductor or coaxial products; no exact mass-based insulated copper cable was established."
+      - row_id: water_soluble_metalworking_fluid_concentrate
+        reason_code: no_exact_candidate
+        explanation: "A task-bound finalized search rejected returned ore-concentrate candidates; no exact public product flow for the specified metalworking-fluid concentrate was established."
+      - row_id: finished_lathe
+        reason_code: no_exact_candidate
+        explanation: "A task-bound finalized search rejected the closest machine-tool, parts and neighbouring-CPC candidates; no exact public product flow for a complete accepted metal-removing lathe was established."
+    range_evidence_needs:
+      - range_id: lathe_manufacturing_foreground_quantities
+        need: "Obtain at least two independent, original-text-verified and boundary-compatible manufacturing datasets before setting an empirical quantity range."

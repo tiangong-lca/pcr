@@ -1,10 +1,425 @@
 schema_version: 1
-status: scaffold
-classification_seed:
-  system: CPC
-  version: "3.0"
-  code: "44211"
-  title: "Machine-tools for working any material by removal of material, by laser or other light or photon beam, ultra-sonic, electro-discharge, electro-chemical, electron beam, ionic beam or plasma arc processes, water-jet cutting machines"
-reference_flows: []
-inventory_patterns: []
-qa_rules: []
+generated_from: markdown
+source_markdown: pcr.en-US.md
+product_category_identity:
+  canonical_pcr_id: "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-for-working-any-material-by-removal-of-material-by-laser-or-other-light-o-7acc4d55"
+  classification_refs: "CPC 3.0: 44211"
+  covered_products: "Complete laser/light/photon-beam, ultrasonic, electro-discharge, electrochemical, electron-beam, ion-beam, plasma-arc, and water-jet material-removal machine tools"
+  excluded_products: "Conventional cutting or forming machine tools; separately supplied tools, accessories, parts, operating consumables, and non-machine services"
+  representative_product: "One accepted complete material-removal machine tool in its declared sale configuration"
+  production_route: "Purchased-component receipt, frame preparation where performed, coating where performed, final assembly, wiring, functional testing, and acceptance"
+  market_state: "Factory-gate accepted complete machine, without transport packaging and customer-site installation"
+functional_unit:
+  what: "An accepted complete material-removal machine tool of one declared technology and sale configuration"
+  how_much: "1 kg of accepted net machine mass"
+  how_well: "Complete, functional, and released by the manufacturer's acceptance procedure"
+  how_long_or_cycle: "At factory-gate release; no service-life claim is included"
+  reference_flow_link: "finished_machine"
+system_boundary:
+  rules:
+    - rule_id: system_boundary_rule_1
+      applies_to: "foreground_system_boundary"
+      rule: "The foreground boundary begins when purchased components and materials enter the reporting manufacturing site and ends when the complete machine passes acceptance and is released at the factory gate. Include attributable receipt, internal handling, frame preparation, coating, assembly, wiring, software loading required for acceptance, functional testing, rework, and waste handling. Upstream production of purchased inputs shall be represented by linked datasets. Distribution, customer-site installation, operation, maintenance, consumable use during customer operation, and end-of-life are outside this PCR."
+      source_ids: []
+    - rule_id: boundary_factory_gate
+      applies_to: "foreground manufacturing"
+      rule: "Include only attributable manufacturing through accepted factory-gate release and disclose every omitted factory operation."
+      source_ids: []
+    - rule_id: boundary_route_specificity
+      applies_to: "technology-specific exchanges"
+      rule: "Record each present route-specific material, gas, electrode, abrasive, dielectric, electrolyte, water, vacuum-system input, and resulting waste or emission as a separate concrete exchange."
+      source_ids: []
+    - rule_id: boundary_upstream_components
+      applies_to: "purchased components"
+      rule: "Link upstream product datasets and avoid double counting their embedded manufacturing burdens in site records."
+      source_ids: []
+boundary_abstraction:
+  declared_starting_condition: "Purchased components and materials received at the reporting manufacturing site"
+  starting_condition_role: "Foreground manufacturing entry point"
+  product_classification_scope: "Complete machines within the semantic boundary of CPC 3.0 subclass 44211"
+  recursive_input_rule: "A purchased complete machine in the same category shall be recorded as one upstream product input with its own dataset and shall not be decomposed again in the foreground process."
+  upstream_dataset_requirement: "Use supplier-specific or representative upstream datasets for each purchased input and disclose geography, technology, and data age."
+  disclosure: "Declare the technology route, included factory operations, purchased-versus-in-house components, acceptance state, and all excluded stages."
+reference_flow_definition:
+  reference_amount: "1"
+  product_flow_ref:
+    name: "Complete material-removal machine tool"
+    uuid: ""
+  flow_property_ref:
+    uuid: "93a60a56-a3c8-11da-a746-0800200b9a66"
+  unit_group_ref:
+    uuid: "93a60a57-a4c8-11da-a746-0800200c9a66"
+  reference_unit: "kg"
+  required_qualifiers:
+    - "material-removal technology"
+    - model
+    - "sale configuration"
+    - "installed rated power"
+    - "work envelope"
+    - "controlled axes"
+    - "accepted net mass M"
+    - geography
+    - "production period"
+    - "included auxiliaries"
+    - "excluded transport packaging"
+reference_flows:
+  []
+measurement_rules:
+  - id: reference_mass
+    applies_to: "reference product"
+    required_property_ref:
+      name: "Mass"
+      uuid: "93a60a56-a3c8-11da-a746-0800200b9a66"
+    required_unit: "kg"
+    rule: "M = accepted net mass of one complete machine of the same configuration in kg; collect using cp_mass."
+  - id: inventory_normalization
+    applies_to: "all inventory rows except finished_machine"
+    required_property_ref:
+      name: "Row-specific property"
+      uuid: ""
+    required_unit: "Row-specific unit"
+    rule: "Collect q_item per one accepted finished machine and apply normalize_mass so every exchange is reported per 1 kg reference flow."
+  - id: electricity_energy_basis
+    applies_to: "electricity_medium_voltage"
+    required_property_ref:
+      name: "Net calorific value"
+      uuid: "93a60a56-a3c8-11da-a746-0800200c9a66"
+    required_unit: "MJ"
+    rule: "Preserve the metered energy basis; document any kWh-to-MJ conversion before applying normalize_mass."
+process_map:
+  - id: final_assembly
+    name: "Final assembly, finishing, testing, and acceptance"
+    inclusion: "required"
+    inclusion_condition: "Always for the accepted complete machine"
+    role: "foreground_production"
+    quantitative_reference: "one accepted finished machine; normalize by M"
+process_inventory:
+  - id: final_assembly
+    label: "Final assembly, finishing, testing, and acceptance"
+    inputs:
+      product:
+        - row_id: machine_frame
+          role: "Fabricated machine frame"
+          name: "Fabricated machine frame"
+          flow_type: "product"
+          property_unit: "Mass 93a60a56-a3c8-11da-a746-0800200b9a66 / kg"
+          description: "Record the net mass of the one fabricated frame installed in the accepted configuration. The TianGong flow UUID remains unresolved."
+          amount:
+            expression: "Apply normalize_mass to q_item; reference_mass; cp_bom_mass."
+            value_mode: "calculated_value"
+            specificity: "product_specific"
+            basis:
+              text: "per 1 kg reference flow; collected per one accepted finished machine"
+              kind: "reference_flow"
+            evidence:
+              kind: "calculated_from_collection"
+              collection_protocol_id: cp_bom_mass
+              source_ids: []
+            ranges: []
+        - row_id: electronic_control_unit
+          role: "Electronic control unit"
+          name: "Electronic control unit"
+          flow_type: "product"
+          flow_ref:
+            uuid: "ff5a65c8-7726-48b4-b794-6bacd21ab77e"
+          property_unit: "Mass 93a60a56-a3c8-11da-a746-0800200b9a66 / kg"
+          description: "Record the net mass of the electronic control unit installed in the accepted configuration."
+          amount:
+            expression: "Apply normalize_mass to q_item; reference_mass; cp_bom_mass."
+            value_mode: "calculated_value"
+            specificity: "product_specific"
+            basis:
+              text: "per 1 kg reference flow; collected per one accepted finished machine"
+              kind: "reference_flow"
+            evidence:
+              kind: "calculated_from_collection"
+              collection_protocol_id: cp_bom_mass
+              source_ids: []
+            ranges: []
+        - row_id: electric_motor
+          role: "Electric motor"
+          name: "Electric motor"
+          flow_type: "product"
+          flow_ref:
+            uuid: "014f80a3-c257-425b-9b75-3e5a18573695"
+          property_unit: "Mass 93a60a56-a3c8-11da-a746-0800200b9a66 / kg"
+          description: "Record the net mass of each complete electric motor installed in the accepted configuration, aggregated as one exchange of this exact flow."
+          amount:
+            expression: "Apply normalize_mass to q_item; reference_mass; cp_bom_mass."
+            value_mode: "calculated_value"
+            specificity: "product_specific"
+            basis:
+              text: "per 1 kg reference flow; collected per one accepted finished machine"
+              kind: "reference_flow"
+            evidence:
+              kind: "calculated_from_collection"
+              collection_protocol_id: cp_bom_mass
+              source_ids: []
+            ranges: []
+        - row_id: electricity_medium_voltage
+          role: "Medium-voltage electricity"
+          name: "electricity, medium voltage"
+          flow_type: "product"
+          property_unit: "Net calorific value 93a60a56-a3c8-11da-a746-0800200c9a66 / MJ"
+          description: "Record metered medium-voltage electricity attributable to receipt, preparation, coating, assembly, wiring, testing, rework, and acceptance. The flow UUID remains unresolved: the former identity is no longer publicly readable according to the current independent audit, and the replacement candidate review did not establish an exact medium-voltage identity. Retain the measured voltage and energy basis in the foreground record."
+          amount:
+            expression: "Apply normalize_mass to q_item; reference_mass; cp_energy."
+            value_mode: "calculated_value"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow; collected per one accepted finished machine"
+              kind: "reference_flow"
+            evidence:
+              kind: "calculated_from_collection"
+              collection_protocol_id: cp_energy
+              source_ids: []
+            ranges: []
+        - row_id: powder_coating
+          role: "Powder coating"
+          name: "Powder Coating"
+          flow_type: "product"
+          flow_ref:
+            uuid: "6e3010f9-fbd3-48f6-95fc-c1b38d2800d2"
+          property_unit: "Mass 93a60a56-a3c8-11da-a746-0800200b9a66 / kg"
+          description: "Record powder coating issued to the machine only when coating is performed within the foreground boundary."
+          amount:
+            expression: "Apply normalize_mass to q_item; reference_mass; cp_coating."
+            value_mode: "calculated_value"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow; collected per one accepted finished machine"
+              kind: "reference_flow"
+            evidence:
+              kind: "calculated_from_collection"
+              collection_protocol_id: cp_coating
+              source_ids: []
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        - row_id: finished_machine
+          role: "Accepted complete machine"
+          name: "Complete material-removal machine tool"
+          flow_type: "product"
+          property_unit: "Mass 93a60a56-a3c8-11da-a746-0800200b9a66 / kg"
+          description: "Record exactly the accepted net mass M of the complete machine configuration released at the factory gate. The TianGong product-flow UUID remains unresolved."
+          amount:
+            expression: "1 kg"
+            value_mode: "calculated_value"
+            specificity: "product_specific"
+            basis:
+              text: "per 1 kg reference flow"
+              kind: "reference_flow"
+            evidence:
+              kind: "calculated_from_collection"
+              collection_protocol_id: cp_mass
+              source_ids:
+                - un-cpc-3-0-structure-2025
+            ranges: []
+      waste:
+        - row_id: steel_scrap
+          role: "Steel scrap"
+          name: "Steel scrap"
+          flow_type: "waste"
+          flow_ref:
+            uuid: "8658611f-0588-4eb7-9490-46bcd02b3c2f"
+          property_unit: "Mass 93a60a56-a3c8-11da-a746-0800200b9a66 / kg"
+          description: "Record segregated steel scrap attributable to fitting or machining of the machine frame within the foreground boundary."
+          amount:
+            expression: "Apply normalize_mass to q_item; reference_mass; cp_waste_mass."
+            value_mode: "calculated_value"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow; collected per one accepted finished machine"
+              kind: "reference_flow"
+            evidence:
+              kind: "calculated_from_collection"
+              collection_protocol_id: cp_waste_mass
+              source_ids: []
+            ranges: []
+        - row_id: powder_coating_waste
+          role: "Powder coating waste"
+          name: "Powder coating waste"
+          flow_type: "waste"
+          flow_ref:
+            uuid: "9aa53a82-5462-400e-9096-efab7718201f"
+          property_unit: "Mass 93a60a56-a3c8-11da-a746-0800200b9a66 / kg"
+          description: "Record collected powder coating waste attributable to the machine only when powder coating occurs within the foreground boundary."
+          amount:
+            expression: "Apply normalize_mass to q_item; reference_mass; cp_waste_mass."
+            value_mode: "calculated_value"
+            specificity: "site_specific"
+            basis:
+              text: "per 1 kg reference flow; collected per one accepted finished machine"
+              kind: "reference_flow"
+            evidence:
+              kind: "calculated_from_collection"
+              collection_protocol_id: cp_waste_mass
+              source_ids: []
+            ranges: []
+      elementary:
+        []
+allocation_rules:
+  - rule_id: allocation_direct
+    applies_to: "all foreground exchanges"
+    rule: "Attribute BOM masses, meters, work orders, and waste tickets directly to the accepted machine configuration before using allocation."
+    source_ids: []
+  - rule_id: allocation_shared
+    applies_to: "shared site records"
+    rule: "Subdivide by process or meter. If subdivision is unavailable, use a documented causal driver such as machine-hours or measured equipment load; disclose the driver and sensitivity."
+    source_ids: []
+  - rule_id: allocation_scrap
+    applies_to: "steel scrap and coating waste"
+    rule: "Report the waste exchange at the foreground boundary without subtracting an unverified recycling credit. Model any downstream recovery in the receiving waste-treatment dataset."
+    source_ids: []
+dataset_production:
+  collection_protocols:
+    - protocol_id: cp_mass
+      process_id: "final_assembly"
+      flow_role: "reference product mass"
+      record_type: "calibrated weighing record"
+      raw_fields: "model; configuration; serial number; acceptance record; accepted net mass M; packaging exclusion"
+      collection_method: "Weigh the accepted complete machine on a calibrated scale, excluding transport packaging; reconcile the same configuration and acceptance record."
+      unit: "kg"
+      frequency: "each accepted configuration or each machine"
+      temporal_coverage: "reporting period"
+      site_scope: "reporting manufacturing site"
+      aggregation_rule: "accepted net mass per machine"
+      quality_evidence: "calibration certificate; signed acceptance record; configuration reconciliation"
+    - protocol_id: cp_bom_mass
+      process_id: "final_assembly"
+      flow_role: "installed component mass"
+      record_type: "approved BOM and supplier mass record"
+      raw_fields: "model; configuration; part number; flow identity; installed quantity; net unit mass; rejected quantity"
+      collection_method: "Reconcile the as-built BOM to supplier mass records or calibrated weighing for the accepted serial number."
+      unit: "kg"
+      frequency: "each accepted configuration"
+      temporal_coverage: "reporting period"
+      site_scope: "reporting manufacturing site and named suppliers"
+      aggregation_rule: "installed net mass / accepted machines"
+      quality_evidence: "released BOM; supplier record; deviation log"
+    - protocol_id: cp_energy
+      process_id: "final_assembly"
+      flow_role: "site electricity"
+      record_type: "meter and work-order record"
+      raw_fields: "meter id; start; end; process equipment; work order; accepted machines; conversion factor"
+      collection_method: "Read calibrated meters; subtract unrelated loads or allocate shared loads using the disclosed causal rule."
+      unit: "MJ"
+      frequency: "each production batch, monthly at minimum"
+      temporal_coverage: "representative reporting period"
+      site_scope: "included foreground operations"
+      aggregation_rule: "attributable electricity / accepted machines"
+      quality_evidence: "meter calibration; reconciliation; allocation worksheet"
+    - protocol_id: cp_coating
+      process_id: "final_assembly"
+      flow_role: "powder coating input"
+      record_type: "issue, return, and batch record"
+      raw_fields: "batch; material id; issued mass; returned reusable mass; accepted machines"
+      collection_method: "Reconcile issued coating with returned reusable material for the accepted machine work order."
+      unit: "kg"
+      frequency: "each coating batch"
+      temporal_coverage: "reporting period"
+      site_scope: "on-site coating operation"
+      aggregation_rule: "net coating issued / accepted machines"
+      quality_evidence: "stock reconciliation; work order; scale calibration"
+    - protocol_id: cp_waste_mass
+      process_id: "final_assembly"
+      flow_role: "segregated waste output"
+      record_type: "weighed waste ticket"
+      raw_fields: "waste identity; container tare; gross mass; work order; destination"
+      collection_method: "Weigh each segregated waste stream, remove tare, and attribute it to the accepted-machine work order."
+      unit: "kg"
+      frequency: "each waste movement"
+      temporal_coverage: "reporting period"
+      site_scope: "included foreground operations"
+      aggregation_rule: "attributable net waste / accepted machines"
+      quality_evidence: "scale calibration; waste ticket; destination record"
+  calculation_rules:
+    - id: normalize_mass
+      applies_to: "machine_frame; electronic_control_unit; electric_motor; electricity_medium_voltage; powder_coating; steel_scrap; powder_coating_waste"
+      rule: "q_ref = q_item / M; q_item = exchange amount per one accepted finished machine; q_ref = exchange amount per 1 kg reference flow."
+      inputs:
+        - q_item
+        - M
+        - cp_mass
+        - cp_bom_mass
+        - cp_energy
+        - cp_coating
+        - cp_waste_mass
+      output: "q_ref"
+      source_ids: []
+    - id: reconcile_reference_output
+      applies_to: "finished_machine"
+      rule: "Confirm that the reported output is exactly 1 kg after dividing the accepted output mass M by the same M."
+      inputs:
+        - M
+        - cp_mass
+      output: "1 kg reference flow"
+      source_ids: []
+  data_quality_requirements:
+    - id: dq_identity
+      applies_to: "reference product"
+      requirement: "Match model, serial number, material-removal technology, sale configuration, and acceptance record across all protocols."
+      evidence: "configuration reconciliation"
+    - id: dq_mass_balance
+      applies_to: "installed components and wastes"
+      requirement: "Explain the relationship among received component masses, installed masses, removed materials, wastes, and accepted net mass without forcing unlike items into one balance."
+      evidence: "BOM, issue records, waste tickets, acceptance mass"
+    - id: dq_temporal
+      applies_to: "all foreground records"
+      requirement: "Use one representative reporting period and disclose shutdowns, prototypes, rework campaigns, and abnormal production."
+      evidence: "dated meters, work orders, and acceptance records"
+    - id: dq_completeness
+      applies_to: "route-specific exchanges"
+      requirement: "Confirm that every material, gas, electrode, abrasive, dielectric, electrolyte, water, vacuum-system input, waste, and direct emission present for the declared route is represented as its own concrete exchange."
+      evidence: "route checklist and signed completeness review"
+    - id: dq_uuid
+      applies_to: "all selected flows"
+      requirement: "Use only state-code-100 Tiangong identities whose product state, flow type, classification, property, unit group, technology, geography, and comment are compatible; keep unresolved identities explicit."
+      evidence: "finalized UUID search receipts"
+validation_rules:
+  - rule_id: validate_reference
+    applies_to: "reference flow"
+    rule: "Verify one accepted configuration, M in kg, the packaging exclusion, and the exact 1 kg output normalization."
+    source_ids: []
+  - rule_id: validate_inventory
+    applies_to: "inventory"
+    rule: "Reject combined or selector flows, missing collection protocols, unconverted per-machine amounts, and route-specific exchanges hidden in notes."
+    source_ids: []
+  - rule_id: validate_bom
+    applies_to: "component inputs"
+    rule: "Reconcile installed quantities and masses to the as-built BOM and explain substitutions, rework, and rejected components."
+    source_ids: []
+  - rule_id: validate_waste
+    applies_to: "waste outputs"
+    rule: "Verify waste identity, tare removal, attribution, destination, and absence of unverified avoided-burden credits."
+    source_ids: []
+  - rule_id: validate_completeness
+    applies_to: "data package"
+    rule: "Fail completion when the declared technology route or included factory operation lacks its concrete inputs, wastes, and direct emissions."
+    source_ids: []
+published_dataset_profile:
+  dataset_role: "foreground manufacturing dataset for one accepted machine configuration"
+  downstream_use: "secondary_dataset; background_dataset"
+  allowed_use: "Product-system modelling that matches the declared technology, configuration, geography, period, and factory-gate boundary"
+  excluded_use: "Generic representation of conventional machine tools; operational energy or consumables; site installation; maintenance; end-of-life; undisclosed technology mixing"
+  required_metadata: "model; serial or configuration family; material-removal technology; sale configuration; M; work envelope; rated power; controlled axes; geography; period; included operations; data sources"
+  required_quality_disclosure: "meter coverage; BOM coverage; mass method; allocation; route completeness; unresolved UUIDs; missing empirical ranges; deviations"
+  update_trigger: "material technology or configuration change; changed production site or process; new accepted Tiangong identity; improved independent range evidence; significant meter or BOM correction"
+data_sources:
+  - id: "un-cpc-3-0-structure-2025"
+    type: "official_guidance"
+    reference: "United Nations Statistics Division, Central Product Classification Version 3.0 Structure, 30 June 2025, https://unstats.un.org/unsd/classifications/Econ/Download/In%20Text/CPC_Ver_3.0_Structure_30Jun2025.csv"
+    used_for: "CPC 44211 identity and adjacent subclass exclusions"
+projection_metadata:
+  contract_version: "1"
+  generator: "tiangong-pcr-builder/markdown-projection"
+  canonical_markdown:
+    path: "pcr.en-US.md"
+    normalization: "utf8-lf-v1"
+    hash_algorithm: "sha256"
+    sha256: "sha256:7f014a600e01ee7de61066f5fc84d3e51b74ed200b6cadb65bd0b7436a13a19a"
+  generated_content_sha256: "sha256:e94c5a3f7c441e8754316f704cd6acc0939e8d54d275859ce19d55fbf7c6baa4"

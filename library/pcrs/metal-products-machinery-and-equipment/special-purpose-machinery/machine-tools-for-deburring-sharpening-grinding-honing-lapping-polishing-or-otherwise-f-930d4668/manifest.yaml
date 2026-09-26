@@ -1,37 +1,138 @@
 schema_version: 1
-id: pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-for-deburring-sharpening-grinding-honing-lapping-polishing-or-otherwise-f-930d4668
+id: "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-for-deburring-sharpening-grinding-honing-lapping-polishing-or-otherwise-f-930d4668"
 title:
   en-US: "Machine-tools for deburring, sharpening, grinding, honing, lapping, polishing or otherwise finishing metal, sintered metal carbides or cermets by means of grinding stones, abrasives or polishing products; machine-tools for planing, shaping, slotting, broaching, gear cutting, gear grinding or gear finishing, sawing, cutting-off and other machine-tools working by removing metal, sintered metal carbides or cermets n.e.c."
-  zh-CN: null
-status: scaffold
-pcr_kind: product_category_rule
-content_maturity: empty_scaffold
+  zh-CN: "利用砂轮、磨料或抛光产品对金属、烧结金属碳化物或金属陶瓷进行去毛刺、刃磨、磨削、珩磨、研磨、抛光或其他精加工的机床；刨床、牛头刨床、插床、拉床、切齿机床、磨齿机床、齿轮精加工机床、锯床、切断机床，以及通过去除金属、烧结金属碳化物或金属陶瓷材料进行加工的其他未另列明机床"
+status: "candidate"
+pcr_kind: "product_category_rule"
+content_maturity: "authored_methodology"
 domains:
   - "metal-products-machinery-and-equipment"
 modules:
   core:
-    - pcr-minimum-content
-    - unit-of-analysis
-    - reference-flow
-    - inventory-flow-taxonomy
-    - system-boundary
-    - allocation
-    - data-quality
-    - validation-rules
+    - "pcr-minimum-content"
+    - "unit-of-analysis"
+    - "reference-flow"
+    - "inventory-flow-taxonomy"
+    - "system-boundary"
+    - "allocation"
+    - "data-quality"
+    - "validation-rules"
 target_entities:
-  - flow
-  - process
-  - lifecyclemodel
+  - "flow"
+  - "process"
+  - "lifecyclemodel"
 languages:
-  canonical: en-US
+  canonical: "en-US"
   available:
-    - en-US
-    - zh-CN
+    - "en-US"
+    - "zh-CN"
 translation_status:
-  zh-CN: scaffold_pending_translation
+  zh-CN: "aligned"
 classification_refs:
-  - system: CPC
+  - system: "CPC"
     version: "3.0"
     code: "44216"
     title: "Machine-tools for deburring, sharpening, grinding, honing, lapping, polishing or otherwise finishing metal, sintered metal carbides or cermets by means of grinding stones, abrasives or polishing products; machine-tools for planing, shaping, slotting, broaching, gear cutting, gear grinding or gear finishing, sawing, cutting-off and other machine-tools working by removing metal, sintered metal carbides or cermets n.e.c."
-    mapping_type: exact
+    mapping_type: "exact"
+review_metadata:
+  inventory_contract:
+    atomic_flows: "v1"
+    localized_flow_names: "tiangong_zh_v1"
+  semantic_boundary: "Complete abrasive-finishing and residual metal-removal machine tools at factory gate; excludes machining services, parts and neighbouring machine-tool families. Adjacent canonical identities inspected for material overlap; no material duplicate identified."
+  source_scope: "Official CPC original rows establish classification identity. JRC original printed pages 190 and 226 support machining-fluid and segregated waste collection. EU PEF section 4.5 supports the allocation hierarchy only. No empirical per-machine range adopted."
+  translation_review: "Professional title distinguishes grinding 磨削, honing 珩磨, lapping 研磨 and slotting 插削. Database-linked flow displays retain exact public Chinese baseName, including legacy terminology; title is an authored translation, not a UN official Chinese title."
+  unresolved:
+    inventory_flow_uuids:
+      - row_id: "steel"
+        reason_code: "no_exact_candidate"
+        explanation: "Five public candidates were inspected: conflicting bilingual names, alloy-steel or sheet-piling classifications, and ambiguous metal collections do not establish non-alloy carbon-steel plate."
+      - row_id: "coolant_fabrication"
+        reason_code: "no_exact_candidate"
+        explanation: "All four returned public candidates are mineral concentrates, not formulated water-soluble metalworking-fluid concentrate. No material proxy is substituted."
+      - row_id: "abrasive_fabrication"
+        reason_code: "no_exact_candidate"
+        explanation: "All three returned public product candidates are alumina raw material, not manufactured bonded aluminium-oxide grinding wheels; none establishes the required finished-tool state."
+      - row_id: "spent_coolant_fabrication"
+        reason_code: "no_exact_candidate"
+        explanation: "The sole returned public spent-coolant identity does not specify the aqueous metalworking-emulsion state. Its empty general comment does not resolve this material composition/state gap, so the row remains unlinked."
+      - row_id: "spent_abrasive_fabrication"
+        reason_code: "no_exact_candidate"
+        explanation: "The three returned public waste identities are aluminium dross, aluminium slag and metal machining scrap; none identifies a spent bonded aluminium-oxide grinding wheel, and the scrap property is aluminium content rather than whole-waste mass."
+      - row_id: "pm10_fabrication"
+        reason_code: "no_exact_candidate"
+        explanation: "The sole returned public elementary flow has unspecified particle size. It does not establish the required PM10 fraction and is not adopted as a proxy."
+      - row_id: "bed"
+        reason_code: "no_exact_candidate"
+        explanation: "Public candidates are pig iron, generic cast iron, cast-iron ball or pipes; none establishes a finished grey-cast-iron machine-tool bed casting."
+      - row_id: "cabinet"
+        reason_code: "no_exact_candidate"
+        explanation: "The equipped steel control-cabinet candidate has an incompatible calorific-value/MJ property; remaining candidates are components or differently scoped high-voltage equipment, not the required complete cabinet mass."
+      - row_id: "spindle"
+        reason_code: "no_exact_candidate"
+        explanation: "Both returned public candidates are assembled complete machine tools, not separately purchased spindle assemblies."
+      - row_id: "bearing"
+        reason_code: "no_exact_candidate"
+        explanation: "Five inspected candidates describe specialized wind-turbine equipment, mineral concentrate or a bearing cage; none establishes the complete machine-tool ball bearing."
+      - row_id: "test_steel"
+        reason_code: "no_exact_candidate"
+        explanation: "Five public candidates were inspected: conflicting bilingual names, alloy-steel or sheet-piling classifications, and ambiguous metal collections do not establish non-alloy carbon-steel plate."
+      - row_id: "coolant_test"
+        reason_code: "no_exact_candidate"
+        explanation: "All four returned public candidates are mineral concentrates, not formulated water-soluble metalworking-fluid concentrate. No material proxy is substituted."
+      - row_id: "abrasive_test"
+        reason_code: "no_exact_candidate"
+        explanation: "All three returned public product candidates are alumina raw material, not manufactured bonded aluminium-oxide grinding wheels; none establishes the required finished-tool state."
+      - row_id: "pallet"
+        reason_code: "no_exact_candidate"
+        explanation: "Five public candidates were inspected: a EURO-specific pallet not established by the foreground, a broad pallet/board/collar identity, two electricity-classified records (one with Area/m2), and a glass-fibre pallet. None establishes the required concrete wooden dispatch pallet with compatible classification and mass basis."
+      - row_id: "film"
+        reason_code: "no_exact_candidate"
+        explanation: "Five public candidates were inspected: generic plastic film without polymer identity, polyethylene film with luggage classification, polyethylene without established film form, an extrusion service and agricultural film. None establishes the required polyethylene packaging-film identity without a semantic or classification gap."
+      - row_id: "spent_coolant_test"
+        reason_code: "no_exact_candidate"
+        explanation: "The sole returned public spent-coolant identity does not specify the aqueous metalworking-emulsion state. Its empty general comment does not resolve this material composition/state gap, so the row remains unlinked."
+      - row_id: "waste_oil_test"
+        reason_code: "no_exact_candidate"
+        explanation: "Two public used-lubricating-oil identities do not establish mineral-base composition; three generic waste-oil identities also omit the lubricating function. All have empty general comments. No proxy is adopted for the specified waste mineral lubricating oil."
+      - row_id: "spent_abrasive_test"
+        reason_code: "no_exact_candidate"
+        explanation: "The three returned public waste identities are aluminium dross, aluminium slag and metal machining scrap; none identifies a spent bonded aluminium-oxide grinding wheel, and the scrap property is aluminium content rather than whole-waste mass."
+      - row_id: "pm10_test"
+        reason_code: "no_exact_candidate"
+        explanation: "The sole returned public elementary flow has unspecified particle size. It does not establish the required PM10 fraction and is not adopted as a proxy."
+    range_evidence_needs:
+      - row_ids:
+          - "steel"
+          - "electricity_fabrication"
+          - "coolant_fabrication"
+          - "water_fabrication"
+          - "abrasive_fabrication"
+          - "steel_scrap_fabrication"
+          - "spent_coolant_fabrication"
+          - "spent_abrasive_fabrication"
+          - "pm10_fabrication"
+          - "bed"
+          - "motor"
+          - "cabinet"
+          - "spindle"
+          - "bearing"
+          - "oil_fill"
+          - "electricity_assembly"
+          - "test_steel"
+          - "electricity_test"
+          - "coolant_test"
+          - "water_test"
+          - "abrasive_test"
+          - "oil_test"
+          - "pallet"
+          - "film"
+          - "steel_scrap_test"
+          - "spent_coolant_test"
+          - "waste_oil_test"
+          - "spent_abrasive_test"
+          - "pm10_test"
+        explanation: "No two independent original publications establish compatible amounts per accepted machine for the declared complete-machine manufacturing boundary and incoming component states. JRC guidance addresses metalworking fluid and residue management, not per-machine production intensities; discovered grinding-use and economic input-output studies are incompatible. Collect BOM, stage electricity, fluids, consumables, wastes and packaging using the specified foreground protocols; do not infer a numerical range."
+      - row_ids:
+          - "finished_machine"
+        explanation: "Machine mass is configuration-specific and measured as M using cp_mass; no universal mass range or assumed machine weight is supported."
