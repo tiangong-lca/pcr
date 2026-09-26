@@ -2,7 +2,7 @@ schema_version: 1
 index_kind: "tiangong-pcr-material-catalog"
 status: "current"
 summary:
-  total: 758
+  total: 766
 pcrs:
   - id: "pcr.agriculture-forestry-and-fishery-products.fish-crustaceans-molluscs-and-other-aquatic-invertebrates-products.coral-and-similar-products-shells-of-molluscs-crustaceans-or-echinoderms-and-cuttle-bone"
     path: "library/pcrs/agriculture-forestry-and-fishery-products/fish-crustaceans-molluscs-and-other-aquatic-invertebrates-products/coral-and-similar-products-shells-of-molluscs-crustaceans-or-echinoderms-and-cuttle-bone"
@@ -5189,6 +5189,62 @@ pcrs:
     title:
       en-US: "Video recording or reproducing apparatus"
       zh-CN: "视频记录或重放设备"
+    status: "candidate"
+    content_maturity: "authored_methodology"
+  - id: "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.lathes-for-removing-metal"
+    path: "library/pcrs/metal-products-machinery-and-equipment/special-purpose-machinery/lathes-for-removing-metal"
+    title:
+      en-US: "Lathes for removing metal"
+      zh-CN: "切削金属的车床"
+    status: "candidate"
+    content_maturity: "authored_methodology"
+  - id: "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-for-deburring-sharpening-grinding-honing-lapping-polishing-or-otherwise-f-930d4668"
+    path: "library/pcrs/metal-products-machinery-and-equipment/special-purpose-machinery/machine-tools-for-deburring-sharpening-grinding-honing-lapping-polishing-or-otherwise-f-930d4668"
+    title:
+      en-US: "Machine-tools for deburring, sharpening, grinding, honing, lapping, polishing or otherwise finishing metal, sintered metal carbides or cermets by means of grinding stones, abrasives or polishing products; machine-tools for planing, shaping, slotting, broaching, gear cutting, gear grinding or gear finishing, sawing, cutting-off and other machine-tools working by removing metal, sintered metal carbides or cermets n.e.c."
+      zh-CN: "利用砂轮、磨料或抛光产品对金属、烧结金属碳化物或金属陶瓷进行去毛刺、刃磨、磨削、珩磨、研磨、抛光或其他精加工的机床；刨床、牛头刨床、插床、拉床、切齿机床、磨齿机床、齿轮精加工机床、锯床、切断机床，以及通过去除金属、烧结金属碳化物或金属陶瓷材料进行加工的其他未另列明机床"
+    status: "candidate"
+    content_maturity: "authored_methodology"
+  - id: "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-for-drilling-boring-or-milling-metal"
+    path: "library/pcrs/metal-products-machinery-and-equipment/special-purpose-machinery/machine-tools-for-drilling-boring-or-milling-metal"
+    title:
+      en-US: "Machine-tools for drilling, boring or milling metal"
+      zh-CN: "金属钻削、镗削或铣削机床"
+    status: "candidate"
+    content_maturity: "authored_methodology"
+  - id: "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-for-threading-or-tapping-by-removing-metal-except-lathes-and-way-type-uni-1175b836"
+    path: "library/pcrs/metal-products-machinery-and-equipment/special-purpose-machinery/machine-tools-for-threading-or-tapping-by-removing-metal-except-lathes-and-way-type-uni-1175b836"
+    title:
+      en-US: "Machine-tools for threading or tapping by removing metal, except lathes and way-type unit head machines"
+      zh-CN: "通过去除金属进行螺纹加工或攻丝的机床（车床和导轨式动力头机床除外）"
+    status: "candidate"
+    content_maturity: "authored_methodology"
+  - id: "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-for-working-any-material-by-removal-of-material-by-laser-or-other-light-o-7acc4d55"
+    path: "library/pcrs/metal-products-machinery-and-equipment/special-purpose-machinery/machine-tools-for-working-any-material-by-removal-of-material-by-laser-or-other-light-o-7acc4d55"
+    title:
+      en-US: "Machine-tools for working any material by removal of material, by laser or other light or photon beam, ultra-sonic, electro-discharge, electro-chemical, electron beam, ionic beam or plasma arc processes, water-jet cutting machines"
+      zh-CN: "通过激光或其他光束或光子束、超声波、电火花、电化学、电子束、离子束或等离子弧工艺去除材料的机床；水射流切割机"
+    status: "candidate"
+    content_maturity: "authored_methodology"
+  - id: "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-for-working-metal-by-forging-hammering-or-die-stamping-machine-tools-for-9b56c7e2"
+    path: "library/pcrs/metal-products-machinery-and-equipment/special-purpose-machinery/machine-tools-for-working-metal-by-forging-hammering-or-die-stamping-machine-tools-for-9b56c7e2"
+    title:
+      en-US: "Machine-tools for working metal by forging, hammering or die-stamping; machine-tools for working metal by bending, folding, straightening, flattening, shearing, punching or notching; other presses for working metal or metal carbides"
+      zh-CN: "对金属进行锻造、锤锻或模锻的机床；对金属进行弯曲、折叠、矫直、矫平、剪切、冲孔或开槽的机床；其他加工金属或金属碳化物的压力机"
+    status: "candidate"
+    content_maturity: "authored_methodology"
+  - id: "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-n-e-c-for-working-metal-sintered-metal-carbides-or-cermets-without-removi-1d406b04"
+    path: "library/pcrs/metal-products-machinery-and-equipment/special-purpose-machinery/machine-tools-n-e-c-for-working-metal-sintered-metal-carbides-or-cermets-without-removi-1d406b04"
+    title:
+      en-US: "Machine-tools n.e.c. for working metal, sintered metal carbides or cermets, without removing material"
+      zh-CN: "其他未另分类的不去除材料的金属、烧结金属碳化物或金属陶瓷加工机床"
+    status: "candidate"
+    content_maturity: "authored_methodology"
+  - id: "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.other-mowers-including-cutter-bars-for-tractor-mounting"
+    path: "library/pcrs/metal-products-machinery-and-equipment/special-purpose-machinery/other-mowers-including-cutter-bars-for-tractor-mounting"
+    title:
+      en-US: "Other mowers, including cutter bars for tractor mounting"
+      zh-CN: "其他割草机，包括用于拖拉机安装的刀杆"
     status: "candidate"
     content_maturity: "authored_methodology"
   - id: "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.other-soil-machinery-n-e-c"

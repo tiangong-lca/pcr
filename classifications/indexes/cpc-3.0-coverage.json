@@ -15,13 +15,13 @@
     "mapping": {
       "path": "classifications/mappings/cpc-3.0-to-pcr.yaml",
       "hash_mode": "exact_bytes",
-      "sha256": "sha256:19c1565c79c8a0ba32dff2642a5f23141ced4cfb6c6f9a81a3da48d4040b6f9f"
+      "sha256": "sha256:884ac853a439f3b66563f19374d2b6ede1ce25771f6be7cfcb7b2ea9360c0e6e"
     }
   },
   "summary": {
     "total": 2877,
-    "mapped": 756,
-    "unmapped": 2121,
+    "mapped": 764,
+    "unmapped": 2113,
     "candidate_suggestion": 0,
     "manual_review": 0,
     "unknown": 0
@@ -34490,8 +34490,18 @@
         "Harvester and threshers; machines for cleaning, sorting or grading agricultural products",
         "Other mowers, including cutter bars for tractor mounting"
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.other-mowers-including-cutter-bars-for-tractor-mounting",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "tiangong-lca-pcr-maintainers",
+          "decided_at_utc": "2026-09-23T03:41:47.979Z",
+          "decision_ref": "docs/adr/0139-accept-metal-products-machinery-equipment-cpc3-20260902-snapshot-d8ad1b9e03e4e368.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -34931,8 +34941,18 @@
         "Machine-tools for working metal; machine-tools for working any material by laser or similar process",
         "Machine-tools for working any material by removal of material, by laser or other light or photon beam, ultra-sonic, electro-discharge, electro-chemical, electron beam, ionic beam or plasma arc processes, water-jet cutting machines"
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-for-working-any-material-by-removal-of-material-by-laser-or-other-light-o-7acc4d55",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "tiangong-lca-pcr-maintainers",
+          "decided_at_utc": "2026-09-23T02:24:42.681Z",
+          "decision_ref": "docs/adr/0137-accept-metal-products-machinery-equipment-cpc3-20260902-snapshot-eac117ef7ce68cfc.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -34973,8 +34993,18 @@
         "Machine-tools for working metal; machine-tools for working any material by laser or similar process",
         "Lathes for removing metal"
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.lathes-for-removing-metal",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "tiangong-lca-pcr-maintainers",
+          "decided_at_utc": "2026-09-23T02:24:42.681Z",
+          "decision_ref": "docs/adr/0137-accept-metal-products-machinery-equipment-cpc3-20260902-snapshot-eac117ef7ce68cfc.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -34994,8 +35024,18 @@
         "Machine-tools for working metal; machine-tools for working any material by laser or similar process",
         "Machine-tools for drilling, boring or milling metal"
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-for-drilling-boring-or-milling-metal",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "tiangong-lca-pcr-maintainers",
+          "decided_at_utc": "2026-09-23T02:24:42.681Z",
+          "decision_ref": "docs/adr/0137-accept-metal-products-machinery-equipment-cpc3-20260902-snapshot-eac117ef7ce68cfc.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -35015,8 +35055,18 @@
         "Machine-tools for working metal; machine-tools for working any material by laser or similar process",
         "Machine-tools for threading or tapping by removing metal, except lathes and way-type unit head machines"
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-for-threading-or-tapping-by-removing-metal-except-lathes-and-way-type-uni-1175b836",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "tiangong-lca-pcr-maintainers",
+          "decided_at_utc": "2026-09-23T02:24:42.681Z",
+          "decision_ref": "docs/adr/0137-accept-metal-products-machinery-equipment-cpc3-20260902-snapshot-eac117ef7ce68cfc.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -35036,8 +35086,18 @@
         "Machine-tools for working metal; machine-tools for working any material by laser or similar process",
         "Machine-tools for deburring, sharpening, grinding, honing, lapping, polishing or otherwise finishing metal, sintered metal carbides or cermets by means of grinding stones, abrasives or polishing products; machine-tools for planing, shaping, slotting, broaching, gear cutting, gear grinding or gear finishing, sawing, cutting-off and other machine-tools working by removing metal, sintered metal carbides or cermets n.e.c."
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-for-deburring-sharpening-grinding-honing-lapping-polishing-or-otherwise-f-930d4668",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "tiangong-lca-pcr-maintainers",
+          "decided_at_utc": "2026-09-23T02:24:42.681Z",
+          "decision_ref": "docs/adr/0137-accept-metal-products-machinery-equipment-cpc3-20260902-snapshot-eac117ef7ce68cfc.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -35057,8 +35117,18 @@
         "Machine-tools for working metal; machine-tools for working any material by laser or similar process",
         "Machine-tools for working metal by forging, hammering or die-stamping; machine-tools for working metal by bending, folding, straightening, flattening, shearing, punching or notching; other presses for working metal or metal carbides"
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-for-working-metal-by-forging-hammering-or-die-stamping-machine-tools-for-9b56c7e2",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "tiangong-lca-pcr-maintainers",
+          "decided_at_utc": "2026-09-23T02:24:42.681Z",
+          "decision_ref": "docs/adr/0137-accept-metal-products-machinery-equipment-cpc3-20260902-snapshot-eac117ef7ce68cfc.md"
+        }
+      },
       "legacy_reference": null
     },
     {
@@ -35078,8 +35148,18 @@
         "Machine-tools for working metal; machine-tools for working any material by laser or similar process",
         "Machine-tools n.e.c. for working metal, sintered metal carbides or cermets, without removing material"
       ],
-      "coverage_status": "unmapped",
-      "mapping": null,
+      "coverage_status": "mapped",
+      "mapping": {
+        "pcr_id": "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-n-e-c-for-working-metal-sintered-metal-carbides-or-cermets-without-removi-1d406b04",
+        "mapping_type": "exact",
+        "confidence": "reviewed",
+        "acceptance": {
+          "status": "accepted",
+          "decided_by": "tiangong-lca-pcr-maintainers",
+          "decided_at_utc": "2026-09-23T03:41:47.979Z",
+          "decision_ref": "docs/adr/0139-accept-metal-products-machinery-equipment-cpc3-20260902-snapshot-d8ad1b9e03e4e368.md"
+        }
+      },
       "legacy_reference": null
     },
     {

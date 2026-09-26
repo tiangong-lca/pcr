@@ -2,10 +2,10 @@ schema_version: 1
 id: pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-n-e-c-for-working-metal-sintered-metal-carbides-or-cermets-without-removi-1d406b04
 title:
   en-US: "Machine-tools n.e.c. for working metal, sintered metal carbides or cermets, without removing material"
-  zh-CN: null
-status: scaffold
+  zh-CN: "其他未另分类的不去除材料的金属、烧结金属碳化物或金属陶瓷加工机床"
+status: candidate
 pcr_kind: product_category_rule
-content_maturity: empty_scaffold
+content_maturity: authored_methodology
 domains:
   - "metal-products-machinery-and-equipment"
 modules:
@@ -28,10 +28,111 @@ languages:
     - en-US
     - zh-CN
 translation_status:
-  zh-CN: scaffold_pending_translation
+  zh-CN: aligned
 classification_refs:
   - system: CPC
     version: "3.0"
     code: "44218"
     title: "Machine-tools n.e.c. for working metal, sintered metal carbides or cermets, without removing material"
     mapping_type: exact
+review_metadata:
+  inventory_contract:
+    atomic_flows: v1
+    localized_flow_names: tiangong_zh_v1
+  translation_note: "Authored professional category title; UUID-bearing Chinese flow displays retain the exact TianGong baseName, including the reference flow's supplied wording."
+  unresolved:
+    inventory_flow_uuids:
+      - row_id: cnc_controller
+        reason_code: no_exact_candidate
+        explanation: "All five returned candidates were publicly read and identify either complete assembled machine tools or umbrella machine-tool materials and purchased components, not a discrete computer numerical control unit."
+      - row_id: frame
+        reason_code: no_exact_candidate
+        explanation: "All four returned candidates were publicly read: raw cast iron with an ore classification, an additive-manufacturing frame, a lathe-component record with incompatible reference property/unit, and a broad coated-structure identity do not establish the finished machined cast-iron machine-tool frame."
+      - row_id: spindle
+        reason_code: no_exact_candidate
+        explanation: "The only returned candidate is a wind-turbine main shaft with an item-count reference, not a steel machine-tool spindle with a mass reference."
+      - row_id: bearing
+        reason_code: no_exact_candidate
+        explanation: "The five publicly read candidates identify a bearing cage, a combined ball-or-roller-bearing category, and wind-turbine-specific assemblies; none establishes the concrete installed machine-tool roller bearing."
+      - row_id: drive
+        reason_code: manual_review_required
+        explanation: "Two named inverter/variable-frequency-drive candidates require classification and assembly-scope clarification: switching apparatus or equipped control cabinets may not match the separately supplied inverter and could overlap controller rows. The other candidates identify motors, not inverters."
+      - row_id: controller
+        reason_code: manual_review_required
+        explanation: "The exact-name PLC candidate requires clarification of its switching-apparatus classification. The generic electronic control unit does not establish PLC technology, while the complete control cabinet has an incompatible energy reference instead of component mass."
+      - row_id: cable
+        reason_code: no_exact_candidate
+        explanation: "Returned candidates identify uninsulated aluminium cable, copper cable with an incompatible energy reference, length-based cable with unspecified copper composition, coaxial cable, or winding wire; none establishes the specified insulated copper control/power cable mass exchange."
+      - row_id: seal
+        reason_code: no_exact_candidate
+        explanation: "Nitrile Rubber does not establish a finished sealing ring, while Sealing elements does not establish nitrile composition or the specific ring article. Neither publicly read candidate provides the complete required identity."
+      - row_id: hydraulic_pump
+        reason_code: no_exact_candidate
+        explanation: "The generic liquid-pump candidate does not establish hydraulic-oil service or the required pump configuration; the remaining candidates are hydraulic fluid, antifreeze or a polypropylene diaphragm rather than the complete pump."
+      - row_id: hydraulic_cylinder
+        reason_code: no_exact_candidate
+        explanation: "Returned identities are machined cylinder parts or blanks rather than an assembled cylinder, or a combined hydraulic/pneumatic cylinder category that does not identify the required hydraulic actuator."
+      - row_id: rolling_die
+        reason_code: no_exact_candidate
+        explanation: "Returned candidates identify rolled steel/rebar, aluminium wire/profile, or hot-rolled sections rather than a finished steel thread-rolling die. No stock-material proxy is adopted as tooling."
+      - row_id: drawing_die
+        reason_code: no_exact_candidate
+        explanation: "Returned candidates identify ambiguously named tungsten metal/alloy, aluminium wire/profile, steel wire, or steel bar/plate; none establishes a finished tungsten-carbide wire-drawing die with its supplied tool state."
+      - row_id: scrap
+        reason_code: no_exact_candidate
+        explanation: "The stainless-steel candidate has the wrong grade/state; generic mass-based steel-scrap identities do not establish segregated carbon-steel composition and contamination state. Another steel-scrap record uses Aluminium content instead of total mass."
+      - row_id: waste_oil
+        reason_code: no_exact_candidate
+        explanation: "Generic waste-oil and used-lubricating-oil identities do not establish the mineral hydraulic-oil formulation, use origin and contamination state required for this separately collected waste exchange."
+      - row_id: pallet
+        reason_code: manual_review_required
+        explanation: "The generic wooden-pallet candidate has an electrical-energy classification requiring correction. The EURO pallet would impose an unestablished dispatch specification; other candidates are a multi-article category, PV-specific area-based flow, or non-wood pallet."
+    range_evidence_needs:
+      - row_id: cnc_controller
+        explanation: "No two independent compatible sources establish a per-machine CNC-unit mass range; collect the supplied unit mass for the declared configuration."
+      - row_id: finished_machine
+        explanation: "The reference is the measured net mass M of the actual accepted configuration. No independent, compatible evidence establishes a category-wide mass or production-yield screening range; catalog model weights are not adopted as one."
+      - row_id: frame
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: spindle
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: bearing
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: motor
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: drive
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: controller
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: cable
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: fastener
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: seal
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: assembly_electricity
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: hydraulic_pump
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: hydraulic_cylinder
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: oil
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: rolling_die
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: drawing_die
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: test_electricity
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: test_bar
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: scrap
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: waste_oil
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: pallet
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: film
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."
+      - row_id: board
+        explanation: "No two independent original sources establish a compatible per-accepted-machine empirical range for this exchange. Collect actual foreground quantities for the declared configuration and supplied state."

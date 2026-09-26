@@ -2,10 +2,10 @@ schema_version: 1
 id: pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-for-working-metal-by-forging-hammering-or-die-stamping-machine-tools-for-9b56c7e2
 title:
   en-US: "Machine-tools for working metal by forging, hammering or die-stamping; machine-tools for working metal by bending, folding, straightening, flattening, shearing, punching or notching; other presses for working metal or metal carbides"
-  zh-CN: null
-status: scaffold
+  zh-CN: "对金属进行锻造、锤锻或模锻的机床；对金属进行弯曲、折叠、矫直、矫平、剪切、冲孔或开槽的机床；其他加工金属或金属碳化物的压力机"
+status: candidate
 pcr_kind: product_category_rule
-content_maturity: empty_scaffold
+content_maturity: authored_methodology
 domains:
   - "metal-products-machinery-and-equipment"
 modules:
@@ -28,10 +28,162 @@ languages:
     - en-US
     - zh-CN
 translation_status:
-  zh-CN: scaffold_pending_translation
+  zh-CN: aligned
 classification_refs:
   - system: CPC
     version: "3.0"
     code: "44217"
     title: "Machine-tools for working metal by forging, hammering or die-stamping; machine-tools for working metal by bending, folding, straightening, flattening, shearing, punching or notching; other presses for working metal or metal carbides"
     mapping_type: exact
+review_metadata:
+  inventory_contract:
+    atomic_flows: v1
+    localized_flow_names: tiangong_zh_v1
+  unresolved:
+    inventory_flow_uuids:
+      - row_id: frame_casting
+        reason_code: no_exact_candidate
+        explanation: "Public candidates are generic cast iron or vanadium pig iron classified as iron ore; neither establishes a delivered grey-iron machine-bed casting."
+      - row_id: welding_wire
+        reason_code: no_exact_candidate
+        explanation: "Public candidates identify composition-unspecified flux-cored wire, structural strip, a welding service, inconsistent rod stock or mesh, not the defined steel arc-welding wire."
+      - row_id: welding_argon
+        reason_code: no_exact_candidate
+        explanation: "Two bounded searches found carbon dioxide, unidentified welding/shielding gases, a welding service and liquid argon, but no exact public identity for the defined gaseous argon mass exchange."
+      - row_id: fabrication_scrap
+        reason_code: no_exact_candidate
+        explanation: "The initial search returned machining chips; the refined search returned low-alloy or unspecified steel scrap, an aluminium-content-supported candidate and unspecified post-industrial scrap, not verified non-alloy offcuts."
+      - row_id: cutting_concentrate
+        reason_code: no_exact_candidate
+        explanation: "The original search returned mineral concentrates; a targeted cutting-oil search found generic Cutting Fluid without verified undiluted water-soluble concentration state and an unrelated filter. No exact concentrate is established."
+      - row_id: cast_iron_chips
+        reason_code: no_exact_candidate
+        explanation: "Public candidates identify unspecified iron-metal chips or steel scrap/chips; none verifies the segregated grey cast-iron machining waste."
+      - row_id: spent_cutting_fluid
+        reason_code: no_exact_candidate
+        explanation: "The public candidates identify oil, generic spent coolant or combined oil/coolant waste without verifying the separately collected oil-water metalworking emulsion."
+      - row_id: coating_powder
+        reason_code: no_exact_candidate
+        explanation: "Public candidates lack verified polyester powder-paint composition, or are primary resin, aluminium powder or coating residue rather than the specified fresh formulated powder."
+      - row_id: coating_residue
+        reason_code: no_exact_candidate
+        explanation: "Candidates lack verified dry polyester-powder composition; one names powder-paint residue but measures aluminium content rather than total mass."
+      - row_id: press_cylinder
+        reason_code: no_exact_candidate
+        explanation: "Public candidates identify cylinder parts/blanks or a combined hydraulic-and-pneumatic category, not a verified complete hydraulic-cylinder assembly."
+      - row_id: hydraulic_pump
+        reason_code: no_exact_candidate
+        explanation: "The public candidates are a diaphragm, an energy-supported hydraulic power unit, an unspecified liquid pump or antifreeze; none establishes the mass-based positive-displacement hydraulic pump."
+      - row_id: control_cabinet
+        reason_code: no_exact_candidate
+        explanation: "The complete-cabinet candidate uses incompatible energy/MJ support; remaining public candidates are incomplete components or a vending-machine cabinet."
+      - row_id: ball_bearings
+        reason_code: no_exact_candidate
+        explanation: "The bounded public candidates identify a cage, an unspecified ball-or-roller category, metal/mineral stock or a gearbox, not an exact complete steel ball bearing."
+      - row_id: external_wiring
+        reason_code: no_exact_candidate
+        explanation: "The copper control/power cable candidate has incompatible energy/MJ support; other candidates are aluminium, winding wire or length-based cable without confirmed copper identity."
+      - row_id: bearing_grease
+        reason_code: no_exact_candidate
+        explanation: "The process-specific and short-term grease searches returned generic lubricant or different named preparations, milk fat and salt; no semisolid bearing-grease identity is established."
+      - row_id: gear_transmission
+        reason_code: no_exact_candidate
+        explanation: "The five public candidates identify wind-turbine assemblies or coolant, not the press-drive gear transmission."
+      - row_id: steel_bolts
+        reason_code: no_exact_candidate
+        explanation: "The five public candidates identify unfinished parts, a screw or unspecified steel fasteners, not an exact finished steel bolt."
+      - row_id: nitrile_seal
+        reason_code: no_exact_candidate
+        explanation: "The single public candidate is generic rubber sealing elements without verified nitrile composition or sealing-ring geometry."
+      - row_id: forming_die
+        reason_code: no_exact_candidate
+        explanation: "Public candidates are press platforms, a complete machine-category flow or repair parts, not a tool-steel forming die. The complete-machine candidate is adopted only for finished_machine under this same receipt."
+      - row_id: safety_light_curtain
+        reason_code: no_exact_candidate
+        explanation: "Original lighting/glass candidates and refined unspecified sensors, electronics or imaging subassemblies do not establish a complete safety light curtain."
+      - row_id: test_scrap
+        reason_code: no_exact_candidate
+        explanation: "The initial search returned machining chips; the refined search returned low-alloy or unspecified steel scrap, an aluminium-content-supported candidate and unspecified post-industrial scrap, not verified non-alloy offcuts."
+      - row_id: drained_oil
+        reason_code: no_exact_candidate
+        explanation: "The single public candidate is generic waste oil without verified mineral hydraulic origin; the specific segregated flushing/testing-oil exchange remains unmapped."
+      - row_id: crate_timber
+        reason_code: no_exact_candidate
+        explanation: "Candidates are hardwood, specifically kiln-dried or green at-mill softwood whose delivered drying state is unverified, or classification-inconsistent timber/fibreboard identities."
+    range_evidence_needs:
+      - row_id: frame_steel
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: frame_casting
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: shaft_stock
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: welding_wire
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: welding_argon
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: fabrication_power
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: fabrication_scrap
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: stress_relief_power
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: machining_power
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: cutting_concentrate
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: dilution_water
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: steel_chips
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: cast_iron_chips
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: spent_cutting_fluid
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: coating_powder
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: coating_power
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: coating_residue
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: drive_motor
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: press_cylinder
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: hydraulic_pump
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: control_cabinet
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: ball_bearings
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: external_wiring
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: hydraulic_fill
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: bearing_grease
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: gear_transmission
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: steel_bolts
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: hydraulic_hose
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: nitrile_seal
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: forming_die
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: safety_light_curtain
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: assembly_power
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: acceptance_power
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: test_steel
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: test_scrap
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: drained_oil
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: crate_timber
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."
+      - row_id: packing_film
+        explanation: "Two independent original sources with compatible complete-machine configuration, manufacturing boundary and one-machine denominator have not established an empirical range; retain the declared foreground collection protocol."

@@ -1,10 +1,956 @@
 schema_version: 1
-status: scaffold
-classification_seed:
-  system: CPC
-  version: "3.0"
-  code: "44216"
-  title: "Machine-tools for deburring, sharpening, grinding, honing, lapping, polishing or otherwise finishing metal, sintered metal carbides or cermets by means of grinding stones, abrasives or polishing products; machine-tools for planing, shaping, slotting, broaching, gear cutting, gear grinding or gear finishing, sawing, cutting-off and other machine-tools working by removing metal, sintered metal carbides or cermets n.e.c."
-reference_flows: []
-inventory_patterns: []
-qa_rules: []
+generated_from: markdown
+source_markdown: pcr.en-US.md
+product_category_identity:
+  canonical_pcr_id: "pcr.metal-products-machinery-and-equipment.special-purpose-machinery.machine-tools-for-deburring-sharpening-grinding-honing-lapping-polishing-or-otherwise-f-930d4668"
+  classification_refs: "CPC 3.0:44216; classification context only"
+  covered_products: "Complete abrasive-finishing, planing, shaping, slotting, broaching, gear-cutting/finishing, sawing and cutting-off machine tools for the stated metallic work materials"
+  excluded_products: "Separately supplied cutting tools, grinding wheels, attachments and spare parts; machining services and finished workpieces; laser, EDM, electrochemical and water-jet machines; machining centres; lathes; drilling, boring, milling, threading and tapping machines; metal-forming presses; machines for wood or mineral materials"
+  representative_product: "Complete electrically driven CNC grinding machine with its declared bed, spindle, drives, control cabinet, guards and installed auxiliaries"
+  production_route: "Purchased finished assemblies and castings; conditional in-house component fabrication; mechanical/electrical assembly; factory acceptance and preparation for dispatch"
+  market_state: "New, complete, accepted machine at factory gate; installed auxiliaries and retained operating fills disclosed; transport packaging accounted separately"
+functional_unit:
+  what: "Supply of a complete machine tool capable of the declared metal-removal or abrasive-finishing operation"
+  how_much: "One accepted complete machine"
+  how_well: "Meets the purchaser's documented capacity, work envelope, accuracy, surface-finish and safety acceptance specification for the declared model and configuration"
+  how_long_or_cycle: "One manufacturing and factory-acceptance cycle; operating life and customer use are outside this production dataset"
+  reference_flow_link: "finished_machine"
+system_boundary:
+  rules:
+    - rule_id: boundary_production
+      applies_to: "production_system"
+      rule: "Include attributable receipt/handling, fabrication, purchased component supply, assembly, factory tests including failed tests and rework, packaging, internal transport and manufacturing-waste management. Link inbound transport and outsourced processing explicitly. Customer installation, use, maintenance and machine end-of-life are outside the declared factory-gate result."
+      source_ids: []
+    - rule_id: boundary_route
+      applies_to: "foreground_inventory"
+      rule: "The cards are a common physical-flow core. Reconcile every actual bill-of-materials item and operation. Add distinct atomic rows for omitted actuators, guides, ball screws, gears, wiring, guards, tool/work holders, hydraulic pumps/cylinders, filters, coolers, purchased heat, fuels, gases, coating chemicals and direct emissions whenever present. No residual catch-all row or silent exclusion is allowed."
+      source_ids: []
+    - rule_id: boundary_fluids
+      applies_to: "machining_and_testing"
+      rule: "Include coolant replenishment, cleaning, oil carry-out, spent fluid and separated metal residue. Internal recirculation is not a new external input. Distinguish manufacturing/test use from the customer's operating life."
+      source_ids:
+        - jrc-fabricated-metal-bemp-2020
+    - rule_id: boundary_capital
+      applies_to: "infrastructure"
+      rule: "Identify production machinery and building datasets and disclose their allocation over actual productive service. If excluded, justify materiality and provide sensitivity for potentially important assets; the machine being manufactured is never excluded as capital equipment."
+      source_ids: []
+    - rule_id: boundary_supplier
+      applies_to: "subcontract_operations"
+      rule: "For an outsourced operation, use the processed component at the supplier gate plus its transport, or model the supplier operation with actual inputs and outputs. Never count both full processed-component burdens and the same operation separately."
+      source_ids: []
+boundary_abstraction:
+  declared_starting_condition: "Purchased metal stock, finished bed casting and separately identified functional assemblies received for the declared manufacturing route"
+  starting_condition_role: "Foreground entry boundary; upstream production burdens remain linked"
+  product_classification_scope: "Complete machines in CPC 44216; purchased parts retain their own product identities"
+  recursive_input_rule: "A purchased complete same-category machine used as production equipment is a capital asset, not raw feed. A same-category module incorporated in the product requires explicit nesting and one upstream link; do not recursively recreate its inventory."
+  upstream_dataset_requirement: "Link each purchased input to production at its actual incoming state, including casting, machining, heat treatment and coating already performed. Record supplier region, technology, transport distance/mode and data quality. Do not substitute raw metal for a finished motor or control cabinet."
+  disclosure: "Declare make/buy decisions, subcontract processing, auxiliaries, retained fills, packaging, infrastructure treatment, transport and all exclusions. Supplier activities must not disappear merely because they are outside the factory."
+reference_flow_definition:
+  reference_amount: "M"
+  product_flow_ref:
+    name: "Machine-tools for deburring, sharpening, grinding, honing, lapping, polishing or otherwise finishing metal, sintered metal carbides or cermets by means of grinding stones, abrasives or polishing products, machine-tools for planing, shaping, slotting, broaching, gear cutting, gear grinding or gear finishing, sawing, cutting-off and other machine-tools working by removing metal, sintered metal carbides or cermets n.e.c."
+    uuid: "84023a05-6bd8-46e1-9d67-a9b99457f876"
+  flow_property_ref:
+    uuid: "93a60a56-a3c8-11da-a746-0800200b9a66"
+  unit_group_ref:
+    uuid: "93a60a57-a4c8-11da-a746-0800200c9a66"
+  reference_unit: "kg"
+  required_qualifiers:
+    - "Machine family"
+    - model
+    - configuration
+    - "serial/batch coverage"
+    - "CNC or manual control"
+    - "workpiece material"
+    - "work envelope"
+    - "installed drive power"
+    - "declared accuracy and surface-finish acceptance criteria"
+    - "delivered spindle/tooling"
+    - "included coolant"
+    - filtration
+    - "extraction and hydraulic auxiliaries"
+    - "retained fluid fills"
+    - "measured net mass M"
+    - "factory location"
+    - "production period"
+    - "make/buy boundary"
+reference_flows:
+  []
+measurement_rules:
+  - id: reference_mass
+    applies_to: "reference product"
+    required_property_ref:
+      name: "Mass"
+      uuid: "93a60a56-a3c8-11da-a746-0800200b9a66"
+    required_unit: "kg"
+    rule: "M = accepted net mass of one complete machine of the same configuration in kg; collect using cp_mass."
+  - id: item_basis
+    applies_to: "all inventory rows"
+    required_property_ref:
+      name: "Exchange-specific property"
+      uuid: ""
+    required_unit: "Row unit per machine"
+    rule: "Every exchange is attributable to one accepted machine of that configuration. The reference amount is M kg, not a numerical one-kg manufacturing inventory."
+  - id: energy_metering
+    applies_to: "electricity_fabrication; electricity_assembly; electricity_test"
+    required_property_ref:
+      name: "Energy"
+      uuid: ""
+    required_unit: "kWh"
+    rule: "Retain metered electrical energy; convert MJ records by 1 kWh = 3.6 MJ. Nameplate power alone is not measured consumption. Include auxiliaries and attributable standby."
+  - id: fluids_basis
+    applies_to: "coolant_fabrication; coolant_test; water_fabrication; water_test; oil_fill; oil_test"
+    required_property_ref:
+      name: "Mass"
+      uuid: ""
+    required_unit: "kg"
+    rule: "Record neat concentrate, dilution water and mineral lubricating oil separately. Use measured density at declared conditions if converting volumes. Separate retained fills, recovered circulation and discharged quantities."
+process_map:
+  - id: fabrication
+    name: "Component preparation and machining"
+    inclusion: "conditional"
+    inclusion_condition: "In-house cutting, machining or abrasive finishing of metal components is performed"
+    role: "foreground production"
+    quantitative_reference: "per one accepted finished machine"
+  - id: assembly
+    name: "Mechanical and electrical assembly"
+    inclusion: "required"
+    inclusion_condition: ""
+    role: "foreground production"
+    quantitative_reference: "per one accepted finished machine"
+  - id: test_pack
+    name: "Factory acceptance and dispatch preparation"
+    inclusion: "required"
+    inclusion_condition: ""
+    role: "foreground production"
+    quantitative_reference: "per one accepted finished machine"
+process_inventory:
+  - id: fabrication
+    label: "Component preparation and machining"
+    inputs:
+      product:
+        - row_id: steel
+          role: "Carbon-steel plate"
+          name: "Carbon-steel plate"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Include when non-alloy carbon-steel plate is cut into structural parts in-house. Weigh gross issues less unused returns; record grade and thickness. Finished purchased structures must not also carry this raw-stock input."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_bom
+              source_ids: []
+            ranges: []
+        - row_id: electricity_fabrication
+          role: "Fabrication electricity"
+          name: "Electricity"
+          flow_type: "product"
+          flow_ref:
+            uuid: "b989a649-ca09-44b8-abab-a069148d0b1e"
+          property_unit: "Net calorific value / kWh"
+          description: "Include metered machining, extraction, coolant-pump and attributable idle electricity within the fabrication meter boundary; exclude electricity already represented in purchased finished components."
+          amount:
+            expression: "Collect the actual exchange amount in kWh per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_energy
+              source_ids: []
+            ranges: []
+        - row_id: coolant_fabrication
+          role: "Fabrication coolant concentrate"
+          name: "Water-soluble metalworking-fluid concentrate"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Include water-soluble metalworking-fluid concentrate where wet machining is performed. Record formulation, fresh additions and stock changes separately from dilution water and recirculation."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_fluids
+              source_ids: []
+            ranges: []
+        - row_id: water_fabrication
+          role: "Fabrication dilution water"
+          name: "Tap water"
+          flow_type: "product"
+          flow_ref:
+            uuid: "d1e0e36c-07f0-4a75-bdcb-efb5d9e2ac36"
+          property_unit: "Mass / kg"
+          description: "Include supplied tap water added to the machining-fluid system where applicable; measure make-up mass, not the recirculating volume."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_fluids
+              source_ids: []
+            ranges: []
+        - row_id: abrasive_fabrication
+          role: "Fabrication grinding wheel"
+          name: "Aluminium-oxide grinding wheel"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Include aluminium-oxide grinding-wheel consumption where in-house abrasive finishing uses that wheel chemistry. Record bond and dressing/wear loss; different abrasives require separate identified rows."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_tools
+              source_ids: []
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        []
+      waste:
+        - row_id: steel_scrap_fabrication
+          role: "Fabrication steel scrap"
+          name: "Post-industrial steel scrap"
+          flow_type: "waste"
+          flow_ref:
+            uuid: "c143745d-be4f-4d8f-b403-2dcbfe685349"
+          property_unit: "Mass / kg"
+          description: "Include segregated carbon-steel machining scrap dispatched as waste. Weigh and disclose retained coolant; avoid counting separated oil twice. Supplier-owned scrap outside the foreground belongs to the supplier dataset."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_waste
+              source_ids: []
+            ranges: []
+        - row_id: spent_coolant_fabrication
+          role: "Fabrication spent coolant emulsion"
+          name: "Spent aqueous metalworking emulsion"
+          flow_type: "waste"
+          property_unit: "Mass / kg"
+          description: "Include discharged aqueous metalworking emulsion, not fluid circulating internally. Record composition, contamination, mass and treatment destination."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_waste
+              source_ids: []
+            ranges: []
+        - row_id: spent_abrasive_fabrication
+          role: "Fabrication spent grinding wheel"
+          name: "Spent aluminium-oxide grinding wheel"
+          flow_type: "waste"
+          property_unit: "Mass / kg"
+          description: "Include discarded aluminium-oxide grinding-wheel remnants from fabrication. Weigh segregated remnants; collected fine grinding dust is a distinct waste and needs its own composition-specific row if generated."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_waste
+              source_ids: []
+            ranges: []
+      elementary:
+        - row_id: pm10_fabrication
+          role: "Fabrication PM10 release"
+          name: "Particulate matter, PM10, to air"
+          flow_type: "elementary"
+          property_unit: "Mass / kg"
+          description: "Include PM10 actually released to air from in-house grinding where present. Use measured outlet release after controls; captured solids are not air emissions."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_air
+              source_ids: []
+            ranges: []
+  - id: assembly
+    label: "Mechanical and electrical assembly"
+    inputs:
+      product:
+        - row_id: bed
+          role: "Finished cast-iron bed"
+          name: "Finished grey-cast-iron machine-tool bed"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Include the finished grey-cast-iron machine bed purchased for the configuration. Measure its net mass and link its actual casting/machining/coating state; do not use raw pig iron as its upstream identity."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_bom
+              source_ids: []
+            ranges: []
+        - row_id: motor
+          role: "Installed AC motor"
+          name: "Electric motor"
+          flow_type: "product"
+          flow_ref:
+            uuid: "014f80a3-c257-425b-9b75-3e5a18573695"
+          property_unit: "Mass / kg"
+          description: "Include separately purchased industrial AC motors installed in the machine. Record motor specification and total net installed mass; exclude motors already inside a purchased spindle assembly or auxiliary package."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_bom
+              source_ids: []
+            ranges: []
+        - row_id: cabinet
+          role: "Electrical control cabinet"
+          name: "Machine-tool electrical control cabinet"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Include the complete purchased machine-tool electrical control cabinet with its specified electronics and enclosure. Retain supplier configuration and mass; separately added wiring must be inventoried without duplicating cabinet contents."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_bom
+              source_ids: []
+            ranges: []
+        - row_id: spindle
+          role: "Spindle assembly"
+          name: "Machine-tool spindle assembly"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Include the purchased machine-tool spindle assembly where fitted. Record included bearings, motor and cooling auxiliaries to prevent double counting with separately purchased items."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_bom
+              source_ids: []
+            ranges: []
+        - row_id: bearing
+          role: "Separately installed ball bearing"
+          name: "Ball bearing"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Include ball bearings purchased and installed outside already-inventoried assemblies. Sum measured installed mass; other bearing technologies need distinct rows where present."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_bom
+              source_ids: []
+            ranges: []
+        - row_id: oil_fill
+          role: "Retained mineral lubricating oil"
+          name: "lubricating oil"
+          flow_type: "product"
+          flow_ref:
+            uuid: "aec6f1a5-7b09-4704-870d-434d3ada0edd"
+          property_unit: "Mass / kg"
+          description: "Include fresh mineral lubricating oil retained in the delivered machine. Record specification and net retained fill, which is included in M. Consumed/flushed oil and waste must be reconciled separately."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_fluids
+              source_ids: []
+            ranges: []
+        - row_id: electricity_assembly
+          role: "Assembly electricity"
+          name: "Electricity"
+          flow_type: "product"
+          flow_ref:
+            uuid: "b989a649-ca09-44b8-abab-a069148d0b1e"
+          property_unit: "Net calorific value / kWh"
+          description: "Include metered mechanical/electrical assembly electricity and its allocated auxiliaries. Do not include acceptance-test energy again."
+          amount:
+            expression: "Collect the actual exchange amount in kWh per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_energy
+              source_ids: []
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        []
+      waste:
+        []
+      elementary:
+        []
+  - id: test_pack
+    label: "Factory acceptance and dispatch preparation"
+    inputs:
+      product:
+        - row_id: test_steel
+          role: "Carbon-steel test plate"
+          name: "Carbon-steel plate"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Include non-alloy carbon-steel plate used for factory acceptance tests when that test material is specified. It is not incorporated in M; reused test stock is attributed using documented consumption."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_tools
+              source_ids: []
+            ranges: []
+        - row_id: electricity_test
+          role: "Acceptance electricity"
+          name: "Electricity"
+          flow_type: "product"
+          flow_ref:
+            uuid: "b989a649-ca09-44b8-abab-a069148d0b1e"
+          property_unit: "Net calorific value / kWh"
+          description: "Include accepted and failed/repeated factory-test cycles, spindle/axis drives, cooling, extraction and attributable standby. Record the test sequence rather than assuming customer duty cycles."
+          amount:
+            expression: "Collect the actual exchange amount in kWh per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_energy
+              source_ids: []
+            ranges: []
+        - row_id: coolant_test
+          role: "Test coolant concentrate"
+          name: "Water-soluble metalworking-fluid concentrate"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Include fresh water-soluble metalworking-fluid concentrate consumed during wet acceptance testing. Separate retained delivered fill, returned usable stock and drain losses in the fluid balance."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_fluids
+              source_ids: []
+            ranges: []
+        - row_id: water_test
+          role: "Test dilution water"
+          name: "Tap water"
+          flow_type: "product"
+          flow_ref:
+            uuid: "d1e0e36c-07f0-4a75-bdcb-efb5d9e2ac36"
+          property_unit: "Mass / kg"
+          description: "Include fresh supplied tap water added during wet acceptance testing. Record retained delivery water and discharged test emulsion separately."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_fluids
+              source_ids: []
+            ranges: []
+        - row_id: abrasive_test
+          role: "Test grinding-wheel consumption"
+          name: "Aluminium-oxide grinding wheel"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Include aluminium-oxide grinding-wheel consumption during applicable abrasive acceptance tests. A serviceable wheel delivered with the machine belongs to the delivered BOM and M, not this consumption quantity."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_tools
+              source_ids: []
+            ranges: []
+        - row_id: oil_test
+          role: "Test lubricating oil replenishment"
+          name: "lubricating oil"
+          flow_type: "product"
+          flow_ref:
+            uuid: "aec6f1a5-7b09-4704-870d-434d3ada0edd"
+          property_unit: "Mass / kg"
+          description: "Include fresh mineral lubricating oil used for tests or flushing, excluding the retained delivered fill recorded in oil_fill. Reconcile drained oil, recovery, consumption and stock changes."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_fluids
+              source_ids: []
+            ranges: []
+        - row_id: pallet
+          role: "Wooden dispatch pallet"
+          name: "Wooden pallet"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Include the wooden pallet supporting the dispatched machine. Record timber state, mass and evidenced reuse allocation; additional crates and fasteners require separate rows if used."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_pack
+              source_ids: []
+            ranges: []
+        - row_id: film
+          role: "Polyethylene wrapping film"
+          name: "Polyethylene packaging film"
+          flow_type: "product"
+          property_unit: "Mass / kg"
+          description: "Include polyethylene film used to protect the machine during dispatch. Weigh actual film consumption separately from the pallet and other packaging."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_pack
+              source_ids: []
+            ranges: []
+      waste:
+        []
+      elementary:
+        []
+    outputs:
+      product:
+        - row_id: finished_machine
+          role: "Accepted complete machine"
+          name: "Machine-tools for deburring, sharpening, grinding, honing, lapping, polishing or otherwise finishing metal, sintered metal carbides or cermets by means of grinding stones, abrasives or polishing products, machine-tools for planing, shaping, slotting, broaching, gear cutting, gear grinding or gear finishing, sawing, cutting-off and other machine-tools working by removing metal, sintered metal carbides or cermets n.e.c."
+          flow_type: "product"
+          flow_ref:
+            uuid: "84023a05-6bd8-46e1-9d67-a9b99457f876"
+          property_unit: "Mass / kg"
+          description: "Output one complete accepted machine with net measured mass M kg. Exclude transport packaging and temporary test pieces; include the declared installed assemblies and retained fills."
+          amount:
+            expression: "M kg"
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_mass
+              source_ids: []
+            ranges: []
+      waste:
+        - row_id: steel_scrap_test
+          role: "Acceptance steel scrap"
+          name: "Post-industrial steel scrap"
+          flow_type: "waste"
+          flow_ref:
+            uuid: "c143745d-be4f-4d8f-b403-2dcbfe685349"
+          property_unit: "Mass / kg"
+          description: "Include segregated carbon-steel scrap consumed in acceptance testing and sent for waste management. Record wet/dry basis and recovered oil separately."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_waste
+              source_ids: []
+            ranges: []
+        - row_id: spent_coolant_test
+          role: "Spent test coolant emulsion"
+          name: "Spent aqueous metalworking emulsion"
+          flow_type: "waste"
+          property_unit: "Mass / kg"
+          description: "Include aqueous metalworking emulsion drained from factory tests. Separate product-retained fluid and reused fluid from the off-site waste quantity."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_waste
+              source_ids: []
+            ranges: []
+        - row_id: waste_oil_test
+          role: "Waste mineral lubricating oil"
+          name: "Waste mineral lubricating oil"
+          flow_type: "waste"
+          property_unit: "Mass / kg"
+          description: "Include used mineral lubricating oil removed during acceptance or flushing when it occurs. Record fresh replacement oil separately; oil retained at dispatch remains part of M."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_waste
+              source_ids: []
+            ranges: []
+        - row_id: spent_abrasive_test
+          role: "Spent test grinding wheel"
+          name: "Spent aluminium-oxide grinding wheel"
+          flow_type: "waste"
+          property_unit: "Mass / kg"
+          description: "Include discarded aluminium-oxide wheel remnants from acceptance tests; do not combine them with metal swarf or collected dust."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_waste
+              source_ids: []
+            ranges: []
+      elementary:
+        - row_id: pm10_test
+          role: "Acceptance PM10 release"
+          name: "Particulate matter, PM10, to air"
+          flow_type: "elementary"
+          property_unit: "Mass / kg"
+          description: "Include measured PM10 discharged to air by abrasive acceptance tests after abatement. Other emission species and captured solids need separate measured identities where present."
+          amount:
+            expression: "Collect the actual exchange amount in kg per one accepted finished machine."
+            value_mode: "foreground_record"
+            specificity: "site_specific"
+            basis:
+              text: "per one accepted finished machine"
+              kind: "process_output"
+            evidence:
+              kind: "collected_record"
+              collection_protocol_id: cp_air
+              source_ids: []
+            ranges: []
+allocation_rules:
+  - rule_id: allocation_hierarchy
+    applies_to: "shared_processes"
+    rule: "First investigate subdivision or system expansion. Prefer order-specific meters and material issues for the single-machine production dataset. Where subdivision is impossible and expansion would change the declared product function, allocate using a demonstrated causal physical relationship. Document why the preceding options cannot be used."
+    source_ids:
+      - eu-pef-methods-2021
+  - rule_id: allocation_drivers
+    applies_to: "shared_utilities"
+    rule: "Use measured energy or measured power-by-time for shared machines and operating hours for causally time-dependent overhead. Use mass only for genuinely mass-dependent handling. A plant-wide equal-per-machine split across dissimilar machines is not an acceptable unexplained default."
+    source_ids: []
+  - rule_id: allocation_fallback
+    applies_to: "coproducts"
+    rule: "If no physical relationship can be demonstrated, justify another relationship, state prices/time/market scope if economic allocation is used, and test sensitivity. Scrap sales do not establish a substitution credit. Record treatment/recycling burdens and any credits separately under an explicitly selected consistent recycling model."
+    source_ids:
+      - eu-pef-methods-2021
+  - rule_id: allocation_rework
+    applies_to: "accepted_output"
+    rule: "Attribute failed tests, rejects and rework to the accepted output of the same production cohort; reconcile the denominator and avoid counting recovered material both as avoided virgin input and as an exported credit."
+    source_ids: []
+  - rule_id: allocation_rule_5
+    applies_to: "foreground_burden_allocation"
+    rule: "The PEF citation supports only the multifunctionality allocation hierarchy and justification of allocation relationships on PDF pp. 87–88. Submetering, the specific foreground allocation drivers, and sensitivity checks prescribed here are author-defined collection and quality controls, not directly quoted PEF requirements."
+    source_ids: []
+dataset_production:
+  collection_protocols:
+    - protocol_id: cp_mass
+      process_id: "test_pack"
+      flow_role: "accepted machine"
+      record_type: "weighing record"
+      raw_fields: "model; configuration; serial number; accepted net mass M"
+      collection_method: "Weigh the accepted complete machine on a calibrated scale, excluding transport packaging; reconcile the same configuration and acceptance record."
+      unit: "kg"
+      frequency: "each configuration and accepted unit or traceable representative batch"
+      temporal_coverage: "full declared cohort"
+      site_scope: "final assembly and acceptance site"
+      aggregation_rule: "accepted net mass per machine"
+      quality_evidence: "scale calibration; weighing ticket; delivered BOM; retained-fill record"
+    - protocol_id: cp_bom
+      process_id: "fabrication_assembly"
+      flow_role: "purchased components and stock"
+      record_type: "issue and receipt records"
+      raw_fields: "part identifier; material; supplier; incoming state; count; unit mass; issued and returned mass; configuration; installed location"
+      collection_method: "Reconcile supplier specifications, weighed issues/returns and accepted BOM; verify finished-assembly contents to prevent duplication."
+      unit: "kg"
+      frequency: "each order and configuration change"
+      temporal_coverage: "complete accepted cohort including rework"
+      site_scope: "plant and relevant supplier gates"
+      aggregation_rule: "net attributable input / accepted machines"
+      quality_evidence: "invoices; drawings; supplier mass certificates; reconciliation"
+    - protocol_id: cp_energy
+      process_id: "fabrication_assembly_test_pack"
+      flow_role: "electricity"
+      record_type: "meter records"
+      raw_fields: "meter identifier; stage; start/end readings; time; auxiliary load; idle load; accepted output; allocation driver"
+      collection_method: "Submeter each stage and auxiliaries; reconcile with plant bills. If allocation is needed, retain measured load/time evidence."
+      unit: "kWh"
+      frequency: "each job/test and monthly reconciliation"
+      temporal_coverage: "full declared production period including failed tests"
+      site_scope: "declared site and meter boundary"
+      aggregation_rule: "attributable electricity / accepted machines"
+      quality_evidence: "meter calibration; logs; allocation worksheet"
+    - protocol_id: cp_fluids
+      process_id: "fabrication_assembly_test_pack"
+      flow_role: "coolant concentrate water and oil"
+      record_type: "fluid balance"
+      raw_fields: "formulation; SDS; density; concentrate issue; water addition; oil fill; returns; opening/closing stock; retained fill; drain quantity"
+      collection_method: "Weigh issues, retained fills and drains separately; meter make-up water. Separate recycled circulation from external additions."
+      unit: "kg"
+      frequency: "each fill/drain and monthly balance"
+      temporal_coverage: "complete cohort"
+      site_scope: "fluid systems within the declared stages"
+      aggregation_rule: "net external fluid input / accepted machines"
+      quality_evidence: "SDS; density record; meters; stock balance; waste manifests"
+    - protocol_id: cp_waste
+      process_id: "fabrication_test_pack"
+      flow_role: "metal scrap spent fluid spent wheel and used oil"
+      record_type: "waste transfer record"
+      raw_fields: "stream identity; composition; moisture/oil content; gross/tare mass; destination; recovered fraction; production order"
+      collection_method: "Weigh segregated waste streams; reconcile recoverable oil and metal separately and identify off-site treatment."
+      unit: "kg"
+      frequency: "each container or consignment"
+      temporal_coverage: "complete cohort"
+      site_scope: "site waste collection and treatment links"
+      aggregation_rule: "attributable waste mass / accepted machines"
+      quality_evidence: "weighbridge slips; waste classification; treatment certificates"
+    - protocol_id: cp_tools
+      process_id: "fabrication_test_pack"
+      flow_role: "grinding wheel and test steel"
+      record_type: "consumable issue log"
+      raw_fields: "tool composition; new/returned mass; dressing loss; test-stock issues; accepted order"
+      collection_method: "Weigh consumption and allocate multi-job tool wear using recorded service; test stock must be distinct from material incorporated in the machine."
+      unit: "kg"
+      frequency: "each tool change and test"
+      temporal_coverage: "accepted cohort including repeated tests"
+      site_scope: "fabrication and acceptance cells"
+      aggregation_rule: "attributable consumable mass / accepted machines"
+      quality_evidence: "issue returns; tool-life logs; test protocol"
+    - protocol_id: cp_air
+      process_id: "fabrication_test_pack"
+      flow_role: "PM10 to air"
+      record_type: "emission measurement"
+      raw_fields: "particle fraction; outlet; sampled concentration; gas volume; operating time; capture efficiency; test uncertainty"
+      collection_method: "Measure outlet emissions or apply a documented validated mass balance with measured capture; declare compartment and avoid treating collected dust as an air release."
+      unit: "kg"
+      frequency: "representative operating campaign and changes"
+      temporal_coverage: "operation-weighted declared period"
+      site_scope: "actual atmospheric discharge points"
+      aggregation_rule: "attributable PM10 release / accepted machines"
+      quality_evidence: "sampling report; calibration; ventilation logs; uncertainty"
+    - protocol_id: cp_pack
+      process_id: "test_pack"
+      flow_role: "pallet and film"
+      record_type: "packing specification"
+      raw_fields: "pack identifier; material; gross/tare mass; reuse count; damaged replacements; configuration"
+      collection_method: "Weigh each packaging component separately; establish documented reuse allocation and include replacement losses."
+      unit: "kg"
+      frequency: "each packing configuration"
+      temporal_coverage: "declared dispatch cohort"
+      site_scope: "dispatch area"
+      aggregation_rule: "attributable packaging input / accepted machines"
+      quality_evidence: "pack BOM; weighing records; reuse log"
+  calculation_rules:
+    - id: cohort_attribution
+      applies_to: "all inventory rows"
+      rule: "Sum the net external exchanges attributable to the same configuration and divide by its accepted machine count. Retain failed-test and rework burdens. Internal returns reduce issued amounts only once."
+      inputs:
+        - "production order records"
+        - "accepted count"
+        - cp_bom
+        - cp_energy
+        - cp_fluids
+        - cp_waste
+        - cp_tools
+        - cp_air
+        - cp_pack
+      output: "exchange amount per one accepted finished machine"
+      source_ids: []
+    - id: configuration_mass
+      applies_to: "finished_machine"
+      rule: "Use the accepted net mass from cp_mass for the same complete delivered configuration; exclude transport packaging and temporary test workpieces."
+      inputs:
+        - cp_mass
+      output: "M kg"
+      source_ids: []
+  data_quality_requirements:
+    - id: dq_identity
+      applies_to: "complete machine"
+      requirement: "Record the exact machine family and capacity/accuracy specification. Grinding, sawing, broaching and gear-cutting machines are not interchangeable representatives."
+      evidence: "accepted drawings; configuration BOM; acceptance results"
+    - id: dq_coverage
+      applies_to: "production period"
+      requirement: "Use the complete disclosed production cohort; capture procurement, rejects, rework and test cycles. Explain sampling and seasonal/utilization effects."
+      evidence: "order reconciliation; output register"
+    - id: dq_completeness
+      applies_to: "inventory"
+      requirement: "Reconcile delivered net mass with incorporated components and retained fills, keeping packaging and consumed test stock separate. Investigate discrepancies against measured uncertainty, not an invented universal tolerance."
+      evidence: "mass reconciliation; flow balance"
+    - id: dq_upstream
+      applies_to: "purchased inputs"
+      requirement: "Prefer supplier/site-specific data for major assemblies. Disclose substituted geography, technology, year and incoming state; quantify sensitivity of important substitutions."
+      evidence: "supplier evidence and upstream dataset register"
+    - id: dq_ranges
+      applies_to: "all amounts"
+      requirement: "No external empirical range is prescribed. Collect foreground values; incompatible workpiece-machining use-phase observations cannot serve as machine-manufacturing priors."
+      evidence: "collection protocols; documented evidence gaps"
+    - id: dq_translation
+      applies_to: "identity"
+      requirement: "Product title terminology is professionally translated; UUID-bearing Chinese flow displays retain the exact database Chinese name even when its terminology differs from the editorial title."
+      evidence: "bilingual identity audit"
+validation_rules:
+  - rule_id: validate_identity
+    applies_to: "reference_product"
+    rule: "Confirm that the delivered product falls inside the complete-machine boundary, has all required qualifiers and is not a spare part or processed workpiece."
+    source_ids:
+      - un-cpc-3-0-structure-2025
+  - rule_id: validate_basis
+    applies_to: "all inventory rows"
+    rule: "Verify the common per-machine denominator and the cp_mass measurement of M for the accepted configuration. Reject a mixture of one-machine inventory and one-kg reference output without explicit conversion."
+    source_ids: []
+  - rule_id: validate_completeness
+    applies_to: "foreground_package"
+    rule: "Every applicable card and each additional BOM/process exchange needs a quantity, unit, source record and upstream/treatment link. Unresolved identity may remain explicitly disclosed but must not be replaced by a proxy or treated as zero."
+    source_ids: []
+  - rule_id: validate_double_counting
+    applies_to: "component_and_fluid_balances"
+    rule: "Reconcile stock, incorporated mass, process losses, returned parts, circulating fluid and off-site residues. Do not count components already contained in purchased assemblies twice."
+    source_ids:
+      - jrc-fabricated-metal-bemp-2020
+  - rule_id: validate_acceptance
+    applies_to: "factory_test"
+    rule: "Retain accuracy, function and declared quality acceptance evidence; attribute repeat tests and failures. Separate customer-use energy from factory tests."
+    source_ids: []
+  - rule_id: validate_allocation
+    applies_to: "shared_operations"
+    rule: "Verify causal drivers, fractions summing to the shared total and documented hierarchy/fallback justification; report sensitivity for material unresolved choices."
+    source_ids:
+      - eu-pef-methods-2021
+published_dataset_profile:
+  dataset_role: "Foreground production dataset for a complete accepted machine tool at factory gate"
+  downstream_use: "secondary_dataset; background_dataset"
+  allowed_use: "Embodied production modelling of the declared machine configuration, or a disclosed compatible production mix"
+  excluded_use: "Direct prediction of customer machining energy, universal performance comparisons across machine families, spare-part production without changed scope, or complete cradle-to-grave claims"
+  required_metadata: "Configuration and functional qualifiers; M and measurement evidence; location/year; make/buy boundary; system boundary; allocation; upstream/treatment links; packaging and retained fills"
+  required_quality_disclosure: "Coverage and sampling; supplier proxies; unresolved UUIDs; absent range evidence; exclusions; uncertainty; sensitivity and acceptance evidence"
+  update_trigger: "Change in machine family/configuration, incoming component state, supplier technology, factory process, energy supply, acceptance procedure, material balance or significant data quality"
+data_sources:
+  - id: "un-cpc-3-0-structure-2025"
+    type: "official_guidance"
+    reference: "United Nations Statistics Division, Central Product Classification Version 3.0 Structure, 30 June 2025; https://unstats.un.org/unsd/classifications/Econ/Download/In%20Text/CPC_Ver_3.0_Structure_30Jun2025.csv ; rows 2264-2274; original verified 2026-09-21"
+    used_for: "Product identity and neighbouring exclusions only"
+  - id: "jrc-fabricated-metal-bemp-2020"
+    type: "official_guidance"
+    reference: "European Commission JRC, Best Environmental Management Practice in the Fabricated Metal Products sector, EUR 30025 EN, 2020; DOI 10.2760/894966; https://publications.jrc.ec.europa.eu/repository/bitstream/JRC119281/jrc119281_jrc_bemp_fabricated_metal_product_manufacturing_report.pdf ; printed pp. 190 and 226; original verified 2026-09-22"
+    used_for: "Machining-fluid functions and form distinctions; separate swarf/oil recovery and waste collection. General metalworking applicability; no machine-production amount range adopted"
+  - id: "eu-pef-methods-2021"
+    type: "official_guidance"
+    reference: "Commission Recommendation (EU) 2021/2279, consolidated 30 December 2021; Annex I section 4.5, pp. 87-88; https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX%3A02021H2279-20211230 ; original verified 2026-09-22"
+    used_for: "Multifunctionality decision hierarchy and justified allocation; cited selectively without claiming full PEF compliance"
+projection_metadata:
+  contract_version: "1"
+  generator: "tiangong-pcr-builder/markdown-projection"
+  canonical_markdown:
+    path: "pcr.en-US.md"
+    normalization: "utf8-lf-v1"
+    hash_algorithm: "sha256"
+    sha256: "sha256:805f4f07bca268e0d4f56343e77c6476594d236c89401565b17a8645ae8cfac7"
+  generated_content_sha256: "sha256:83a3efd5d3cff380f96996eaf2e3e9896b243d440dd3cd95b10b4c3846d2830f"

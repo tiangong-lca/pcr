@@ -21,9 +21,9 @@ checkPaths:
   - .docpact/config.yaml
   - builder/**
   - classifications/**
-lastReviewedAt: 2026-09-15
-lastReviewedCommit: 0e5bb2920a5185663bc6339a73cb38b93bcfc87d
-lastReviewedNote: "Reviewed PCR #14 / PR #13 additional batch: canonical content matches fixed source 8fcb20e; accepted mappings, alias/catalog bindings and material/coverage indexes validate. Current inventory facts remain sourced from canonical files."
+lastReviewedAt: 2026-09-27
+lastReviewedCommit: 8663b271cf6555bb46ac6a06cb66d843b83daccb
+lastReviewedNote: "Reviewed PR #30/#33 merge composition: canonical PCR and ADR bytes are preserved; accepted mapping boundaries, deterministic alias/catalog/coverage generation, and ownership/validation contracts remain unchanged. Linux CI qualifies the updated PR head; local content lint and Docpact pass."
 ---
 
 # Classification Policy
