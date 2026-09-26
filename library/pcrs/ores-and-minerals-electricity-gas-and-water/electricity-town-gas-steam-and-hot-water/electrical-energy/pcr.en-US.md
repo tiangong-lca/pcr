@@ -40,7 +40,7 @@ Standalone transmission or distribution services, electrical equipment, energy-s
 | Field | Value |
 | --- | --- |
 | Reference amount | 1 |
-| Reference product flow | Electricity `890a70b7-b677-4e2a-8a1b-7d017e0a10ae` |
+| Reference product flow | Electricity category locator `890a70b7-b677-4e2a-8a1b-7d017e0a10ae`; the application's quantitative reference uses its selected qualified interface Flow |
 | Reference flow property | Net calorific value `93a60a56-a3c8-11da-a746-0800200c9a66` |
 | Reference unit group | Units of energy `93a60a57-a3c8-11da-a746-0800200c9a66` |
 | Reference unit | kWh |
@@ -48,7 +48,7 @@ Standalone transmission or distribution services, electrical equipment, energy-s
 
 When constructing a foreground data package, every item listed in `Required qualifiers` shall be declared in dataset metadata, process notes, reference flow comments, product description, or an equivalent data-package field. Missing required qualifiers make the reference flow incomplete for that package.
 
-The generic Electricity flow identifies the product category; it does not by itself establish a voltage-, current-form-, geography-, year-, or boundary-specific interface. Before using an existing interface Flow, verify its physical meaning, flow property, unit chain, and qualifiers. Keep the exact Process and Model versions chosen for an application in that data package and its calculation evidence, rather than fixing dataset versions in this PCR.
+The generic Electricity UUID in this section identifies the product category, not the quantitative output Flow of every application. The selected root input and reference reporting output must use the same exact qualified Flow; no product conversion is implied. Before using an existing interface Flow, verify its physical meaning, flow property, unit chain, and qualifiers. Keep the exact Process and Model versions chosen for an application in that data package and its calculation evidence, rather than fixing dataset versions in this PCR.
 
 | Role | Tiangong flow | Flow type | UUID | Flow property | Unit group | Preferred unit |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -393,9 +393,9 @@ Use the exact qualified plant-export or customer-meter Flow selected for this ap
 
 ###### Reference electricity (`reference_electricity`)
 
-This is the functional-unit reporting output of the actual plant-export or customer-meter root. It passes through the selected root electricity and adds no electricity or burden. If the selected root already exposes this qualified output, report it directly rather than materializing another provider. The generic Electricity UUID identifies the category; the application records its selected qualified interface Flow.
+This is the functional-unit reporting output of the actual plant-export or customer-meter root. It has the same exact qualified Flow identity as `selected_root_electricity`, passes through that electricity and adds no burden. If the selected root already exposes this output, report it directly rather than materializing another provider. The generic Electricity UUID in Section 3 identifies the category only.
 
-- Selected flow: Electricity `890a70b7-b677-4e2a-8a1b-7d017e0a10ae`
+- Selected flow: Same application-selected exact, qualified reference-boundary Electricity Flow as `selected_root_electricity`
 - Flow property / unit: Net calorific value / kWh
 - Amount rule: 1 kWh
 - Value mode: Fixed value (`fixed_value`)

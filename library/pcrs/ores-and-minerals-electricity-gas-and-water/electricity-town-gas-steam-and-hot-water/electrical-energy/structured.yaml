@@ -76,7 +76,7 @@ boundary_abstraction:
 reference_flow_definition:
   reference_amount: "1"
   product_flow_ref:
-    name: "Electricity"
+    name: "Electricity category locator ; the application's quantitative reference uses its selected qualified interface Flow"
     uuid: "890a70b7-b677-4e2a-8a1b-7d017e0a10ae"
   flow_property_ref:
     uuid: "93a60a56-a3c8-11da-a746-0800200c9a66"
@@ -505,12 +505,10 @@ process_inventory:
       product:
         - row_id: reference_electricity
           role: "Reference electricity"
-          name: "Electricity"
+          name: "Same application-selected exact, qualified reference-boundary Electricity Flow as selected_root_electricity"
           flow_type: "product"
-          flow_ref:
-            uuid: "890a70b7-b677-4e2a-8a1b-7d017e0a10ae"
           property_unit: "Net calorific value / kWh"
-          description: "This is the functional-unit reporting output of the actual plant-export or customer-meter root. It passes through the selected root electricity and adds no electricity or burden. If the selected root already exposes this qualified output, report it directly rather than materializing another provider. The generic Electricity UUID identifies the category; the application records its selected qualified interface Flow."
+          description: "This is the functional-unit reporting output of the actual plant-export or customer-meter root. It has the same exact qualified Flow identity as selected_root_electricity, passes through that electricity and adds no burden. If the selected root already exposes this output, report it directly rather than materializing another provider. The generic Electricity UUID in Section 3 identifies the category only."
           amount:
             expression: "1 kWh"
             value_mode: "fixed_value"
@@ -904,5 +902,5 @@ projection_metadata:
     path: "pcr.en-US.md"
     normalization: "utf8-lf-v1"
     hash_algorithm: "sha256"
-    sha256: "sha256:58ad4c2dc5b8510bc5b70c30c5336b8cd94e41a096277f1c98d04e095de95731"
-  generated_content_sha256: "sha256:acd35f154b370a4fb460c9247286e8fcdcdd81e4ac6d460bad49eca4dc19ec10"
+    sha256: "sha256:2edf66bf8b8255f2836404e4c430be60aef0df96281f790fd0a71e3c14bd5b71"
+  generated_content_sha256: "sha256:6df0acc792348ec3c82d3313ea126dfdd260cd26b2bcb92017f6e6d4b201d399"
