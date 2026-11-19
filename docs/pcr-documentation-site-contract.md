@@ -1,7 +1,7 @@
 ---
-lastReviewedAt: 2026-11-02
-lastReviewedNote: "PCR #164: independently reviewed the anchor refinement from ba81bd00. Apparent ids in attributes, comments, raw/inert content and consumed declarative shadow templates cannot satisfy ordinary-document anchor gates. All 112 focused checks and 3,318 authenticated incoming HTML pages pass; the independent shadow-root finding was reproduced in Chromium and narrowly repaired. Candidate content, additive mappings, runtime pins and source/resource guards remain unchanged. Fresh final-source hosted qualification and exact workspace integration remain required; no publication or scientific approval."
-lastReviewedCommit: ba81bd0091f6c8fe8bfc911c654af6d4dbb2423d
+lastReviewedAt: 2026-11-09
+lastReviewedNote: "Retain adjacent-PCR reading-page packing and add bounded search-layout selection plus optional inspector dictionary transport from fork source 7d0a48078779e09b3ca6aadf1b0bd619505303a4. Preserve exact logical/source/download bytes, native search semantics, legacy readers and existing budgets; exact-source builds and hosted qualification remain separate requirements."
+lastReviewedCommit: 9a753b7afac01f22a096b57cbce6cf22c85b9423
 title: Generated PCR Documentation Site Contract
 docType: contract
 scope: repo
@@ -549,6 +549,17 @@ versions 1–6 remain available. The 16-member pack limit, 2 MB source-text buck
 complete record fields, query cutoff/ranking and 20 MB raw / 4 MB gzip limits,
 including the manifest, remain unchanged.
 
+The Node-only search layout planner evaluates bounded contiguous groupings of the
+same logical wires, retaining the original greedy layout as a candidate. Pack
+count and the sixteen-member limit are unchanged. It may spell non-ASCII
+dictionary characters as JSON Unicode escapes when this reduces measured gzip
+bytes without exceeding existing raw or restored-wire limits. Only the physical
+dictionary spelling changes; dictionary values, all records, native entries,
+logical order, hashes and search behavior remain unchanged. Generation restores
+every selected logical wire byte for byte before publishing the assets. Corpus
+auditing accepts only the exact canonical pack spelling or its exact dictionary-only
+escape variant, and retains physical hashes and complete budget accounting.
+
 `node packages/pcr-docs/scripts/search-capacity-audit.ts <search-root> <new-output-root>`
 compares captured physical assets with repacked v7 files over the exact same
 logical wires, source identity, language and pack membership. It retains physical,
@@ -596,6 +607,20 @@ unknown versions, duplicate or missing keys and malformed records, and preserves
 the inspector's visible retry behavior. Browser qualification exercises the actual
 inspector in both languages and for available historical releases.
 
+Inspector packs may use `schemaVersion: 2` dictionary transport when the complete
+encoded UTF-8 payload is smaller than the legacy positional pack. Repeated keys
+and string values share a deterministic dictionary; explicit tokens preserve
+numbers, strings, arrays, objects, property order and empty values. Unprofitable
+or more deeply nested data retains the legacy format, and the reader continues
+to accept version 1 and unkeyed originals. Before materializing any selected
+record, the dictionary reader validates every record, dictionary reference,
+duplicate key, token and nesting depth. It charges all restored JSON occurrences,
+including escapes, against the existing 25,000,000-byte ceiling; packs at or above
+that restored size are split or rejected. The 1,000,000-byte physical target,
+32-record limit and existing single-file budget remain unchanged. Generation and
+export verification retain exact per-record restoration checks; canonical source,
+server-side records, original downloads and reading content are unaffected.
+
 This is lossless file packing to reduce the number of exported transport files.
 Server-side record data, byte-exact raw downloads and complete static HTML remain
 intact. Inspector packing itself requires no rewrite; the separate exact Next
@@ -616,15 +641,31 @@ changed. All heading anchors, source ownership, ToCs and internal fragment links
 are rebuilt against the resulting parts. An old-to-new part and anchor routing
 audit makes affected documents reviewable.
 
-This layout optimization changes chapter partitioning and can remove continuation
-URLs from a newly generated site. Source anchors remain available on their new
-owning page; generated links resolve to those owners. It does not establish
-compatibility for an older continuation URL. Search records are page-scoped, so
-record count and query granularity can also change; the codec's same-wire
-restoration guarantee is separate from layout changes. Complete fresh generation,
-both-language search measurements and the actual final export file count and
-browser/product gates must qualify the combined source. Projected file savings are
-diagnostics, not a complete product result.
+PCR reading pages additionally coalesce adjacent complete groups when their combined
+serialized UTF-8 HTML fits the same three-times ceiling. This changes the grouping
+policy, not the 180,000-byte target, 540,000-byte ceiling or indivisible-unit handling.
+Other document kinds retain the former partitioning. Node order, content, tables,
+code and footnotes are checked before deriving reading-page identity and links.
+
+Search retains the former post-tail logical parts, including their ids, titles,
+summaries, source-text scope, ordering and URLs. Reading pagination never merges
+these logical search units or changes ranking input. Removed reading URLs resolve
+through exact same-record, same-language middleware aliases, not redirect HTML.
+`compatibility/packed-chapters.json` binds those retained pre-packing routes to
+baseline commit and canonical source hashes; `packed-chapter-anchors.json` separately
+retains all their original anchors. They are not claims of prior publication.
+Existing published routes are flattened to final owners while their historical
+anchor ledger remains unchanged. All retained and published targets must exist in
+the ordinary document tree. The source-bound provider profile includes the added
+route source; older three-file profiles remain readable. Generation rejects source
+drift until the retained-route evidence is reviewed and updated.
+
+The anchor verifier reuses the upstream bounded generated-HTML scanner. Quoted
+attributes, comments, raw-text payloads, inert/foreign descendants and consumed
+declarative shadow templates cannot supply document anchors; unsupported structure
+fails closed. Complete fresh generation, search restoration/comparison, physical
+export counts, native downloads and browser/provider gates qualify this combined
+source. Projected savings are diagnostics, not acceptance evidence.
 
 Chapter URLs use source heading identities, with content-derived continuation
 suffixes. Tables remain whole, and
