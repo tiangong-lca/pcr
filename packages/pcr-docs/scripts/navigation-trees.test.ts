@@ -5,8 +5,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import {createServer} from 'node:http';
+import {AsyncLocalStorage} from 'node:async_hooks';
+import {pathToFileURL} from 'node:url';
 import {gzipSync} from 'node:zlib';
+import {createProviderMiddleware} from '../../../middleware.ts';
 import {prepareStaticRouteAliases} from './static-route-aliases.ts';
+import {PROVIDER_RUNTIME_PATHS,NAVIGATION_RUNTIME_PATHS,providerRuntimeSourceRoot} from './provider-runtime.ts';
 import {verifyNavigationTrees,planNavigationTrees,applyNavigationPlan,navigationFiles,navigationWebProof,navigationProbeFiles} from './navigation-tree-export.ts';
 import {createNavigationHandler,readNavigationBody,readNavigationBinding,readNavigationManifest,readNavigationPack,verifyNavigationRow,treeRequestPath,PREFETCH_NAME,prefetchRequestPath} from '../lib/navigation-trees.ts';
 const hash=(bytes:string|Uint8Array)=>createHash('sha256').update(bytes).digest('hex');
@@ -26,6 +30,24 @@ function chunkStream(chunks:readonly unknown[]):ReadableStream<unknown>{
   if(index===chunks.length)controller.close();
   else controller.enqueue(chunks[index++]);
  }});
+}
+async function providerFixture(){
+ const f=fixture(),root=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'provider-request-binding-')));
+ const sourceRoot=providerRuntimeSourceRoot(import.meta.url),close=()=>fs.rmSync(root,{recursive:true,force:true});
+ try{
+  for(const relative of [...PROVIDER_RUNTIME_PATHS,...NAVIGATION_RUNTIME_PATHS]){
+   const target=path.join(root,relative);fs.mkdirSync(path.dirname(target),{recursive:true});fs.copyFileSync(path.join(sourceRoot,relative),target);
+  }
+  const binding=path.join(root,'packages/pcr-docs/out/generated/navigation-binding.json');
+  fs.mkdirSync(path.dirname(binding),{recursive:true});fs.writeFileSync(binding,JSON.stringify(f.binding));
+  const provider:typeof import('../../../middleware.ts')=await import(pathToFileURL(path.join(root,'middleware.ts')).href);
+  const request=async(origin:string)=>{
+   const response=await provider.middleware({request:new Request(origin+url),next(){assert.fail('Unexpected static fallthrough');},rewrite(){assert.fail('Unexpected chapter rewrite');}});
+   assert.equal(response.status,200);
+   assert.deepEqual(Buffer.from(await response.arrayBuffer()),body);
+  };
+  return{...f,request,close};
+ }catch(error){close();throw error;}
 }
 test('bounded navigation reads preserve Unicode across every string and binary boundary',async()=>{
  const text='前😀后💧終\ud800末',expected=Buffer.from(text);
@@ -79,6 +101,75 @@ for(const kind of ['uint8array','arraybuffer','view','string'] as const){
   assert.equal(head?.headers.get('content-length'),String(body.length));
  });
 }
+test('cached provider middleware uses the active native fetch binding and retains authenticated data',async()=>{
+ const f=fixture(),originalFetch=globalThis.fetch,calls:number[]=[];
+ let activeRequest=0;
+ const activate=(request:number)=>{
+  activeRequest=request;
+  globalThis.fetch=async(input,init)=>{
+   assert.equal(activeRequest,request,'A native fetch hook belongs to its active request');
+   calls.push(request);
+   return f.loader(input,init);
+  };
+ };
+ try{
+  activate(1);
+  const handler=createProviderMiddleware(f.binding);
+  const request=async(origin:string)=>{
+   const response=await handler({request:new Request(origin+url),next(){assert.fail('Unexpected static fallthrough');},rewrite(){assert.fail('Unexpected chapter rewrite');}});
+   assert.equal(response.status,200);
+   assert.deepEqual(Buffer.from(await response.arrayBuffer()),body);
+  };
+  await request('https://one.test');
+  activate(2);await request('https://two.test');
+  activate(3);await request('https://one.test');
+  assert.deepEqual(calls,[1,1,2,2],'A later request reuses the source-bound cached data');
+ }finally{globalThis.fetch=originalFetch;}
+});
+test('real middleware snapshots request fetch before lazy binding and interleaved awaits',{timeout:10_000},async()=>{
+ const f=await providerFixture(),originalFetch=globalThis.fetch,scope=new AsyncLocalStorage<number>(),calls:number[]=[];
+ let release=()=>{},started=()=>{},rejectFailure:(reason:unknown)=>void=()=>{};
+ const gate=new Promise<void>(resolve=>{release=resolve;}),bothStarted=new Promise<void>(resolve=>{started=resolve;});
+ const failed=new Promise<never>((_resolve,reject)=>{rejectFailure=reject;}),manifestOwners=new Set<number>();
+ const pending:Promise<void>[]=[];
+ const activate=(owner:number)=>{
+  globalThis.fetch=async(input,init)=>{
+   assert.equal(scope.getStore(),owner,'The native hook must belong to the invocation performing I/O');
+   calls.push(owner);
+   if(new URL(String(input)).pathname===f.binding.manifest.url){manifestOwners.add(owner);if(manifestOwners.size===2)started();await gate;}
+   return f.loader(input,init);
+  };
+ };
+ try{
+  activate(1);pending.push(scope.run(1,()=>f.request('https://one.test')));
+  activate(2);pending.push(scope.run(2,()=>f.request('https://two.test')));
+  for(const operation of pending)void operation.catch(rejectFailure);
+  await Promise.race([bothStarted,failed]);release();await Promise.all(pending);
+  activate(3);await scope.run(3,()=>f.request('https://one.test'));
+  assert.deepEqual(calls.sort(),[1,1,2,2]);
+ }finally{release();await Promise.allSettled(pending);globalThis.fetch=originalFetch;f.close();}
+});
+test('real middleware coalesces request-owned pending work into authenticated shared data',{timeout:10_000},async()=>{
+ const f=await providerFixture(),originalFetch=globalThis.fetch,scope=new AsyncLocalStorage<number>(),calls:number[]=[];
+ let release=()=>{},started=()=>{};
+ const gate=new Promise<void>(resolve=>{release=resolve;}),manifestStarted=new Promise<void>(resolve=>{started=resolve;});
+ const pending:Promise<void>[]=[];
+ const activate=(owner:number)=>{
+  globalThis.fetch=async(input,init)=>{
+   assert.equal(scope.getStore(),owner,'Pending I/O retains the initiating request hook');
+   calls.push(owner);
+   if(new URL(String(input)).pathname===f.binding.manifest.url){started();await gate;}
+   return f.loader(input,init);
+  };
+ };
+ try{
+  activate(1);pending.push(scope.run(1,()=>f.request('https://one.test')));
+  await manifestStarted;
+  activate(2);pending.push(scope.run(2,()=>f.request('https://one.test')));
+  release();await Promise.all(pending);
+  assert.deepEqual(calls,[1,1]);
+ }finally{release();await Promise.allSettled(pending);globalThis.fetch=originalFetch;f.close();}
+});
 test('compiled binding restores original GET/HEAD/query bytes and leaves unknown routes alone',async()=>{
  const f=fixture(),handler=createNavigationHandler(f.binding,f.loader);
  for(const suffix of ['', '?_rsc=abc&q=a+b&q=%2F']){const response=await handler(new Request('https://example.test'+url+suffix));assert.ok(response);assert.equal(response.status,200);assert.deepEqual(Buffer.from(await response.arrayBuffer()),body);assert.equal(response.headers.get('content-type'),'text/plain; charset=utf-8');assert.equal(response.headers.get('x-content-type-options'),'nosniff');assert.equal(response.headers.get('cache-control'),'public, max-age=0, must-revalidate');}

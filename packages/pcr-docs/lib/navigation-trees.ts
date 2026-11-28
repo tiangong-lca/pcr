@@ -148,12 +148,12 @@ async function fetchBounded(origin:string,file:NavigationFile,fetcher:typeof fet
 }
 const responseHeaders=(row:DecodedNavigationRow)=>({'content-type':'text/plain; charset=utf-8','content-length':String(row.bytes),'cache-control':'public, max-age=0, must-revalidate','x-content-type-options':'nosniff','etag':'"'+row.sha256+'"'});
 /** The binding is compiled into the provider entry, never fetched from a mutable latest URL. */
-export function createNavigationHandler(value:unknown,fetcher:typeof fetch=fetch):(request:Request)=>Promise<Response|undefined>{
+export function createNavigationHandler(value:unknown,fetcher?:typeof fetch):(request:Request,invocationFetch?:typeof fetch)=>Promise<Response|undefined>{
  const binding=readNavigationBinding(value);
  const prefetchKeys=new Set(binding.schemaVersion===2?binding.prefetchKeys.match(/.{6}/g):[]);
  interface Session {manifest?:Promise<NavigationManifest>;pending:Map<string,Promise<Map<string,DecodedNavigationRow>>>;cache:Map<string,Map<string,DecodedNavigationRow>>}
  const origins=new Map<string,Session>();
- return async request=>{
+ return async(request,invocationFetch=fetcher??fetch)=>{
   const target=new URL(request.url),pathname=navigationRequestPath(target.pathname);
   if(!pathname||!['GET','HEAD'].includes(request.method)||!['https:','http:'].includes(target.protocol))return;
   try{
@@ -162,13 +162,13 @@ export function createNavigationHandler(value:unknown,fetcher:typeof fetch=fetch
    const pathDigest=await navigationDigest(encoder.encode(pathname));
    if(prefetch&&!prefetchKeys.has(prefetchKey(pathDigest)))return;
    let session=origins.get(target.origin);if(!session){if(origins.size>=2)origins.delete(origins.keys().next().value!);session={pending:new Map(),cache:new Map()};origins.set(target.origin,session);}const current=session;
-   current.manifest??=fetchBounded(target.origin,binding.manifest,fetcher).then(async bytes=>readNavigationManifest(bytes,binding,await navigationDigest(bytes))).catch(error=>{delete current.manifest;throw error;});
+   current.manifest??=fetchBounded(target.origin,binding.manifest,invocationFetch).then(async bytes=>readNavigationManifest(bytes,binding,await navigationDigest(bytes))).catch(error=>{delete current.manifest;throw error;});
    const manifest=await current.manifest,bucket=navigationBucket(pathname,pathDigest),descriptor=manifest.packs.find(pack=>pack.bucket===bucket);if(!descriptor)return;
    let rows=current.cache.get(descriptor.url);
    if(!rows){
     let pending=current.pending.get(descriptor.url);
     if(!pending){pending=(async()=>{
-     const bytes=await fetchBounded(target.origin,descriptor,fetcher),decoded=readNavigationPack(bytes,descriptor,binding.sourceCommit,await navigationDigest(bytes));
+     const bytes=await fetchBounded(target.origin,descriptor,invocationFetch),decoded=readNavigationPack(bytes,descriptor,binding.sourceCommit,await navigationDigest(bytes));
      for(const row of decoded)verifyNavigationRow(row,await navigationDigest(row.body),await navigationDigest(encoder.encode(row.path)),bucket);
      const result=new Map(decoded.map(row=>[row.path,row]));if(current.cache.size>=2)current.cache.delete(current.cache.keys().next().value!);current.cache.set(descriptor.url,result);return result;
     })().finally(()=>current.pending.delete(descriptor.url));current.pending.set(descriptor.url,pending);}rows=await pending;
