@@ -30,8 +30,8 @@ checkPaths:
   - library/modules/**
   - docs/**
 lastReviewedAt: 2026-11-28
-lastReviewedCommit: 58fe2642157b723b5af4dc2f10516f3a0fba784e
-lastReviewedNote: "PCR #205 reviewed candidate 0.4.14, bounded provider byte transport, invocation-owned native fetch snapshots and coordinated package version mirrors."
+lastReviewedCommit: 25689a458198d9606dc28d80b200806514ca93a0
+lastReviewedNote: "PCR #205 reviewed candidate 0.4.14, bounded provider bytes, invocation-owned fetch and native HEAD egress metadata with coordinated package mirrors."
 ---
 
 # AGENTS.md - TianGong LCA PCR Library

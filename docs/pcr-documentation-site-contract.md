@@ -1,7 +1,7 @@
 ---
 lastReviewedAt: 2026-11-28
-lastReviewedNote: "PCR #205 reviewed candidate 0.4.14, bounded provider byte transport, invocation-owned native fetch snapshots and coordinated package version mirrors."
-lastReviewedCommit: 58fe2642157b723b5af4dc2f10516f3a0fba784e
+lastReviewedNote: "PCR #205 reviewed candidate 0.4.14, bounded provider bytes, invocation-owned fetch and native HEAD egress metadata with coordinated package mirrors."
+lastReviewedCommit: 25689a458198d9606dc28d80b200806514ca93a0
 title: Generated PCR Documentation Site Contract
 docType: contract
 scope: repo
@@ -858,6 +858,8 @@ Provider runtime profile version 3 binds identity restorations and packed naviga
 Navigation subrequests use serialized same-origin URLs and request identity encoding. The bounded reader accepts provider string, ArrayBuffer and ArrayBufferView chunks, counts UTF-8 bytes, preserves a split high surrogate across string chunks, and respects binary view offsets. Empty chunks retain pending text state. Unknown chunk types, byte-budget overflow, truncation and source/hash mismatches fail the request. Production acceptance verifies the original navigation URLs against the sealed response bytes.
 
 Middleware snapshots the active native fetch binding synchronously at request entry and supplies it to every subrequest for that invocation. Cached transports retain authenticated data and pending work. The request-lifetime regression invokes the real lazy-binding entry with distinct native fetch bindings, forced await interleaving and coalesced pending work.
+
+The native HTTP adapter uses the GET representation for a navigation HEAD lookup and preserves the original request context for fallback. Platform egress sends a bodyless HEAD with the representation length and cache validators. Programmatic and sealed-server callers use a bodyless HEAD Response. The wire regression checks HEAD metadata, conditional ETag handling and a byte-exact following GET on the same connection.
 
 Provider CLI discovery/compilation and sealed-browser simulation are evidence for their respective scopes. They do not assert live production adoption; deployment and live acceptance still require the existing release authority.
 
