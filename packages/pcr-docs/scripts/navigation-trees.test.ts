@@ -8,7 +8,7 @@ import {createServer} from 'node:http';
 import {gzipSync} from 'node:zlib';
 import {prepareStaticRouteAliases} from './static-route-aliases.ts';
 import {verifyNavigationTrees,planNavigationTrees,applyNavigationPlan,navigationFiles,navigationWebProof,navigationProbeFiles} from './navigation-tree-export.ts';
-import {createNavigationHandler,readNavigationBinding,readNavigationManifest,readNavigationPack,verifyNavigationRow,treeRequestPath,PREFETCH_NAME,prefetchRequestPath} from '../lib/navigation-trees.ts';
+import {createNavigationHandler,readNavigationBody,readNavigationBinding,readNavigationManifest,readNavigationPack,verifyNavigationRow,treeRequestPath,PREFETCH_NAME,prefetchRequestPath} from '../lib/navigation-trees.ts';
 const hash=(bytes:string|Uint8Array)=>createHash('sha256').update(bytes).digest('hex');
 const source='a'.repeat(40),url='/en/docs/pcr/a/b/c/__next._tree.txt',body=Buffer.from('0:{"tree":"完整😀"}\n');
 function fixture(){
@@ -19,6 +19,61 @@ function fixture(){
  const assets=new Map([[descriptor.url,pack],[binding.manifest.url,manifest]]);const calls:string[]=[];
  const loader:typeof fetch=async(input)=>{const path=new URL(String(input)).pathname;calls.push(path);const bytes=assets.get(path);return bytes?new Response(bytes,{headers:{'content-type':'application/json'}}):new Response(null,{status:404});};
  return{bucket,pack,descriptor,manifest,binding,assets,calls,loader};
+}
+function chunkStream(chunks:readonly unknown[]):ReadableStream<unknown>{
+ let index=0;
+ return new ReadableStream<unknown>({pull(controller){
+  if(index===chunks.length)controller.close();
+  else controller.enqueue(chunks[index++]);
+ }});
+}
+test('bounded navigation reads preserve Unicode across every string and binary boundary',async()=>{
+ const text='前😀后💧終\ud800末',expected=Buffer.from(text);
+ for(let boundary=0;boundary<=text.length;boundary++){
+  const actual=await readNavigationBody(chunkStream([text.slice(0,boundary),'',text.slice(boundary)]),expected.length);
+  assert.deepEqual(Buffer.from(actual),expected,'UTF-16 boundary '+boundary);
+ }
+ const units=Array.from({length:text.length},(_,index)=>text[index]);
+ assert.deepEqual(Buffer.from(await readNavigationBody(chunkStream(units),expected.length)),expected);
+ const byteChunks=Array.from(expected,byte=>Uint8Array.of(byte).buffer);
+ assert.deepEqual(Buffer.from(await readNavigationBody(chunkStream(byteChunks),expected.length)),expected);
+ const mixed=['前',Uint8Array.from(Buffer.from('😀')).buffer,'后\ud83d',new ArrayBuffer(0),'\udca7終\ud800末'];
+ assert.deepEqual(Buffer.from(await readNavigationBody(chunkStream(mixed),expected.length)),expected);
+});
+test('bounded navigation reads preserve view offsets and reject malformed or oversized chunks',async()=>{
+ const padded=Uint8Array.from([9,9,1,2,3,4,9]);
+ const views=[new DataView(padded.buffer,2,2),padded.subarray(4,6)];
+ assert.deepEqual([...await readNavigationBody(chunkStream(views),4)],[1,2,3,4]);
+ for(const [chunks,size] of [
+  [[Uint8Array.of(1)],2],[[Uint8Array.of(1,2)],1],[['😀'],3],[[{}],1],[[null],1],[[1],1],
+ ] as const)await assert.rejects(readNavigationBody(chunkStream(chunks),size));
+ await assert.rejects(readNavigationBody(chunkStream(['x']),1_000_001));
+});
+for(const kind of ['uint8array','arraybuffer','view','string'] as const){
+ test('handler authenticates '+kind+' provider chunks through documented fetch inputs',async()=>{
+  const f=fixture();
+  const loader:typeof fetch=async(input,init)=>{
+   assert.equal(typeof input,'string');
+   assert.equal(new Headers(init?.headers).get('accept-encoding'),'identity');
+   assert.equal(init?.redirect,'error');
+   const pathname=new URL(String(input)).pathname,bytes=f.assets.get(pathname);
+   assert.ok(bytes);
+   const padded=Buffer.concat([Buffer.from([9,9,9]),bytes,Buffer.from([9])]);
+   const value=kind==='arraybuffer'?Uint8Array.from(bytes).buffer
+    :kind==='view'?new DataView(padded.buffer,padded.byteOffset+3,bytes.length)
+    :kind==='string'?bytes.toString('utf8'):Uint8Array.from(bytes);
+   const response=new Response(chunkStream([value]),{headers:{'content-type':'application/json','content-length':String(bytes.length)}});
+   Object.defineProperty(response,'url',{value:null});
+   return response;
+  };
+  const handler=createNavigationHandler(f.binding,loader);
+  const response=await handler(new Request('https://example.test'+url+'?_rsc=normal'));
+  assert.equal(response?.status,200);
+  assert.deepEqual(Buffer.from(await response!.arrayBuffer()),body);
+  const head=await handler(new Request('https://example.test'+url,{method:'HEAD'}));
+  assert.equal(head?.status,200);assert.equal((await head!.arrayBuffer()).byteLength,0);
+  assert.equal(head?.headers.get('content-length'),String(body.length));
+ });
 }
 test('compiled binding restores original GET/HEAD/query bytes and leaves unknown routes alone',async()=>{
  const f=fixture(),handler=createNavigationHandler(f.binding,f.loader);

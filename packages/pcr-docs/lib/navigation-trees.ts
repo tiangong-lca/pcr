@@ -96,15 +96,54 @@ export function readNavigationPack(bytes:Uint8Array,descriptor:NavigationPackRef
 }
 export function verifyNavigationRow(row:DecodedNavigationRow,bodyDigest:string,pathDigest:string,bucket:string):void{requireThat(bodyDigest===row.sha256&&navigationBucket(row.path,pathDigest)===bucket);}
 export async function navigationDigest(bytes:Uint8Array):Promise<string>{const result=await crypto.subtle.digest('SHA-256',new Uint8Array(bytes));return Array.from(new Uint8Array(result),n=>n.toString(16).padStart(2,'0')).join('');}
-async function fetchBounded(origin:string,file:NavigationFile,fetcher:typeof fetch):Promise<Uint8Array>{
- const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),10_000);let response:Response|undefined;
+/** Read provider stream chunks into the exact authenticated byte budget. */
+export async function readNavigationBody(body:ReadableStream<unknown>,expectedBytes:number):Promise<Uint8Array>{
+ requireThat(integer(expectedBytes)&&expectedBytes>0&&expectedBytes<=NAVIGATION_PACK_LIMIT);
+ const bytes=new Uint8Array(expectedBytes),reader=body.getReader();
+ let offset=0,pendingSurrogate='';
+ const append=(chunk:Uint8Array)=>{
+  requireThat(chunk.byteLength<=expectedBytes-offset);
+  bytes.set(chunk,offset);
+  offset+=chunk.byteLength;
+ };
  try{
-  response=await fetcher(new URL(file.url,origin),{method:'GET',redirect:'error',credentials:'omit',signal:controller.signal});
-  requireThat(response.status===200&&(!response.url||new URL(response.url).href===new URL(file.url,origin).href)&&/^application\/json(?:\s*;|$)/i.test(response.headers.get('content-type')??'')&&response.body);
-  const declared=response.headers.get('content-length'),encoding=response.headers.get('content-encoding');if(declared!==null&&(!encoding||encoding==='identity'))requireThat(/^\d+$/.test(declared)&&Number(declared)===file.bytes);
-  const reader=response.body.getReader(),chunks:Uint8Array[]=[];let total=0;
-  try{for(;;){const {done,value}=await reader.read();if(done)break;total+=value.byteLength;requireThat(total<=file.bytes);chunks.push(value);}}finally{await reader.cancel().catch(()=>{});}
-  requireThat(total===file.bytes);const bytes=new Uint8Array(total);let offset=0;for(const chunk of chunks){bytes.set(chunk,offset);offset+=chunk.length;}return bytes;
+  for(;;){
+   const {done,value}=await reader.read();
+   if(done)break;
+   if(typeof value==='string'){
+    // At most one trailing UTF-16 code unit can await the next string chunk.
+    requireThat(value.length<=expectedBytes-offset+1);
+    const text=pendingSurrogate+value,last=text.charCodeAt(text.length-1);
+    const trailingHigh=last>=0xd800&&last<=0xdbff;
+    pendingSurrogate=trailingHigh?text.slice(-1):'';
+    append(encoder.encode(trailingHigh?text.slice(0,-1):text));
+    continue;
+   }
+   let chunk:Uint8Array;
+   if(value instanceof ArrayBuffer)chunk=new Uint8Array(value);
+   else{
+    requireThat(ArrayBuffer.isView(value));
+    chunk=new Uint8Array(value.buffer,value.byteOffset,value.byteLength);
+   }
+   if(chunk.byteLength===0)continue;
+   if(pendingSurrogate){append(encoder.encode(pendingSurrogate));pendingSurrogate='';}
+   append(chunk);
+  }
+  if(pendingSurrogate)append(encoder.encode(pendingSurrogate));
+  requireThat(offset===expectedBytes);
+  return bytes;
+ }finally{await reader.cancel().catch(()=>{});}
+}
+async function fetchBounded(origin:string,file:NavigationFile,fetcher:typeof fetch):Promise<Uint8Array>{
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),10_000);
+ const url=new URL(file.url,origin).href;
+ let response:Response|undefined;
+ try{
+  response=await fetcher(url,{method:'GET',redirect:'error',credentials:'omit',signal:controller.signal,headers:{'accept-encoding':'identity'}});
+  requireThat(response.status===200&&(!response.url||new URL(response.url).href===url)&&/^application\/json(?:\s*;|$)/i.test(response.headers.get('content-type')??'')&&response.body);
+  const declared=response.headers.get('content-length'),encoding=response.headers.get('content-encoding');
+  if(declared!==null&&(!encoding||encoding==='identity'))requireThat(/^\d+$/.test(declared)&&Number(declared)===file.bytes);
+  return await readNavigationBody(response.body,file.bytes);
  }finally{clearTimeout(timer);controller.abort();if(response?.body&&!response.body.locked)await response.body.cancel().catch(()=>{});}
 }
 const responseHeaders=(row:DecodedNavigationRow)=>({'content-type':'text/plain; charset=utf-8','content-length':String(row.bytes),'cache-control':'public, max-age=0, must-revalidate','x-content-type-options':'nosniff','etag':'"'+row.sha256+'"'});
