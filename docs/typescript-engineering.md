@@ -21,9 +21,9 @@ checkPaths:
   - tests/agent/**
   - scripts/engineering/**
   - .github/workflows/**
-lastReviewedAt: 2026-11-27
-lastReviewedCommit: db60259a98f6baae72300a458e95264182303dd5
-lastReviewedNote: "PCR #182 reviews hosted source-document concurrency, per-process heap and aggregate RSS, deterministic errors and the original publication checks."
+lastReviewedAt: 2026-11-28
+lastReviewedCommit: 58fe2642157b723b5af4dc2f10516f3a0fba784e
+lastReviewedNote: "PCR #205 reviewed candidate 0.4.14, bounded provider byte transport, invocation-owned native fetch snapshots and coordinated package version mirrors."
 related:
   - repository-coding-guidelines.md
   - offline-distribution.md
@@ -369,6 +369,11 @@ No caller needs TypeScript in `node_modules`, and installed tests explicitly dis
 Node's type stripping. Compiler/staging failure removes only owned staging files.
 The Git-connected provider importer retains its dependency-free module graph;
 a clean dependency-absent import probe verifies that boundary.
+
+The cached navigation transport receives a native fetch hook from each middleware
+invocation. The entry captures that hook before lazy binding or asynchronous work.
+Interleaving regressions exercise separate request contexts, request-owned I/O and
+authenticated cache reuse.
 
 ## YAML boundary
 

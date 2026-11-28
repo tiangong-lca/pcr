@@ -27,8 +27,8 @@ checkPaths:
   - library/modules/**
   - docs/**
 lastReviewedAt: 2026-11-28
-lastReviewedCommit: a733292a73e7d923b5433fd2e18370b78ed9960d
-lastReviewedNote: "PCR #205 reviewed candidate 0.4.14, bounded provider stream-byte normalization, UTF-8 surrogate handling and coordinated package version mirrors."
+lastReviewedCommit: 58fe2642157b723b5af4dc2f10516f3a0fba784e
+lastReviewedNote: "PCR #205 reviewed candidate 0.4.14, bounded provider byte transport, invocation-owned native fetch snapshots and coordinated package version mirrors."
 ---
 
 # TianGong LCA PCR Library

@@ -14,9 +14,9 @@ whenToUpdate:
   - when repository-specific coding guidelines change
 checkPaths:
   - docs/repository-coding-guidelines.md
-lastReviewedAt: 2026-11-27
-lastReviewedCommit: db60259a98f6baae72300a458e95264182303dd5
-lastReviewedNote: "PCR #182 reviews hosted source-document concurrency, per-process heap and aggregate RSS, deterministic errors and the original publication checks."
+lastReviewedAt: 2026-11-28
+lastReviewedCommit: 58fe2642157b723b5af4dc2f10516f3a0fba784e
+lastReviewedNote: "PCR #205 reviewed candidate 0.4.14, bounded provider byte transport, invocation-owned native fetch snapshots and coordinated package version mirrors."
 related:
   - docs/coding-principles.md
   - docs/ai-friendly-cli-design.md
