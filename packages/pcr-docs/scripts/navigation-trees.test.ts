@@ -4,7 +4,7 @@ import {createHash} from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
-import {createServer} from 'node:http';
+import {Agent,createServer,request as httpRequest,type IncomingHttpHeaders} from 'node:http';
 import {AsyncLocalStorage} from 'node:async_hooks';
 import {pathToFileURL} from 'node:url';
 import {gzipSync} from 'node:zlib';
@@ -41,12 +41,13 @@ async function providerFixture(){
   const binding=path.join(root,'packages/pcr-docs/out/generated/navigation-binding.json');
   fs.mkdirSync(path.dirname(binding),{recursive:true});fs.writeFileSync(binding,JSON.stringify(f.binding));
   const provider:typeof import('../../../middleware.ts')=await import(pathToFileURL(path.join(root,'middleware.ts')).href);
+  const respond=(request:Request,fallback?:(request:Request)=>Response)=>provider.middleware({request,next(){if(fallback)return fallback(this.request);assert.fail('Unexpected static fallthrough');},rewrite(){assert.fail('Unexpected chapter rewrite');}});
   const request=async(origin:string)=>{
-   const response=await provider.middleware({request:new Request(origin+url),next(){assert.fail('Unexpected static fallthrough');},rewrite(){assert.fail('Unexpected chapter rewrite');}});
+   const response=await respond(new Request(origin+url));
    assert.equal(response.status,200);
    assert.deepEqual(Buffer.from(await response.arrayBuffer()),body);
   };
-  return{...f,request,close};
+  return{...f,request,respond,close};
  }catch(error){close();throw error;}
 }
 test('bounded navigation reads preserve Unicode across every string and binary boundary',async()=>{
@@ -169,6 +170,49 @@ test('real middleware coalesces request-owned pending work into authenticated sh
   release();await Promise.all(pending);
   assert.deepEqual(calls,[1,1]);
  }finally{release();await Promise.allSettled(pending);globalThis.fetch=originalFetch;f.close();}
+});
+test('native HEAD egress retains representation metadata and keep-alive framing',{timeout:10_000},async()=>{
+ const f=await providerFixture(),originalFetch=globalThis.fetch,agent=new Agent({keepAlive:true,maxSockets:1});
+ const nativeHeadBodies:Buffer[]=[],errors:unknown[]=[];
+ let origin='';
+ const server=createServer((message,reply)=>{
+  void(async()=>{
+   const headers=new Headers();
+   for(const [name,value] of Object.entries(message.headers))if(value!==undefined)headers.set(name,Array.isArray(value)?value.join(','):value);
+   const response=await f.respond(new Request(origin+(message.url??'/'),{method:message.method??'GET',headers}));
+   const representation=Buffer.from(await response.arrayBuffer());
+   if(message.method==='HEAD'&&response.status===200)nativeHeadBodies.push(representation);
+   reply.writeHead(response.status,Object.fromEntries(response.headers));reply.end(representation);
+  })().catch(error=>{errors.push(error);reply.destroy(error);});
+ });
+ try{
+  globalThis.fetch=f.loader;
+  await new Promise<void>(resolve=>server.listen(0,'127.0.0.1',resolve));
+  const address=server.address();assert.ok(address&&typeof address==='object');origin=`http://127.0.0.1:${address.port}`;
+  const wire=(method:string,headers:Record<string,string>={}):Promise<{status:number|undefined;headers:IncomingHttpHeaders;body:Buffer;socket:unknown}>=>new Promise((resolve,reject)=>{
+   let socket:unknown;
+   const request=httpRequest(origin+url,{method,headers,agent},response=>{
+    const chunks:Buffer[]=[];response.on('data',(chunk:Buffer)=>chunks.push(chunk));response.on('error',reject);
+    response.on('end',()=>resolve({status:response.statusCode,headers:response.headers,body:Buffer.concat(chunks),socket}));
+   });
+   request.on('socket',value=>{socket=value;});request.on('error',reject);request.end();
+  });
+  const head=await wire('HEAD');
+  assert.equal(head.status,200);assert.equal(head.body.length,0);assert.equal(head.headers['content-length'],String(body.length));assert.ok(head.socket);
+  assert.deepEqual(nativeHeadBodies,[body]);
+  const get=await wire('GET');assert.equal(get.socket,head.socket);assert.deepEqual(get.body,body);assert.equal(get.headers.etag,head.headers.etag);
+  assert.equal(get.headers['content-type'],'text/plain; charset=utf-8');assert.equal(get.headers['x-content-type-options'],'nosniff');
+  assert.equal(get.headers['cache-control'],'public, max-age=0, must-revalidate');
+  assert.equal(typeof head.headers.etag,'string');
+  const conditional=await wire('HEAD',{'if-none-match':String(head.headers.etag)});
+  assert.equal(conditional.status,304);assert.equal(conditional.body.length,0);assert.equal(conditional.headers.etag,head.headers.etag);
+  const next=await wire('GET');assert.equal(next.socket,head.socket);assert.deepEqual(next.body,body);
+  const direct=await createProviderMiddleware(f.binding,f.loader)({request:new Request(origin+url,{method:'HEAD'}),next(){assert.fail('Unexpected fallthrough');},rewrite(){assert.fail('Unexpected rewrite');}});
+  assert.equal((await direct.arrayBuffer()).byteLength,0);assert.equal(direct.headers.get('content-length'),String(body.length));
+  let fallbackMethod='';
+  const fallback=await f.respond(new Request(origin+'/en/docs/pcr/a/b/c/'+PREFETCH_NAME,{method:'HEAD'}),request=>{fallbackMethod=request.method;return new Response('fallback');});
+  assert.equal(fallbackMethod,'HEAD');assert.equal(await fallback.text(),'fallback');assert.deepEqual(errors,[]);
+ }finally{agent.destroy();server.closeAllConnections();await new Promise<void>(resolve=>server.close(()=>resolve()));globalThis.fetch=originalFetch;f.close();}
 });
 test('compiled binding restores original GET/HEAD/query bytes and leaves unknown routes alone',async()=>{
  const f=fixture(),handler=createNavigationHandler(f.binding,f.loader);
