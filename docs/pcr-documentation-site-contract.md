@@ -1,7 +1,7 @@
 ---
 lastReviewedAt: 2026-11-28
-lastReviewedNote: "PCR #201 reviewed the coordinated 0.4.13 version and its three package mirrors for the combined methodology library, immutable release workflow and production website."
-lastReviewedCommit: a292457a5d5e91943da74122293ed4b958c0331f
+lastReviewedNote: "PCR #205 reviewed candidate 0.4.14, bounded provider bytes, invocation-owned fetch and native HEAD egress metadata with coordinated package mirrors."
+lastReviewedCommit: 25689a458198d9606dc28d80b200806514ca93a0
 title: Generated PCR Documentation Site Contract
 docType: contract
 scope: repo
@@ -854,6 +854,12 @@ Reviewed published continuation URLs remain accessible through exact GET/HEAD mi
 `generated/provider-runtime.json` seals the exact middleware/import closure and routes to the product source. Export verification requires real target/default anchors, and the separate published-source anchor ledger requires every retained historical content anchor. Anchor checks use a dependency-free scanner for generated HTML below 25,000,000 UTF-8 bytes and at most 1,000 open elements: only first id attributes in the ordinary document tree count, with emitted character references decoded once. Quoted attribute text, comments, raw-text payloads, inert template content and foreign SVG/MathML descendants cannot supply chapter anchors. Unsupported malformed structure, declarative shadow templates or ambiguous character references fail closed; this scanner does not claim general browser error-recovery compatibility. The product archive and probe bind the proof. Provider import compares the actual regular source bytes before handoff and again before the atomic swap; a missing/substituted runtime fails. Historical immutable artifacts without this profile remain readable. Raw TypeScript export remains prohibited. New root middleware belongs to strict TypeScript and measured coverage inventories.
 
 Provider runtime profile version 3 binds identity restorations and packed navigation in the same source closure. It requires both `identityMoves` and `navigationBinding`, the original middleware files and both navigation runtime files. Readers retain version 1 and each historical version 2 profile. Capability checks use the declared fields, so an identity-only version 2 profile does not require packed navigation. Source verification normalizes only the export-bound navigation receipt, while retaining every identity move.
+
+Navigation subrequests use serialized same-origin URLs and request identity encoding. The bounded reader accepts provider string, ArrayBuffer and ArrayBufferView chunks, counts UTF-8 bytes, preserves a split high surrogate across string chunks, and respects binary view offsets. Empty chunks retain pending text state. Unknown chunk types, byte-budget overflow, truncation and source/hash mismatches fail the request. Production acceptance verifies the original navigation URLs against the sealed response bytes.
+
+Middleware snapshots the active native fetch binding synchronously at request entry and supplies it to every subrequest for that invocation. Cached transports retain authenticated data and pending work. The request-lifetime regression invokes the real lazy-binding entry with distinct native fetch bindings, forced await interleaving and coalesced pending work.
+
+The native HTTP adapter uses the GET representation for a navigation HEAD lookup and preserves the original request context for fallback. Platform egress sends a bodyless HEAD with the representation length and cache validators. Programmatic and sealed-server callers use a bodyless HEAD Response. The wire regression checks HEAD metadata, conditional ETag handling and a byte-exact following GET on the same connection.
 
 Provider CLI discovery/compilation and sealed-browser simulation are evidence for their respective scopes. They do not assert live production adoption; deployment and live acceptance still require the existing release authority.
 

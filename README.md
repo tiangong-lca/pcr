@@ -27,8 +27,8 @@ checkPaths:
   - library/modules/**
   - docs/**
 lastReviewedAt: 2026-11-28
-lastReviewedCommit: a292457a5d5e91943da74122293ed4b958c0331f
-lastReviewedNote: "PCR #201 reviewed the coordinated 0.4.13 version and its three package mirrors for the combined methodology library, immutable release workflow and production website."
+lastReviewedCommit: 25689a458198d9606dc28d80b200806514ca93a0
+lastReviewedNote: "PCR #205 reviewed candidate 0.4.14, bounded provider bytes, invocation-owned fetch and native HEAD egress metadata with coordinated package mirrors."
 ---
 
 # TianGong LCA PCR Library
