@@ -39,13 +39,17 @@ test('bounded navigation reads preserve Unicode across every string and binary b
  assert.deepEqual(Buffer.from(await readNavigationBody(chunkStream(byteChunks),expected.length)),expected);
  const mixed=['前',Uint8Array.from(Buffer.from('😀')).buffer,'后\ud83d',new ArrayBuffer(0),'\udca7終\ud800末'];
  assert.deepEqual(Buffer.from(await readNavigationBody(chunkStream(mixed),expected.length)),expected);
+ const dangling='尾\ud83d',danglingBytes=Buffer.from(dangling);
+ assert.deepEqual(Buffer.from(await readNavigationBody(chunkStream(['尾','\ud83d']),danglingBytes.length)),danglingBytes);
+ const separated=Buffer.concat([Buffer.from('\ud83d'),Buffer.from('中'),Buffer.from('\udca7')]);
+ assert.deepEqual(Buffer.from(await readNavigationBody(chunkStream(['\ud83d',Buffer.from('中'),'\udca7']),separated.length)),separated);
 });
 test('bounded navigation reads preserve view offsets and reject malformed or oversized chunks',async()=>{
  const padded=Uint8Array.from([9,9,1,2,3,4,9]);
  const views=[new DataView(padded.buffer,2,2),padded.subarray(4,6)];
  assert.deepEqual([...await readNavigationBody(chunkStream(views),4)],[1,2,3,4]);
  for(const [chunks,size] of [
-  [[Uint8Array.of(1)],2],[[Uint8Array.of(1,2)],1],[['😀'],3],[[{}],1],[[null],1],[[1],1],
+  [[Uint8Array.of(1)],2],[[Uint8Array.of(1,2)],1],[['😀'],3],[['abc'],1],[[{}],1],[[null],1],[[1],1],
  ] as const)await assert.rejects(readNavigationBody(chunkStream(chunks),size));
  await assert.rejects(readNavigationBody(chunkStream(['x']),1_000_001));
 });
