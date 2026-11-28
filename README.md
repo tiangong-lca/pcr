@@ -27,8 +27,8 @@ checkPaths:
   - library/modules/**
   - docs/**
 lastReviewedAt: 2026-11-28
-lastReviewedCommit: a292457a5d5e91943da74122293ed4b958c0331f
-lastReviewedNote: "PCR #201 reviewed the coordinated 0.4.13 version and its three package mirrors for the combined methodology library, immutable release workflow and production website."
+lastReviewedCommit: a733292a73e7d923b5433fd2e18370b78ed9960d
+lastReviewedNote: "PCR #205 reviewed candidate 0.4.14, bounded provider stream-byte normalization, UTF-8 surrogate handling and coordinated package version mirrors."
 ---
 
 # TianGong LCA PCR Library
